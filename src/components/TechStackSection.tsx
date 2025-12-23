@@ -1,3 +1,5 @@
+import { Reveal } from '@/components/ui/motion';
+
 const techStack = {
   row1: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Express.js', 'GraphQL', 'MongoDB'],
   row2: ['PostgreSQL', 'Prisma', 'Redis', 'Docker', 'AWS', 'Git', 'GitHub Actions', 'Vercel'],
@@ -25,11 +27,11 @@ export const TechStackSection = () => {
     <section className="relative py-16 border-y border-border/30">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/10 to-background" />
       
-      <div className="relative container-main mb-8">
+      <Reveal className="relative container-main mb-8">
         <p className="text-center text-sm text-muted-foreground">
           Passionate about cutting-edge technologies
         </p>
-      </div>
+      </Reveal>
 
       <div className="relative space-y-3">
         <MarqueeRow items={techStack.row1} />
