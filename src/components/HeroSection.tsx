@@ -1,4 +1,4 @@
-import { ArrowRight, Copy } from 'lucide-react';
+import { ArrowRight, Copy, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
@@ -96,7 +96,7 @@ export const HeroSection = () => {
 
         {/* CTA buttons */}
         <motion.div 
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
@@ -105,6 +105,12 @@ export const HeroSection = () => {
             <a href="#contact">
               Let's Connect
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </a>
+          </Button>
+          <Button variant="primary" size="lg" asChild className="gap-2">
+            <a href="/resume.pdf" download="Anand_Kishore_Resume.pdf">
+              <Download className="w-4 h-4" />
+              Download Resume
             </a>
           </Button>
           <Button 
