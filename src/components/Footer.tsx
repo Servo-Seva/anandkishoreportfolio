@@ -1,45 +1,60 @@
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, ArrowUp } from 'lucide-react';
 
 const socialLinks = [
   { icon: Linkedin, href: 'https://linkedin.com/in/anandkishore060', label: 'LinkedIn' },
   { icon: Github, href: 'https://github.com', label: 'GitHub' },
   { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-  { icon: Mail, href: 'mailto:anand@example.com', label: 'Email' },
+  { icon: Mail, href: 'mailto:anandkishore060@gmail.com', label: 'Email' },
 ];
 
 export const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="relative py-12 border-t border-border">
-      <div className="container-narrow px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer className="relative py-12 border-t border-border/30">
+      <div className="container-main">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          {/* Logo & tagline */}
           <div className="text-center md:text-left">
-            <a href="#" className="font-display text-2xl font-bold gradient-text">
-              AK
+            <a href="#" className="font-display text-2xl font-bold">
+              AK<span className="text-primary">.</span>
             </a>
             <p className="text-muted-foreground text-sm mt-2">
               Building digital experiences that matter.
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Social links */}
+          <div className="flex items-center gap-3">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
+                className="w-10 h-10 rounded-full bg-secondary/50 border border-border/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-border transition-all duration-300"
                 aria-label={social.label}
               >
-                <social.icon className="w-5 h-5" />
+                <social.icon className="w-4 h-4" />
               </a>
             ))}
           </div>
+
+          {/* Back to top */}
+          <button
+            onClick={scrollToTop}
+            className="w-10 h-10 rounded-full bg-secondary/50 border border-border/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-border transition-all duration-300"
+            aria-label="Back to top"
+          >
+            <ArrowUp className="w-4 h-4" />
+          </button>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-border text-center">
+        <div className="mt-10 pt-8 border-t border-border/20 text-center">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Anand Kishore. All rights reserved.
+            © {new Date().getFullYear()} Anand Kishore. Crafted with passion.
           </p>
         </div>
       </div>
