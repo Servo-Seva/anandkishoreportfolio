@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Reveal, StaggerContainer, StaggerItem, HoverScale } from '@/components/ui/motion';
 import { Globe3D } from './Globe3D';
 import aboutPhoto from '@/assets/about-photo.png';
+import browserMockup from '@/assets/browser-mockup.png';
 
 export const BentoSection = () => {
   return (
@@ -126,22 +127,25 @@ export const BentoSection = () => {
           {/* Experience card */}
           <StaggerItem>
             <HoverScale>
-              <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 to-accent/10 border border-border/30 p-8 hover:border-border/60 transition-all duration-500 h-full">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-primary" />
+              <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 to-accent/10 border border-border/30 p-6 hover:border-border/60 transition-all duration-500 h-full flex flex-col">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-primary" />
                   </div>
                 </div>
-                <h3 className="text-lg font-display font-semibold mb-3">The Inside Scoop</h3>
-                <p className="text-muted-foreground text-sm">
+                <h3 className="text-lg font-display font-semibold mb-2">The Inside Scoop</h3>
+                <p className="text-muted-foreground text-sm mb-4">
                   Currently building scalable SaaS applications and helping startups bring their vision to life.
                 </p>
-                <Button variant="outline" size="sm" className="mt-4" asChild>
-                  <a href="#work">
-                    View Work
-                    <ArrowUpRight className="w-4 h-4 ml-1" />
-                  </a>
-                </Button>
+                
+                {/* Browser mockup image */}
+                <div className="mt-auto -mx-6 -mb-6">
+                  <img 
+                    src={browserMockup} 
+                    alt="Website preview" 
+                    className="w-full h-auto object-cover rounded-b-3xl"
+                  />
+                </div>
               </div>
             </HoverScale>
           </StaggerItem>
