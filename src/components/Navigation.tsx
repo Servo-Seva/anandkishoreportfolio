@@ -72,7 +72,7 @@ export const Navigation = () => {
             <TooltipTrigger asChild>
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/50 border border-border/30 ml-1">
                 <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-xs text-muted-foreground">AI</span>
+                <span className="text-xs text-muted-foreground">AI Portfolio</span>
                 <Switch
                   onCheckedChange={(checked) => {
                     if (checked) {
