@@ -59,16 +59,21 @@ export const BentoSection = () => {
           </StaggerItem>
 
           {/* Remote card with 3D Globe */}
-          <StaggerItem>
+          <StaggerItem className="lg:col-span-2">
             <HoverScale>
-              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all duration-500 h-full flex flex-col">
-                <Globe3D />
-                <div className="p-6 pt-0">
-                  <h3 className="text-lg font-display font-semibold mb-2">Remote</h3>
-                  <p className="text-3xl font-display font-bold text-primary">India</p>
-                  <Button variant="outline" size="sm" className="mt-4" asChild>
-                    <a href="#contact">Connect now</a>
-                  </Button>
+              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all duration-500 h-full">
+                <div className="flex flex-col md:flex-row items-center">
+                  <div className="w-full md:w-1/2 h-64 md:h-80">
+                    <Globe3D />
+                  </div>
+                  <div className="p-8 md:w-1/2">
+                    <h3 className="text-2xl font-display font-semibold mb-2">Remote</h3>
+                    <p className="text-4xl md:text-5xl font-display font-bold text-primary mb-4">India</p>
+                    <p className="text-muted-foreground mb-6">Available for remote collaboration across all timezones. Let's build something amazing together.</p>
+                    <Button variant="outline" asChild>
+                      <a href="#contact">Connect now</a>
+                    </Button>
+                  </div>
                 </div>
               </div>
             </HoverScale>
