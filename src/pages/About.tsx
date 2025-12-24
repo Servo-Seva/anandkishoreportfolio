@@ -73,6 +73,10 @@ const About = () => {
           {/* Particle Background */}
           <ParticleBackground />
           
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-background via-transparent to-background" />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-background/60 via-transparent to-background/60" />
+          
           <div className="container-main relative z-10">
             {/* Section Header */}
             <Reveal className="text-center mb-16">
