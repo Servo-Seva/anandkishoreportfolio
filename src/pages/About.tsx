@@ -5,6 +5,7 @@ import { Reveal, StaggerContainer, StaggerItem } from '@/components/ui/motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ParticleBackground } from '@/components/ParticleBackground';
 
 const experiences = [
   {
@@ -68,8 +69,11 @@ const About = () => {
         </div>
 
         {/* Experience Section */}
-        <section id="experience" className="pt-8 pb-20 section-padding bg-secondary/20">
-          <div className="container-main">
+        <section id="experience" className="relative pt-8 pb-20 section-padding bg-secondary/20 overflow-hidden">
+          {/* Particle Background */}
+          <ParticleBackground />
+          
+          <div className="container-main relative z-10">
             {/* Section Header */}
             <Reveal className="text-center mb-16">
               <p className="text-sm uppercase tracking-widest text-muted-foreground mb-3">The Experience</p>
