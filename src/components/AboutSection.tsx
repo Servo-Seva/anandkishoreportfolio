@@ -3,6 +3,7 @@ import { Linkedin, Github, Twitter, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import aboutPhoto from '@/assets/about-photo.png';
+import travelPhoto from '@/assets/travel-photo.jpg';
 
 export const AboutSection = () => {
   return (
@@ -69,9 +70,11 @@ export const AboutSection = () => {
                 </div>
                 <div className="space-y-4 pt-8">
                   <div className="aspect-square rounded-2xl bg-gradient-to-br from-accent/20 to-primary/20 border border-border/30 overflow-hidden">
-                    <div className="w-full h-full bg-secondary/50 flex items-center justify-center text-muted-foreground">
-                      Travel
-                    </div>
+                    <img 
+                      src={travelPhoto} 
+                      alt="Anand traveling in the mountains" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border/30 overflow-hidden">
                     <div className="w-full h-full bg-secondary/50 flex items-center justify-center text-muted-foreground">
