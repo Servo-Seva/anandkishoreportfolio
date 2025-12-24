@@ -28,11 +28,11 @@ const skills = [
 ];
 
 const SkillCard = ({ name, icon, invert }: { name: string; icon: string; invert?: boolean }) => (
-  <div className="group relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-secondary/50 border border-border/30 hover:border-primary/50 hover:bg-secondary/80 transition-all duration-300 cursor-pointer">
+  <div className="group relative flex items-center justify-center aspect-square rounded-xl bg-secondary/60 border border-border/30 hover:border-primary/50 hover:bg-secondary/80 transition-all duration-300 cursor-pointer">
     <img 
       src={icon} 
       alt={name} 
-      className={`w-8 h-8 md:w-10 md:h-10 object-contain transition-transform duration-300 group-hover:scale-110 ${invert ? 'invert' : ''}`}
+      className={`w-7 h-7 md:w-10 md:h-10 object-contain transition-transform duration-300 group-hover:scale-110 ${invert ? 'invert' : ''}`}
     />
     {/* Tooltip */}
     <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-card border border-border rounded text-xs text-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
@@ -57,7 +57,7 @@ export const SkillsSection = () => {
         </Reveal>
 
         {/* Skills grid */}
-        <StaggerContainer className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto" staggerDelay={0.03}>
+        <StaggerContainer className="grid grid-cols-6 gap-2 md:gap-4 max-w-md md:max-w-2xl mx-auto px-4" staggerDelay={0.03}>
           {skills.map((skill) => (
             <StaggerItem key={skill.name}>
               <SkillCard {...skill} />
