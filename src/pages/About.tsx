@@ -81,20 +81,29 @@ const About = () => {
 
             {/* Experience Timeline */}
             <StaggerContainer className="relative max-w-4xl mx-auto" staggerDelay={0.15}>
-              {/* Animated Vertical Line */}
-              <div className="absolute left-0 md:left-8 top-0 bottom-0 w-px overflow-hidden">
-                <div className="h-full w-full bg-border/30" />
+              {/* Premium Animated Vertical Line */}
+              <div className="absolute left-0 md:left-8 top-0 bottom-0 w-[2px] overflow-hidden">
+                {/* Base line */}
+                <div className="h-full w-full bg-gradient-to-b from-border/50 via-border/30 to-border/10" />
+                {/* Glowing orb that travels down */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full">
+                  <div className="absolute w-[2px] h-20 bg-gradient-to-b from-transparent via-primary to-transparent opacity-90 animate-[lineGlow_4s_ease-in-out_infinite] shadow-[0_0_20px_hsl(var(--primary)),0_0_40px_hsl(var(--primary)/0.5)]" />
+                </div>
+                {/* Secondary subtle pulse */}
                 <div className="absolute top-0 left-0 w-full h-full">
-                  <div className="w-full h-24 bg-gradient-to-b from-primary via-primary to-transparent animate-[lineMove_3s_ease-in-out_infinite]" />
+                  <div className="absolute w-[2px] h-12 bg-gradient-to-b from-transparent via-primary/60 to-transparent animate-[lineGlow_4s_ease-in-out_infinite_1.5s]" />
                 </div>
               </div>
 
               <div className="space-y-8 pl-6 md:pl-20">
                 {experiences.map((exp, index) => (
                   <StaggerItem key={index}>
-                    <div className="group relative p-6 md:p-8 rounded-3xl bg-card border border-border/30 hover:border-border/60 transition-all duration-300">
-                      {/* Timeline Dot */}
-                      <div className="absolute -left-[30px] md:-left-[52px] top-8 w-4 h-4 rounded-full bg-primary border-4 border-background shadow-[0_0_12px_hsl(var(--primary)/0.5)]" />
+                    <div className="group relative p-6 md:p-8 rounded-3xl bg-card border border-border/30 hover:border-primary/40 hover:shadow-[0_0_30px_hsl(var(--primary)/0.1)] transition-all duration-500">
+                      {/* Timeline Dot with pulse */}
+                      <div className="absolute -left-[29px] md:-left-[51px] top-8">
+                        <div className="w-4 h-4 rounded-full bg-primary border-4 border-background shadow-[0_0_15px_hsl(var(--primary)/0.6)]" />
+                        <div className="absolute inset-0 w-4 h-4 rounded-full bg-primary/40 animate-ping" />
+                      </div>
                       
                       {/* Period Badge */}
                       <div className="flex flex-wrap items-center gap-3 mb-4">
