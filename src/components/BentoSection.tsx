@@ -76,13 +76,16 @@ export const BentoSection = () => {
                   {/* Country badges */}
                   <div className="flex justify-center gap-3 flex-wrap">
                     <span className="px-4 py-2 rounded-full bg-card/80 border border-border/30 text-sm flex items-center gap-2">
-                      🇬🇧 UK
+                      <img src="https://flagcdn.com/w40/gb.png" alt="UK flag" className="w-5 h-4 object-cover rounded-sm" />
+                      UK
                     </span>
                     <span className="px-4 py-2 rounded-full bg-card/80 border border-accent/50 text-sm flex items-center gap-2 text-accent">
-                      🇮🇳 India
+                      <img src="https://flagcdn.com/w40/in.png" alt="India flag" className="w-5 h-4 object-cover rounded-sm" />
+                      India
                     </span>
                     <span className="px-4 py-2 rounded-full bg-card/80 border border-border/30 text-sm flex items-center gap-2">
-                      🇺🇸 USA
+                      <img src="https://flagcdn.com/w40/us.png" alt="USA flag" className="w-5 h-4 object-cover rounded-sm" />
+                      USA
                     </span>
                   </div>
                 </div>
