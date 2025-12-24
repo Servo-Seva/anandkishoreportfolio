@@ -51,7 +51,7 @@ const ConnectionArc = ({ start, end, delay }: { start: THREE.Vector3; end: THREE
   const lineObject = useMemo(() => {
     const geometry = new THREE.BufferGeometry().setFromPoints(arcPoints);
     const material = new THREE.LineBasicMaterial({ 
-      color: '#f59e0b', 
+      color: '#a855f7', 
       transparent: true, 
       opacity: 0.6 
     });
@@ -90,12 +90,12 @@ const LocationMarker = ({ position }: { position: THREE.Vector3 }) => {
       {/* Main dot */}
       <mesh>
         <sphereGeometry args={[0.03, 16, 16]} />
-        <meshBasicMaterial color="#f59e0b" />
+        <meshBasicMaterial color="#a855f7" />
       </mesh>
       {/* Pulse ring */}
       <mesh ref={pulseRef} rotation={[0, 0, 0]}>
         <ringGeometry args={[0.04, 0.06, 32]} />
-        <meshBasicMaterial color="#f59e0b" transparent opacity={0.5} side={THREE.DoubleSide} />
+        <meshBasicMaterial color="#a855f7" transparent opacity={0.5} side={THREE.DoubleSide} />
       </mesh>
     </group>
   );
@@ -145,7 +145,7 @@ const FloatingParticles = () => {
     <Points ref={particlesRef} positions={positions} stride={3}>
       <PointMaterial
         transparent
-        color="#f59e0b"
+        color="#a855f7"
         size={0.015}
         sizeAttenuation
         depthWrite={false}
@@ -194,7 +194,7 @@ const DottedGlobe = () => {
         <Points ref={pointsRef} positions={particles} stride={3}>
           <PointMaterial
             transparent
-            color="#f59e0b"
+            color="#a855f7"
             size={0.02}
             sizeAttenuation
             depthWrite={false}
@@ -216,13 +216,13 @@ const DottedGlobe = () => {
       {/* Atmosphere ring */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[1.55, 1.58, 128]} />
-        <meshBasicMaterial color="#f59e0b" transparent opacity={0.4} side={THREE.DoubleSide} />
+        <meshBasicMaterial color="#a855f7" transparent opacity={0.4} side={THREE.DoubleSide} />
       </mesh>
       
       {/* Outer glow */}
       <mesh>
         <sphereGeometry args={[1.7, 32, 32]} />
-        <meshBasicMaterial color="#f59e0b" transparent opacity={0.02} side={THREE.BackSide} />
+        <meshBasicMaterial color="#a855f7" transparent opacity={0.02} side={THREE.BackSide} />
       </mesh>
     </group>
   );
@@ -235,7 +235,7 @@ export const Globe3D = () => {
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle at center, rgba(245, 158, 11, 0.25) 0%, rgba(245, 158, 11, 0.1) 30%, transparent 60%)',
+          background: 'radial-gradient(circle at center, rgba(168, 85, 247, 0.25) 0%, rgba(168, 85, 247, 0.1) 30%, transparent 60%)',
         }}
       />
       <Canvas
