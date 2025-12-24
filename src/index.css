@@ -117,7 +117,7 @@
   }
 
   .container-main {
-    @apply max-w-7xl mx-auto px-6;
+    @apply max-w-7xl mx-auto w-[90%] md:w-auto md:px-6;
   }
 
   /* Marquee animation */
