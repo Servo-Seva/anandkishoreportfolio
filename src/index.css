@@ -189,6 +189,11 @@
   50% { opacity: 1; }
 }
 
+@keyframes lineMove {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(400%); }
+}
+
 .animate-twinkle {
   animation: twinkle 3s ease-in-out infinite;
 }

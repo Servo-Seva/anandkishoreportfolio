@@ -82,9 +82,11 @@ const About = () => {
             {/* Experience Timeline */}
             <StaggerContainer className="relative max-w-4xl mx-auto" staggerDelay={0.15}>
               {/* Animated Vertical Line */}
-              <div className="absolute left-0 md:left-8 top-0 bottom-0 w-px">
-                <div className="h-full w-full bg-gradient-to-b from-primary/80 via-primary/40 to-transparent animate-pulse" />
-                <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-primary to-transparent opacity-60 animate-[pulse_2s_ease-in-out_infinite]" />
+              <div className="absolute left-0 md:left-8 top-0 bottom-0 w-px overflow-hidden">
+                <div className="h-full w-full bg-border/30" />
+                <div className="absolute top-0 left-0 w-full h-full">
+                  <div className="w-full h-24 bg-gradient-to-b from-primary via-primary to-transparent animate-[lineMove_3s_ease-in-out_infinite]" />
+                </div>
               </div>
 
               <div className="space-y-8 pl-6 md:pl-20">
@@ -119,7 +121,7 @@ const About = () => {
                         {exp.skills.map((skill) => (
                           <span 
                             key={skill} 
-                            className="px-3 py-1 text-xs rounded-full bg-secondary/60 border border-amber-500/60 text-amber-200 shadow-[0_0_8px_rgba(245,158,11,0.15)] hover:border-amber-400 hover:shadow-[0_0_12px_rgba(245,158,11,0.3)] transition-all duration-300"
+                            className="px-3 py-1 text-xs rounded-full bg-secondary/60 border border-amber-500/60 text-muted-foreground hover:border-amber-400 hover:shadow-[0_0_8px_rgba(245,158,11,0.2)] transition-all duration-300"
                           >
                             {skill}
                           </span>
