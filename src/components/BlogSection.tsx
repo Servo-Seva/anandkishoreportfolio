@@ -2,6 +2,7 @@ import { ArrowUpRight, Calendar, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, StaggerContainer, StaggerItem, HoverScale } from '@/components/ui/motion';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const articles = [
   {
@@ -53,10 +54,10 @@ export const BlogSection = () => {
               </h2>
             </div>
             <Button variant="outline" asChild>
-              <a href="#blog">
+              <Link to="/articles">
                 View all posts
                 <ArrowUpRight className="w-4 h-4 ml-1" />
-              </a>
+              </Link>
             </Button>
           </div>
         </Reveal>
@@ -66,12 +67,12 @@ export const BlogSection = () => {
           {articles.map((article) => (
             <StaggerItem key={article.title}>
               <HoverScale scale={1.02}>
-                <motion.a
-                  href={article.slug}
-                  className="group block h-full"
+                <motion.div
+                  className="group block h-full cursor-pointer"
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.3 }}
                 >
+                  <Link to="/articles" className="block h-full">
                   <article className="h-full rounded-3xl bg-secondary/20 border border-border/30 hover:border-border/60 transition-all duration-500 overflow-hidden">
                     {/* Image */}
                     <div className="relative h-48 overflow-hidden">
@@ -110,7 +111,8 @@ export const BlogSection = () => {
                       </div>
                     </div>
                   </article>
-                </motion.a>
+                  </Link>
+                </motion.div>
               </HoverScale>
             </StaggerItem>
           ))}
@@ -131,10 +133,10 @@ export const BlogSection = () => {
                   Everything you need to know about modern full-stack development, from choosing the right tech stack to deployment strategies and best practices.
                 </p>
                 <Button variant="default" asChild>
-                  <a href="#">
+                  <Link to="/articles">
                     Read Article
                     <ArrowUpRight className="w-4 h-4 ml-1" />
-                  </a>
+                  </Link>
                 </Button>
               </div>
               <div className="w-full md:w-1/3 aspect-square rounded-2xl overflow-hidden">
