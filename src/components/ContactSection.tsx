@@ -105,7 +105,7 @@ export const ContactSection = () => {
               <StaggerItem>
                 <HoverScale>
                   <a
-                    href="https://linkedin.com/in/anandkishore060"
+                    href="https://www.linkedin.com/in/anandkishore060/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all"
@@ -120,7 +120,7 @@ export const ContactSection = () => {
               <StaggerItem>
                 <HoverScale>
                   <a
-                    href="https://github.com"
+                    href="https://github.com/anandkishore06"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all"
@@ -135,7 +135,7 @@ export const ContactSection = () => {
               <StaggerItem>
                 <HoverScale>
                   <a
-                    href="https://twitter.com"
+                    href="https://x.com/anandkishore06"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all"
