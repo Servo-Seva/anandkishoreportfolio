@@ -1,13 +1,13 @@
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Helmet } from 'react-helmet-async';
-import { Reveal, StaggerContainer, StaggerItem } from '@/components/ui/motion';
+import { Reveal, StaggerContainer, StaggerItem, HoverScale } from '@/components/ui/motion';
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Code, Palette, Rocket, Coffee } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ParticleBackground } from '@/components/ParticleBackground';
 import { useEffect, useRef, useState } from 'react';
-
+import aboutPhoto from '@/assets/about-photo.png';
 const experiences = [
   {
     period: 'JAN 2024 - Present',
@@ -95,6 +95,104 @@ const About = () => {
             </Button>
           </div>
         </div>
+
+        {/* About Me Section */}
+        <section className="relative pt-8 pb-20 section-padding overflow-hidden">
+          <ParticleBackground />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-background via-transparent to-background" />
+          
+          <div className="container-main relative z-10">
+            {/* Section Header */}
+            <Reveal className="text-center mb-16">
+              <p className="text-sm uppercase tracking-widest text-muted-foreground mb-3">About Me</p>
+              <h2 className="text-4xl md:text-5xl font-display font-bold">
+                Passionate Developer,<br />
+                <span className="font-serif italic font-normal text-primary">Creative Problem Solver</span>
+              </h2>
+            </Reveal>
+
+            <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+              {/* Photo */}
+              <Reveal>
+                <div className="relative">
+                  <div className="w-64 h-64 md:w-80 md:h-80 mx-auto rounded-3xl overflow-hidden border-2 border-primary/30 shadow-[0_0_40px_hsl(var(--primary)/0.2)]">
+                    <img 
+                      src={aboutPhoto} 
+                      alt="Anand Kishore" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  {/* Decorative elements */}
+                  <div className="absolute -top-4 -right-4 w-24 h-24 border border-primary/20 rounded-3xl" />
+                  <div className="absolute -bottom-4 -left-4 w-32 h-32 border border-accent/20 rounded-3xl" />
+                </div>
+              </Reveal>
+
+              {/* Bio */}
+              <Reveal>
+                <div className="space-y-6">
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Hi, I'm <span className="text-foreground font-semibold">Anand Kishore</span>, a Full Stack Developer with a passion for creating beautiful, functional, and user-friendly web applications.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    With expertise in modern technologies like React, Next.js, TypeScript, and Node.js, I help startups and businesses transform their ideas into scalable digital products. I believe in clean code, thoughtful design, and delivering exceptional user experiences.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or enjoying a good cup of coffee while brainstorming the next big idea.
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* What I Do Cards */}
+            <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto" staggerDelay={0.1}>
+              <StaggerItem>
+                <HoverScale>
+                  <div className="p-6 rounded-2xl bg-card border border-border/30 text-center hover:border-primary/40 transition-all">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <Code className="w-6 h-6 text-primary" />
+                    </div>
+                    <h4 className="font-display font-semibold mb-1">Development</h4>
+                    <p className="text-xs text-muted-foreground">Clean & scalable code</p>
+                  </div>
+                </HoverScale>
+              </StaggerItem>
+              <StaggerItem>
+                <HoverScale>
+                  <div className="p-6 rounded-2xl bg-card border border-border/30 text-center hover:border-primary/40 transition-all">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-4">
+                      <Palette className="w-6 h-6 text-accent" />
+                    </div>
+                    <h4 className="font-display font-semibold mb-1">Design</h4>
+                    <p className="text-xs text-muted-foreground">Beautiful interfaces</p>
+                  </div>
+                </HoverScale>
+              </StaggerItem>
+              <StaggerItem>
+                <HoverScale>
+                  <div className="p-6 rounded-2xl bg-card border border-border/30 text-center hover:border-primary/40 transition-all">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <Rocket className="w-6 h-6 text-primary" />
+                    </div>
+                    <h4 className="font-display font-semibold mb-1">Performance</h4>
+                    <p className="text-xs text-muted-foreground">Fast & optimized</p>
+                  </div>
+                </HoverScale>
+              </StaggerItem>
+              <StaggerItem>
+                <HoverScale>
+                  <div className="p-6 rounded-2xl bg-card border border-border/30 text-center hover:border-primary/40 transition-all">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-4">
+                      <Coffee className="w-6 h-6 text-accent" />
+                    </div>
+                    <h4 className="font-display font-semibold mb-1">Dedication</h4>
+                    <p className="text-xs text-muted-foreground">Committed to quality</p>
+                  </div>
+                </HoverScale>
+              </StaggerItem>
+            </StaggerContainer>
+          </div>
+        </section>
 
         {/* Experience Section */}
         <section id="experience" className="relative pt-8 pb-20 section-padding bg-secondary/20 overflow-hidden">
