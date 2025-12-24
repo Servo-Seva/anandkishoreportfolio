@@ -33,7 +33,7 @@ export const TechStackSection = () => {
         </p>
       </Reveal>
 
-      <div className="relative space-y-3 w-[90%] mx-auto">
+      <div className="relative space-y-3">
         <MarqueeRow items={techStack.row1} />
         <MarqueeRow items={techStack.row2} reverse />
         <MarqueeRow items={techStack.row3} />
