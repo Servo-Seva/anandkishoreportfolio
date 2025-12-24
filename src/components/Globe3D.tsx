@@ -155,73 +155,29 @@ const FloatingParticles = () => {
   );
 };
 
-// Generate latitude line points
-const generateLatitudeLine = (lat: number, radius: number, segments: number = 64) => {
-  const points: THREE.Vector3[] = [];
-  const phi = (90 - lat) * (Math.PI / 180);
-  
-  for (let i = 0; i <= segments; i++) {
-    const theta = (i / segments) * Math.PI * 2;
-    const x = radius * Math.sin(phi) * Math.cos(theta);
-    const y = radius * Math.cos(phi);
-    const z = radius * Math.sin(phi) * Math.sin(theta);
-    points.push(new THREE.Vector3(x, y, z));
-  }
-  
-  return points;
-};
-
-// Generate longitude line points
-const generateLongitudeLine = (lon: number, radius: number, segments: number = 64) => {
-  const points: THREE.Vector3[] = [];
-  const theta = (lon + 180) * (Math.PI / 180);
-  
-  for (let i = 0; i <= segments; i++) {
-    const phi = (i / segments) * Math.PI;
-    const x = radius * Math.sin(phi) * Math.cos(theta);
-    const y = radius * Math.cos(phi);
-    const z = radius * Math.sin(phi) * Math.sin(theta);
-    points.push(new THREE.Vector3(x, y, z));
-  }
-  
-  return points;
-};
-
-// Wireframe globe line component
-const GlobeLine = ({ points }: { points: THREE.Vector3[] }) => {
-  const lineObject = useMemo(() => {
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const material = new THREE.LineBasicMaterial({ 
-      color: '#f59e0b', 
-      transparent: true, 
-      opacity: 0.6 
-    });
-    return new THREE.Line(geometry, material);
-  }, [points]);
-  
-  return <primitive object={lineObject} />;
-};
-
-const WireframeGlobe = () => {
+const DottedGlobe = () => {
   const groupRef = useRef<THREE.Group>(null);
-  const radius = 1.5;
+  const pointsRef = useRef<THREE.Points>(null);
   
-  // Generate latitude lines (every 20 degrees)
-  const latitudeLines = useMemo(() => {
-    const lines: THREE.Vector3[][] = [];
-    for (let lat = -80; lat <= 80; lat += 20) {
-      lines.push(generateLatitudeLine(lat, radius));
+  // Generate points on a sphere surface to create dotted effect
+  const particles = useMemo(() => {
+    const points: number[] = [];
+    const radius = 1.5;
+    const count = 8000;
+    
+    for (let i = 0; i < count; i++) {
+      // Use fibonacci sphere for even distribution
+      const y = 1 - (i / (count - 1)) * 2;
+      const radiusAtY = Math.sqrt(1 - y * y);
+      const theta = ((i % count) / count) * Math.PI * (3 - Math.sqrt(5)) * count;
+      
+      const x = Math.cos(theta) * radiusAtY;
+      const z = Math.sin(theta) * radiusAtY;
+      
+      points.push(x * radius, y * radius, z * radius);
     }
-    return lines;
-  }, []);
-  
-  // Generate longitude lines (every 20 degrees)
-  const longitudeLines = useMemo(() => {
-    const lines: THREE.Vector3[][] = [];
-    for (let lon = 0; lon < 360; lon += 20) {
-      lines.push(generateLongitudeLine(lon - 180, radius));
-    }
-    return lines;
+    
+    return new Float32Array(points);
   }, []);
 
   // Calculate 3D positions for each location
@@ -229,18 +185,22 @@ const WireframeGlobe = () => {
     locations.map(loc => latLonToVector3(loc.lat, loc.lon, 1.5)),
   []);
 
+  // Auto-rotation removed - using OrbitControls for manual + auto rotation
+
   return (
     <group rotation={[0.3, 0, 0]}>
       <group ref={groupRef}>
-        {/* Latitude lines */}
-        {latitudeLines.map((points, i) => (
-          <GlobeLine key={`lat-${i}`} points={points} />
-        ))}
-        
-        {/* Longitude lines */}
-        {longitudeLines.map((points, i) => (
-          <GlobeLine key={`lon-${i}`} points={points} />
-        ))}
+        {/* Dotted globe */}
+        <Points ref={pointsRef} positions={particles} stride={3}>
+          <PointMaterial
+            transparent
+            color="#f59e0b"
+            size={0.02}
+            sizeAttenuation
+            depthWrite={false}
+            opacity={0.8}
+          />
+        </Points>
         
         {/* Location markers */}
         {locationPositions.map((pos, i) => (
@@ -301,7 +261,7 @@ export const Globe3D = () => {
           speed={0.5}
         />
         <FloatingParticles />
-        <WireframeGlobe />
+        <DottedGlobe />
       </Canvas>
     </div>
   );
