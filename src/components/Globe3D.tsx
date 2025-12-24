@@ -61,10 +61,11 @@ const GlobeMesh = () => {
 
 export const Globe3D = () => {
   return (
-    <div className="w-full h-full min-h-[250px]">
+    <div className="w-full h-full">
       <Canvas
-        camera={{ position: [0, 0, 2.5], fov: 45 }}
+        camera={{ position: [0, 0, 3], fov: 40 }}
         style={{ background: 'transparent' }}
+        dpr={[1, 2]}
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />
