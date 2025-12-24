@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Switch } from '@/components/ui/switch';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 const navLinks = [
   { href: '/', label: 'Home', isRoute: true },
@@ -10,6 +12,8 @@ const navLinks = [
   { href: '#blog', label: 'Blog', isRoute: false },
   { href: '#contact', label: 'Contact', isRoute: false },
 ];
+
+const AI_PORTFOLIO_URL = 'https://anandkishoreportfolio.vercel.app/';
 
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -62,6 +66,27 @@ export const Navigation = () => {
               </a>
             )
           ))}
+          
+          {/* AI Portfolio Switch */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/50 border border-border/30 ml-1">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-xs text-muted-foreground">AI</span>
+                <Switch
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      window.open(AI_PORTFOLIO_URL, '_blank');
+                    }
+                  }}
+                />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>View AI Portfolio</p>
+            </TooltipContent>
+          </Tooltip>
+          
           <a href="#contact">
             <Button variant="default" size="sm" className="ml-1">
               Book a Call
@@ -105,6 +130,23 @@ export const Navigation = () => {
                 </a>
               )
             ))}
+            
+            {/* AI Portfolio Switch - Mobile */}
+            <div className="flex items-center justify-between py-3 px-4 rounded-xl bg-secondary/30 border border-border/30">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-sm text-muted-foreground">View AI Portfolio</span>
+              </div>
+              <Switch
+                onCheckedChange={(checked) => {
+                  if (checked) {
+                    window.open(AI_PORTFOLIO_URL, '_blank');
+                    setIsMobileMenuOpen(false);
+                  }
+                }}
+              />
+            </div>
+            
             <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
               <Button variant="default" className="mt-4 w-full">
                 Book a Call
