@@ -101,6 +101,60 @@ const LocationMarker = ({ position }: { position: THREE.Vector3 }) => {
   );
 };
 
+// Floating particles for cosmic atmosphere
+const FloatingParticles = () => {
+  const particlesRef = useRef<THREE.Points>(null);
+  
+  const { positions, speeds } = useMemo(() => {
+    const count = 200;
+    const positions = new Float32Array(count * 3);
+    const speeds = new Float32Array(count);
+    
+    for (let i = 0; i < count; i++) {
+      // Random positions in a spherical shell around the globe
+      const radius = 2 + Math.random() * 1.5;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      
+      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = radius * Math.cos(phi);
+      
+      speeds[i] = 0.2 + Math.random() * 0.5;
+    }
+    
+    return { positions, speeds };
+  }, []);
+  
+  useFrame((state) => {
+    if (particlesRef.current) {
+      const positionArray = particlesRef.current.geometry.attributes.position.array as Float32Array;
+      
+      for (let i = 0; i < positionArray.length / 3; i++) {
+        // Gentle floating motion
+        const time = state.clock.elapsedTime * speeds[i];
+        positionArray[i * 3 + 1] += Math.sin(time) * 0.001;
+      }
+      
+      particlesRef.current.geometry.attributes.position.needsUpdate = true;
+      particlesRef.current.rotation.y += 0.0005;
+    }
+  });
+  
+  return (
+    <Points ref={particlesRef} positions={positions} stride={3}>
+      <PointMaterial
+        transparent
+        color="#38bdf8"
+        size={0.015}
+        sizeAttenuation
+        depthWrite={false}
+        opacity={0.4}
+      />
+    </Points>
+  );
+};
+
 const DottedGlobe = () => {
   const groupRef = useRef<THREE.Group>(null);
   const pointsRef = useRef<THREE.Points>(null);
@@ -197,6 +251,7 @@ export const Globe3D = () => {
           autoRotate
           autoRotateSpeed={0.5}
         />
+        <FloatingParticles />
         <DottedGlobe />
       </Canvas>
     </div>
