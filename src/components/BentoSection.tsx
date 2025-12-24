@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Reveal, StaggerContainer, StaggerItem, HoverScale } from '@/components/ui/motion';
 import { Globe3D } from './Globe3D';
 import aboutPhoto from '@/assets/about-photo.png';
-import browserMockup from '@/assets/browser-mockup.png';
 
 export const BentoSection = () => {
   return (
@@ -138,13 +137,37 @@ export const BentoSection = () => {
                   Currently building scalable SaaS applications and helping startups bring their vision to life.
                 </p>
                 
-                {/* Browser mockup image */}
+                {/* Browser mockup - built with code */}
                 <div className="mt-auto -mx-6 -mb-6">
-                  <img 
-                    src={browserMockup} 
-                    alt="Website preview" 
-                    className="w-full h-auto object-cover rounded-b-3xl"
-                  />
+                  <div className="bg-card/80 rounded-t-xl border border-border/30 mx-4">
+                    {/* Browser header */}
+                    <div className="flex items-center gap-2 px-3 py-2 border-b border-border/20">
+                      <div className="flex gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                      </div>
+                      <div className="flex-1 flex justify-center">
+                        <div className="bg-secondary/50 rounded-md px-3 py-0.5 text-[10px] text-muted-foreground flex items-center gap-1">
+                          <span className="opacity-60">🔒</span>
+                          mywebsite.io
+                        </div>
+                      </div>
+                    </div>
+                    {/* Browser content */}
+                    <div className="p-4 text-center bg-gradient-to-b from-card/50 to-secondary/30 rounded-b-xl">
+                      <p className="text-sm font-display text-foreground mb-0.5">Websites that</p>
+                      <p className="text-base font-serif italic text-primary">Impact.</p>
+                      <div className="flex justify-center gap-2 mt-3">
+                        <span className="px-3 py-1 text-[10px] bg-foreground text-background rounded-full flex items-center gap-1">
+                          Start <ArrowRight className="w-2.5 h-2.5" />
+                        </span>
+                        <span className="px-3 py-1 text-[10px] border border-border/50 rounded-full text-muted-foreground">
+                          Details
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </HoverScale>
