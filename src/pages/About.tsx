@@ -2,6 +2,9 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Helmet } from 'react-helmet-async';
 import { Reveal, StaggerContainer, StaggerItem } from '@/components/ui/motion';
+import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const experiences = [
   {
@@ -52,8 +55,20 @@ const About = () => {
       <main className="min-h-screen bg-background overflow-x-hidden">
         <Navigation />
 
+        {/* Back Button */}
+        <div className="pt-24 pb-4 section-padding">
+          <div className="container-main">
+            <Button variant="ghost" asChild className="group">
+              <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                Back to Home
+              </Link>
+            </Button>
+          </div>
+        </div>
+
         {/* Experience Section */}
-        <section id="experience" className="pt-32 pb-20 section-padding bg-secondary/20">
+        <section id="experience" className="pt-8 pb-20 section-padding bg-secondary/20">
           <div className="container-main">
             {/* Section Header */}
             <Reveal className="text-center mb-16">
@@ -65,41 +80,55 @@ const About = () => {
             </Reveal>
 
             {/* Experience Timeline */}
-            <StaggerContainer className="space-y-8 max-w-4xl mx-auto" staggerDelay={0.15}>
-              {experiences.map((exp, index) => (
-                <StaggerItem key={index}>
-                  <div className="group relative p-6 md:p-8 rounded-3xl bg-card border border-border/30 hover:border-border/60 transition-all duration-300">
-                    {/* Period Badge */}
-                    <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <span className="text-sm text-primary font-medium">{exp.period}</span>
-                      <span className="text-xs px-2 py-1 rounded-full bg-secondary/60 text-muted-foreground">{exp.type}</span>
+            <StaggerContainer className="relative max-w-4xl mx-auto" staggerDelay={0.15}>
+              {/* Animated Vertical Line */}
+              <div className="absolute left-0 md:left-8 top-0 bottom-0 w-px">
+                <div className="h-full w-full bg-gradient-to-b from-primary/80 via-primary/40 to-transparent animate-pulse" />
+                <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-primary to-transparent opacity-60 animate-[pulse_2s_ease-in-out_infinite]" />
+              </div>
+
+              <div className="space-y-8 pl-6 md:pl-20">
+                {experiences.map((exp, index) => (
+                  <StaggerItem key={index}>
+                    <div className="group relative p-6 md:p-8 rounded-3xl bg-card border border-border/30 hover:border-border/60 transition-all duration-300">
+                      {/* Timeline Dot */}
+                      <div className="absolute -left-[30px] md:-left-[52px] top-8 w-4 h-4 rounded-full bg-primary border-4 border-background shadow-[0_0_12px_hsl(var(--primary)/0.5)]" />
+                      
+                      {/* Period Badge */}
+                      <div className="flex flex-wrap items-center gap-3 mb-4">
+                        <span className="text-sm text-primary font-medium">{exp.period}</span>
+                        <span className="text-xs px-2 py-1 rounded-full bg-secondary/60 text-muted-foreground">{exp.type}</span>
+                      </div>
+
+                      {/* Company */}
+                      <h3 className="text-2xl font-display font-bold mb-1">{exp.company}</h3>
+                      <p className="text-muted-foreground mb-4">{exp.location}</p>
+
+                      {/* Description */}
+                      <ul className="space-y-2 mb-6">
+                        {exp.description.map((item, i) => (
+                          <li key={i} className="text-muted-foreground flex gap-2">
+                            <span className="text-primary mt-1.5">•</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Skills with Golden Border */}
+                      <div className="flex flex-wrap gap-2">
+                        {exp.skills.map((skill) => (
+                          <span 
+                            key={skill} 
+                            className="px-3 py-1 text-xs rounded-full bg-secondary/60 border border-amber-500/60 text-amber-200 shadow-[0_0_8px_rgba(245,158,11,0.15)] hover:border-amber-400 hover:shadow-[0_0_12px_rgba(245,158,11,0.3)] transition-all duration-300"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-
-                    {/* Company */}
-                    <h3 className="text-2xl font-display font-bold mb-1">{exp.company}</h3>
-                    <p className="text-muted-foreground mb-4">{exp.location}</p>
-
-                    {/* Description */}
-                    <ul className="space-y-2 mb-6">
-                      {exp.description.map((item, i) => (
-                        <li key={i} className="text-muted-foreground flex gap-2">
-                          <span className="text-primary mt-1.5">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Skills */}
-                    <div className="flex flex-wrap gap-2">
-                      {exp.skills.map((skill) => (
-                        <span key={skill} className="px-3 py-1 text-xs rounded-full bg-secondary/60 border border-border/30 text-muted-foreground">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </StaggerItem>
-              ))}
+                  </StaggerItem>
+                ))}
+              </div>
             </StaggerContainer>
           </div>
         </section>
