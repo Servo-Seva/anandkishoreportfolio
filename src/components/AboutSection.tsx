@@ -2,6 +2,7 @@ import { Reveal } from '@/components/ui/motion';
 import { Linkedin, Github, Twitter, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import aboutPhoto from '@/assets/about-photo.png';
 
 export const AboutSection = () => {
   return (
@@ -59,9 +60,11 @@ export const AboutSection = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
                   <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border/30 overflow-hidden">
-                    <div className="w-full h-full bg-secondary/50 flex items-center justify-center text-muted-foreground">
-                      Photo
-                    </div>
+                    <img 
+                      src={aboutPhoto} 
+                      alt="Anand - Full Stack Developer" 
+                      className="w-full h-full object-cover object-top"
+                    />
                   </div>
                 </div>
                 <div className="space-y-4 pt-8">
