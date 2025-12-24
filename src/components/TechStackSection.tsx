@@ -7,14 +7,14 @@ const techStack = {
 };
 
 const TechPill = ({ name }: { name: string }) => (
-  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary/50 border border-border/30 text-xs md:text-sm text-muted-foreground whitespace-nowrap hover:text-foreground hover:border-border transition-colors">
+  <div className="flex items-center px-2.5 py-1 rounded-full bg-secondary/50 border border-border/30 text-[11px] md:text-xs text-muted-foreground whitespace-nowrap hover:text-foreground hover:border-border transition-colors">
     {name}
   </div>
 );
 
 const MarqueeRow = ({ items, reverse = false }: { items: string[]; reverse?: boolean }) => (
-  <div className="flex overflow-hidden py-1.5 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-    <div className={`flex gap-2 ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}>
+  <div className="flex overflow-hidden py-1 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+    <div className={`flex gap-1.5 ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}>
       {[...items, ...items].map((item, i) => (
         <TechPill key={`${item}-${i}`} name={item} />
       ))}
