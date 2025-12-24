@@ -1,5 +1,5 @@
 import { motion, useInView, Variants } from 'framer-motion';
-import { ReactNode, useRef } from 'react';
+import { ReactNode, useRef, forwardRef } from 'react';
 
 interface RevealProps {
   children: ReactNode;
@@ -68,18 +68,25 @@ interface StaggerContainerProps {
   once?: boolean;
 }
 
-export const StaggerContainer = ({
+export const StaggerContainer = forwardRef<HTMLDivElement, StaggerContainerProps>(({
   children,
   className = '',
   staggerDelay = 0.1,
   once = true,
-}: StaggerContainerProps) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once, margin: '-50px' });
+}, forwardedRef) => {
+  const internalRef = useRef(null);
+  const isInView = useInView(internalRef, { once, margin: '-50px' });
 
   return (
     <motion.div
-      ref={ref}
+      ref={(node) => {
+        internalRef.current = node;
+        if (typeof forwardedRef === 'function') {
+          forwardedRef(node);
+        } else if (forwardedRef) {
+          forwardedRef.current = node;
+        }
+      }}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       variants={{
@@ -95,7 +102,7 @@ export const StaggerContainer = ({
       {children}
     </motion.div>
   );
-};
+});
 
 export const StaggerItem = ({
   children,
