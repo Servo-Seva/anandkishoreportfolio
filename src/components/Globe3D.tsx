@@ -64,7 +64,14 @@ const DottedGlobe = () => {
 
 export const Globe3D = () => {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
+      {/* Radial gradient glow behind the globe */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at center, rgba(56, 189, 248, 0.25) 0%, rgba(56, 189, 248, 0.1) 30%, transparent 60%)',
+        }}
+      />
       <Canvas
         camera={{ position: [0, 0, 4], fov: 45 }}
         style={{ background: 'transparent' }}
