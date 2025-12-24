@@ -62,8 +62,8 @@ export const BentoSection = () => {
           <StaggerItem className="lg:col-span-2">
             <HoverScale>
               <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all duration-500 h-full">
-                <div className="flex flex-col md:flex-row items-center">
-                  <div className="w-full md:w-1/2 h-64 md:h-80">
+                <div className="flex flex-col md:flex-row items-center min-h-[350px]">
+                  <div className="w-full md:w-1/2 h-[300px] md:h-[350px]">
                     <Globe3D />
                   </div>
                   <div className="p-8 md:w-1/2">
