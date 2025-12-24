@@ -57,7 +57,7 @@ export const SkillsSection = () => {
         </Reveal>
 
         {/* Skills grid */}
-        <StaggerContainer className="grid grid-cols-6 gap-2 md:gap-4 w-[90%] mx-auto" staggerDelay={0.03}>
+        <StaggerContainer className="grid grid-cols-6 gap-2 md:gap-4 max-w-md md:max-w-2xl mx-auto px-4" staggerDelay={0.03}>
           {skills.map((skill) => (
             <StaggerItem key={skill.name}>
               <SkillCard {...skill} />
