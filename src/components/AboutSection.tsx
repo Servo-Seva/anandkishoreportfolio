@@ -76,8 +76,8 @@ export const AboutSection = () => {
                         alt="Anand traveling in the mountains" 
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span className="text-foreground font-medium">View Travel</span>
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent flex items-end justify-center pb-4">
+                        <span className="text-foreground font-medium text-sm">View Travel</span>
                       </div>
                     </div>
                   </Link>
