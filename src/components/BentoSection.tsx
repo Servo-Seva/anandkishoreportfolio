@@ -22,18 +22,41 @@ export const BentoSection = () => {
           {/* Large card - Collaboration */}
           <StaggerItem className="lg:col-span-2">
             <HoverScale>
-              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all duration-500 h-full min-h-[320px]">
-                {/* Orbit visualization */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {/* Outer orbit ring */}
-                  <div className="absolute w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-full border border-border/20" />
-                  {/* Middle orbit ring */}
-                  <div className="absolute w-[200px] h-[200px] md:w-[240px] md:h-[240px] rounded-full border border-border/20" />
-                  {/* Inner orbit ring */}
-                  <div className="absolute w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full border border-border/20" />
-                  
-                  {/* Center profile image */}
-                  <div className="relative z-10 w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary via-accent to-primary p-[3px]">
+              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all duration-500 h-full min-h-[340px]">
+                {/* SVG Orbit curves */}
+                <svg 
+                  className="absolute inset-0 w-full h-full" 
+                  viewBox="0 0 600 340" 
+                  preserveAspectRatio="xMidYMid slice"
+                  fill="none"
+                >
+                  {/* Curved orbit lines - elliptical arcs */}
+                  <ellipse 
+                    cx="400" cy="170" rx="180" ry="120" 
+                    stroke="hsl(var(--border))" 
+                    strokeWidth="1" 
+                    strokeOpacity="0.3"
+                    fill="none"
+                  />
+                  <ellipse 
+                    cx="400" cy="170" rx="130" ry="85" 
+                    stroke="hsl(var(--border))" 
+                    strokeWidth="1" 
+                    strokeOpacity="0.3"
+                    fill="none"
+                  />
+                  <ellipse 
+                    cx="400" cy="170" rx="80" ry="50" 
+                    stroke="hsl(var(--border))" 
+                    strokeWidth="1" 
+                    strokeOpacity="0.3"
+                    fill="none"
+                  />
+                </svg>
+                
+                {/* Main profile image - center right */}
+                <div className="absolute right-[20%] md:right-[25%] top-1/2 -translate-y-1/2 z-10">
+                  <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary via-accent to-primary p-[3px] shadow-lg shadow-primary/20">
                     <div className="w-full h-full rounded-full overflow-hidden bg-background">
                       <img 
                         src={aboutPhoto} 
@@ -42,27 +65,33 @@ export const BentoSection = () => {
                       />
                     </div>
                   </div>
-                  
-                  {/* Floating avatar 1 - top */}
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full border-2 border-border/40 overflow-hidden bg-secondary">
+                </div>
+                
+                {/* Floating avatar 1 - top center */}
+                <div className="absolute right-[35%] md:right-[40%] top-[10%] z-10">
+                  <div className="w-10 h-10 rounded-full border-2 border-border/40 overflow-hidden bg-secondary shadow-md">
                     <img 
                       src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" 
                       alt="Client" 
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  
-                  {/* Floating avatar 2 - left */}
-                  <div className="absolute top-1/2 -translate-y-1/2 left-[15%] md:left-[20%] w-8 h-8 rounded-full border-2 border-border/40 overflow-hidden bg-secondary">
+                </div>
+                
+                {/* Floating avatar 2 - bottom left of center */}
+                <div className="absolute right-[45%] md:right-[50%] bottom-[30%] z-10">
+                  <div className="w-9 h-9 rounded-full border-2 border-border/40 overflow-hidden bg-secondary shadow-md">
                     <img 
                       src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" 
                       alt="Client" 
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  
-                  {/* Floating avatar 3 - bottom left */}
-                  <div className="absolute bottom-[25%] left-[25%] md:left-[30%] w-9 h-9 rounded-full border-2 border-border/40 overflow-hidden bg-secondary">
+                </div>
+                
+                {/* Floating avatar 3 - below main */}
+                <div className="absolute right-[28%] md:right-[32%] bottom-[20%] z-10">
+                  <div className="w-8 h-8 rounded-full border-2 border-border/40 overflow-hidden bg-secondary shadow-md">
                     <img 
                       src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" 
                       alt="Client" 
@@ -71,13 +100,13 @@ export const BentoSection = () => {
                   </div>
                 </div>
                 
-                {/* Content */}
+                {/* Content - bottom left */}
                 <div className="relative z-20 p-8 h-full flex flex-col justify-end">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-3">
                     <Heart className="w-5 h-5 text-primary" />
                   </div>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Collaboration</p>
-                  <p className="text-lg md:text-xl font-display max-w-md">
+                  <p className="text-lg md:text-xl font-display max-w-xs">
                     I prioritize client collaboration, fostering open communication
                   </p>
                   <a 
