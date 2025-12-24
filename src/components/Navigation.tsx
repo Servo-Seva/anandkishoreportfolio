@@ -62,9 +62,11 @@ export const Navigation = () => {
               </a>
             )
           ))}
-          <Button variant="default" size="sm" className="ml-1">
-            Book a Call
-          </Button>
+          <a href="#contact">
+            <Button variant="default" size="sm" className="ml-1">
+              Book a Call
+            </Button>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -103,9 +105,11 @@ export const Navigation = () => {
                 </a>
               )
             ))}
-            <Button variant="default" className="mt-4">
-              Book a Call
-            </Button>
+            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+              <Button variant="default" className="mt-4 w-full">
+                Book a Call
+              </Button>
+            </a>
           </div>
         </div>
       )}
