@@ -61,7 +61,7 @@ const GlobeMesh = () => {
 
 export const Globe3D = () => {
   return (
-    <div className="w-full h-48 md:h-56">
+    <div className="w-full h-full min-h-[250px]">
       <Canvas
         camera={{ position: [0, 0, 2.5], fov: 45 }}
         style={{ background: 'transparent' }}
