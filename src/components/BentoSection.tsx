@@ -159,12 +159,18 @@ export const BentoSection = () => {
                       <p className="text-sm font-display text-foreground mb-0.5">Websites that</p>
                       <p className="text-base font-serif italic text-primary">Impact.</p>
                       <div className="flex justify-center gap-2 mt-3">
-                        <span className="px-3 py-1 text-[10px] bg-foreground text-background rounded-full flex items-center gap-1">
+                        <a 
+                          href="#contact" 
+                          className="px-3 py-1 text-[10px] bg-foreground text-background rounded-full flex items-center gap-1 hover:bg-foreground/90 transition-colors cursor-pointer"
+                        >
                           Start <ArrowRight className="w-2.5 h-2.5" />
-                        </span>
-                        <span className="px-3 py-1 text-[10px] border border-border/50 rounded-full text-muted-foreground">
+                        </a>
+                        <a 
+                          href="#work" 
+                          className="px-3 py-1 text-[10px] border border-border/50 rounded-full text-muted-foreground hover:text-foreground hover:border-border transition-colors cursor-pointer"
+                        >
                           Details
-                        </span>
+                        </a>
                       </div>
                     </div>
                   </div>
