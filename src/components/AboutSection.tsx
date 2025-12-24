@@ -81,11 +81,6 @@ export const AboutSection = () => {
                       </div>
                     </div>
                   </Link>
-                  <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border/30 overflow-hidden">
-                    <div className="w-full h-full bg-secondary/50 flex items-center justify-center text-muted-foreground">
-                      Hobby
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
