@@ -69,13 +69,18 @@ export const AboutSection = () => {
                   </div>
                 </div>
                 <div className="space-y-4 pt-8">
-                  <div className="aspect-square rounded-2xl bg-gradient-to-br from-accent/20 to-primary/20 border border-border/30 overflow-hidden">
-                    <img 
-                      src={travelPhoto} 
-                      alt="Anand traveling in the mountains" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                  <Link to="/travel" className="block aspect-square rounded-2xl bg-gradient-to-br from-accent/20 to-primary/20 border border-border/30 overflow-hidden group cursor-pointer">
+                    <div className="relative w-full h-full">
+                      <img 
+                        src={travelPhoto} 
+                        alt="Anand traveling in the mountains" 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span className="text-foreground font-medium">View Travel</span>
+                      </div>
+                    </div>
+                  </Link>
                   <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border/30 overflow-hidden">
                     <div className="w-full h-full bg-secondary/50 flex items-center justify-center text-muted-foreground">
                       Hobby
