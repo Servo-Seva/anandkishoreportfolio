@@ -3,7 +3,106 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
+// Location coordinates (lat, lon) for UK, India, USA
+const locations = [
+  { name: 'UK', lat: 51.5, lon: -0.12 },
+  { name: 'India', lat: 20.59, lon: 78.96 },
+  { name: 'USA', lat: 37.09, lon: -95.71 },
+];
+
+// Convert lat/lon to 3D position on sphere
+const latLonToVector3 = (lat: number, lon: number, radius: number) => {
+  const phi = (90 - lat) * (Math.PI / 180);
+  const theta = (lon + 180) * (Math.PI / 180);
+  
+  const x = -(radius * Math.sin(phi) * Math.cos(theta));
+  const z = radius * Math.sin(phi) * Math.sin(theta);
+  const y = radius * Math.cos(phi);
+  
+  return new THREE.Vector3(x, y, z);
+};
+
+// Generate curved arc points between two locations
+const generateArcPoints = (start: THREE.Vector3, end: THREE.Vector3, segments: number = 50) => {
+  const points: THREE.Vector3[] = [];
+  
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    
+    // Spherical interpolation
+    const point = new THREE.Vector3().lerpVectors(start, end, t);
+    
+    // Add height to create arc effect
+    const arcHeight = 1 + Math.sin(t * Math.PI) * 0.4;
+    point.normalize().multiplyScalar(1.5 * arcHeight);
+    
+    points.push(point);
+  }
+  
+  return points;
+};
+
+// Animated connection arc component using primitive
+const ConnectionArc = ({ start, end, delay }: { start: THREE.Vector3; end: THREE.Vector3; delay: number }) => {
+  const lineRef = useRef<THREE.Line>(null);
+  const progressRef = useRef(delay);
+  const arcPoints = useMemo(() => generateArcPoints(start, end), [start, end]);
+  
+  const lineObject = useMemo(() => {
+    const geometry = new THREE.BufferGeometry().setFromPoints(arcPoints);
+    const material = new THREE.LineBasicMaterial({ 
+      color: '#38bdf8', 
+      transparent: true, 
+      opacity: 0.6 
+    });
+    return new THREE.Line(geometry, material);
+  }, [arcPoints]);
+  
+  useFrame((_, delta) => {
+    progressRef.current += delta * 0.3;
+    if (progressRef.current > 2 + delay) {
+      progressRef.current = delay;
+    }
+    
+    if (lineRef.current) {
+      const material = lineRef.current.material as THREE.LineBasicMaterial;
+      const progress = Math.max(0, progressRef.current - delay);
+      material.opacity = Math.sin(progress * Math.PI) * 0.8;
+    }
+  });
+  
+  return <primitive ref={lineRef} object={lineObject} />;
+};
+
+// Location marker with pulse effect
+const LocationMarker = ({ position }: { position: THREE.Vector3 }) => {
+  const pulseRef = useRef<THREE.Mesh>(null);
+  
+  useFrame((state) => {
+    if (pulseRef.current) {
+      const scale = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.3;
+      pulseRef.current.scale.setScalar(scale);
+    }
+  });
+  
+  return (
+    <group position={position}>
+      {/* Main dot */}
+      <mesh>
+        <sphereGeometry args={[0.03, 16, 16]} />
+        <meshBasicMaterial color="#38bdf8" />
+      </mesh>
+      {/* Pulse ring */}
+      <mesh ref={pulseRef} rotation={[0, 0, 0]}>
+        <ringGeometry args={[0.04, 0.06, 32]} />
+        <meshBasicMaterial color="#38bdf8" transparent opacity={0.5} side={THREE.DoubleSide} />
+      </mesh>
+    </group>
+  );
+};
+
 const DottedGlobe = () => {
+  const groupRef = useRef<THREE.Group>(null);
   const pointsRef = useRef<THREE.Points>(null);
   
   // Generate points on a sphere surface to create dotted effect
@@ -27,25 +126,42 @@ const DottedGlobe = () => {
     return new Float32Array(points);
   }, []);
 
+  // Calculate 3D positions for each location
+  const locationPositions = useMemo(() => 
+    locations.map(loc => latLonToVector3(loc.lat, loc.lon, 1.5)),
+  []);
+
   useFrame((_, delta) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.y += delta * 0.1;
+    if (groupRef.current) {
+      groupRef.current.rotation.y += delta * 0.1;
     }
   });
 
   return (
     <group rotation={[0.3, 0, 0]}>
-      {/* Dotted globe */}
-      <Points ref={pointsRef} positions={particles} stride={3}>
-        <PointMaterial
-          transparent
-          color="#38bdf8"
-          size={0.02}
-          sizeAttenuation
-          depthWrite={false}
-          opacity={0.8}
-        />
-      </Points>
+      <group ref={groupRef}>
+        {/* Dotted globe */}
+        <Points ref={pointsRef} positions={particles} stride={3}>
+          <PointMaterial
+            transparent
+            color="#38bdf8"
+            size={0.02}
+            sizeAttenuation
+            depthWrite={false}
+            opacity={0.8}
+          />
+        </Points>
+        
+        {/* Location markers */}
+        {locationPositions.map((pos, i) => (
+          <LocationMarker key={i} position={pos} />
+        ))}
+        
+        {/* Connection arcs between locations */}
+        <ConnectionArc start={locationPositions[0]} end={locationPositions[1]} delay={0} />
+        <ConnectionArc start={locationPositions[1]} end={locationPositions[2]} delay={0.7} />
+        <ConnectionArc start={locationPositions[2]} end={locationPositions[0]} delay={1.4} />
+      </group>
       
       {/* Atmosphere ring */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
