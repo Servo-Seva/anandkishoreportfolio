@@ -1,7 +1,8 @@
-import { ArrowUpRight, Users, Sparkles, MapPin } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Sparkles, MapPin, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, StaggerContainer, StaggerItem, HoverScale } from '@/components/ui/motion';
 import { Globe3D } from './Globe3D';
+import aboutPhoto from '@/assets/about-photo.png';
 
 export const BentoSection = () => {
   return (
@@ -21,20 +22,72 @@ export const BentoSection = () => {
           {/* Large card - Collaboration */}
           <StaggerItem className="lg:col-span-2">
             <HoverScale>
-              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 p-8 hover:border-border/60 transition-all duration-500 h-full">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-                    <Users className="w-6 h-6 text-primary" />
+              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all duration-500 h-full min-h-[320px]">
+                {/* Orbit visualization */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  {/* Outer orbit ring */}
+                  <div className="absolute w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-full border border-border/20" />
+                  {/* Middle orbit ring */}
+                  <div className="absolute w-[200px] h-[200px] md:w-[240px] md:h-[240px] rounded-full border border-border/20" />
+                  {/* Inner orbit ring */}
+                  <div className="absolute w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full border border-border/20" />
+                  
+                  {/* Center profile image */}
+                  <div className="relative z-10 w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary via-accent to-primary p-[3px]">
+                    <div className="w-full h-full rounded-full overflow-hidden bg-background">
+                      <img 
+                        src={aboutPhoto} 
+                        alt="Profile" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
-                  <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
+                  
+                  {/* Floating avatar 1 - top */}
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full border-2 border-border/40 overflow-hidden bg-secondary">
+                    <img 
+                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" 
+                      alt="Client" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Floating avatar 2 - left */}
+                  <div className="absolute top-1/2 -translate-y-1/2 left-[15%] md:left-[20%] w-8 h-8 rounded-full border-2 border-border/40 overflow-hidden bg-secondary">
+                    <img 
+                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" 
+                      alt="Client" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Floating avatar 3 - bottom left */}
+                  <div className="absolute bottom-[25%] left-[25%] md:left-[30%] w-9 h-9 rounded-full border-2 border-border/40 overflow-hidden bg-secondary">
+                    <img 
+                      src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" 
+                      alt="Client" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
-                <h3 className="text-2xl font-display font-semibold mb-3">Collaboration</h3>
-                <p className="text-muted-foreground max-w-md">
-                  I prioritize client collaboration, fostering open communication to deliver exceptional results that exceed expectations.
-                </p>
-                <Button variant="outline" className="mt-6" asChild>
-                  <a href="#contact">Book a call</a>
-                </Button>
+                
+                {/* Content */}
+                <div className="relative z-20 p-8 h-full flex flex-col justify-end">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Heart className="w-5 h-5 text-primary" />
+                  </div>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Collaboration</p>
+                  <p className="text-lg md:text-xl font-display max-w-md">
+                    I prioritize client collaboration, fostering open communication
+                  </p>
+                  <a 
+                    href="#contact" 
+                    className="inline-flex items-center gap-2 mt-4 text-sm text-foreground hover:text-primary transition-colors group/link"
+                  >
+                    Book a call
+                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                  </a>
+                </div>
               </div>
             </HoverScale>
           </StaggerItem>
