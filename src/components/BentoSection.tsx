@@ -1,6 +1,7 @@
-import { ArrowUpRight, Users, Globe, Sparkles, Clock } from 'lucide-react';
+import { ArrowUpRight, Users, Sparkles, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, StaggerContainer, StaggerItem, HoverScale } from '@/components/ui/motion';
+import { Globe3D } from './Globe3D';
 
 export const BentoSection = () => {
   return (
@@ -57,20 +58,18 @@ export const BentoSection = () => {
             </HoverScale>
           </StaggerItem>
 
-          {/* Remote card */}
+          {/* Remote card with 3D Globe */}
           <StaggerItem>
             <HoverScale>
-              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 p-8 hover:border-border/60 transition-all duration-500 h-full">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center">
-                    <Globe className="w-6 h-6 text-green-400" />
-                  </div>
+              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all duration-500 h-full flex flex-col">
+                <Globe3D />
+                <div className="p-6 pt-0">
+                  <h3 className="text-lg font-display font-semibold mb-2">Remote</h3>
+                  <p className="text-3xl font-display font-bold text-primary">India</p>
+                  <Button variant="outline" size="sm" className="mt-4" asChild>
+                    <a href="#contact">Connect now</a>
+                  </Button>
                 </div>
-                <h3 className="text-lg font-display font-semibold mb-2">Remote</h3>
-                <p className="text-3xl font-display font-bold gradient-text">India</p>
-                <Button variant="glass" size="sm" className="mt-4" asChild>
-                  <a href="#contact">Connect now</a>
-                </Button>
               </div>
             </HoverScale>
           </StaggerItem>
