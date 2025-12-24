@@ -2,7 +2,6 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Helmet } from 'react-helmet-async';
 import { Reveal, StaggerContainer, StaggerItem } from '@/components/ui/motion';
-import { Linkedin, Github, Twitter } from 'lucide-react';
 
 const experiences = [
   {
@@ -46,85 +45,15 @@ const About = () => {
   return (
     <>
       <Helmet>
-        <title>About | Anand Kishore - Full Stack Developer</title>
-        <meta name="description" content="Learn more about Anand Kishore, a Full Stack Developer passionate about creating dynamic web experiences." />
+        <title>Work Experience | Anand Kishore - Full Stack Developer</title>
+        <meta name="description" content="Explore the professional journey and work experience of Anand Kishore, a Full Stack Developer." />
       </Helmet>
 
       <main className="min-h-screen bg-background overflow-x-hidden">
         <Navigation />
 
-        {/* About Hero Section */}
-        <section className="pt-32 pb-20 section-padding">
-          <div className="container-main">
-            <div className="grid lg:grid-cols-2 gap-12 items-start">
-              {/* Left - Bio */}
-              <Reveal>
-                <div>
-                  <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">More About Me</p>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8">
-                    I'm Anand, a<br />
-                    creative <span className="font-serif italic font-normal text-primary">engineer</span>
-                  </h1>
-                  <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
-                    <p>
-                      I'm a proactive full-stack developer passionate about creating dynamic web experiences. 
-                      From frontend to backend, I thrive on solving complex problems with clean, efficient code.
-                    </p>
-                    <p>
-                      My expertise spans React, Next.js, and Node.js, and I'm always eager to learn more. 
-                      When I'm not immersed in work, I'm exploring new ideas and staying curious.
-                    </p>
-                    <p className="text-foreground font-medium">
-                      I believe in waking up each day eager to make a difference!
-                    </p>
-                  </div>
-                  {/* Social Links */}
-                  <div className="flex gap-4 mt-8">
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/60 border border-border/30 flex items-center justify-center hover:bg-secondary hover:border-primary/50 transition-all">
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/60 border border-border/30 flex items-center justify-center hover:bg-secondary hover:border-primary/50 transition-all">
-                      <Github className="w-5 h-5" />
-                    </a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/60 border border-border/30 flex items-center justify-center hover:bg-secondary hover:border-primary/50 transition-all">
-                      <Twitter className="w-5 h-5" />
-                    </a>
-                  </div>
-                </div>
-              </Reveal>
-
-              {/* Right - Images */}
-              <Reveal delay={0.2}>
-                <div className="relative">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-4">
-                      <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border/30 overflow-hidden">
-                        <div className="w-full h-full bg-secondary/50 flex items-center justify-center text-muted-foreground">
-                          Photo
-                        </div>
-                      </div>
-                    </div>
-                    <div className="space-y-4 pt-8">
-                      <div className="aspect-square rounded-2xl bg-gradient-to-br from-accent/20 to-primary/20 border border-border/30 overflow-hidden">
-                        <div className="w-full h-full bg-secondary/50 flex items-center justify-center text-muted-foreground">
-                          Travel
-                        </div>
-                      </div>
-                      <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border/30 overflow-hidden">
-                        <div className="w-full h-full bg-secondary/50 flex items-center justify-center text-muted-foreground">
-                          Hobby
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
         {/* Experience Section */}
-        <section id="experience" className="section-padding bg-secondary/20">
+        <section id="experience" className="pt-32 pb-20 section-padding bg-secondary/20">
           <div className="container-main">
             {/* Section Header */}
             <Reveal className="text-center mb-16">
