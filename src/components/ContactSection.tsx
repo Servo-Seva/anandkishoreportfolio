@@ -33,7 +33,7 @@ export const ContactSection = () => {
             <p className="text-muted-foreground mb-4">Let's work together on your next project</p>
             <motion.a 
               href="mailto:anandkishore060@gmail.com"
-              className="text-3xl md:text-5xl font-display font-bold gradient-text inline-block"
+              className="text-xl sm:text-3xl md:text-5xl font-display font-bold gradient-text inline-block break-all"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
