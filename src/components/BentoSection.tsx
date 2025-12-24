@@ -111,10 +111,10 @@ export const BentoSection = () => {
                   </p>
                   <a 
                     href="#contact" 
-                    className="inline-flex items-center gap-2 mt-4 text-sm text-foreground hover:text-primary transition-colors group/link"
+                    className="inline-flex items-center gap-2 mt-4 text-sm text-foreground hover:text-primary transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
                   >
                     Book a call
-                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </a>
                 </div>
               </div>
