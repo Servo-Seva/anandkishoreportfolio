@@ -18,6 +18,10 @@ export interface Project {
   }[];
   buildProcess: string[];
   challenges: string[];
+  screenshots: {
+    url: string;
+    caption: string;
+  }[];
 }
 
 export const projects: Project[] = [
@@ -71,6 +75,12 @@ export const projects: Project[] = [
       'Optimizing database queries for large product catalogs',
       'Ensuring PCI compliance for payment processing',
     ],
+    screenshots: [
+      { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop', caption: 'Dashboard Overview' },
+      { url: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&h=800&fit=crop', caption: 'Product Management' },
+      { url: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=800&fit=crop', caption: 'Checkout Flow' },
+      { url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop', caption: 'Analytics Dashboard' },
+    ],
   },
   {
     id: 'ai-chat-application',
@@ -122,6 +132,12 @@ export const projects: Project[] = [
       'Implementing robust end-to-end encryption',
       'Scaling WebSocket connections efficiently',
     ],
+    screenshots: [
+      { url: 'https://images.unsplash.com/photo-1587560699334-cc4ff634909a?w=1200&h=800&fit=crop', caption: 'Chat Interface' },
+      { url: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=1200&h=800&fit=crop', caption: 'AI Response Demo' },
+      { url: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&h=800&fit=crop', caption: 'Settings Panel' },
+      { url: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=800&fit=crop', caption: 'Mobile View' },
+    ],
   },
   {
     id: 'analytics-dashboard',
@@ -172,6 +188,12 @@ export const projects: Project[] = [
       'Handling large datasets without compromising performance',
       'Creating intuitive visualizations for complex data',
       'Ensuring data accuracy across multiple sources',
+    ],
+    screenshots: [
+      { url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop', caption: 'Main Dashboard' },
+      { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop', caption: 'Report Builder' },
+      { url: 'https://images.unsplash.com/photo-1543286386-713bdd548da4?w=1200&h=800&fit=crop', caption: 'Data Visualization' },
+      { url: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&h=800&fit=crop', caption: 'Mobile Dashboard' },
     ],
   },
 ];
