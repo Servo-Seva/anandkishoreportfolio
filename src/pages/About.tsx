@@ -121,7 +121,7 @@ const About = () => {
                         {exp.skills.map((skill) => (
                           <span 
                             key={skill} 
-                            className="px-3 py-1 text-xs rounded-full bg-secondary/60 border border-amber-500/60 text-muted-foreground hover:border-amber-400 hover:shadow-[0_0_8px_rgba(245,158,11,0.2)] transition-all duration-300"
+                            className="px-3 py-1 text-xs rounded-full bg-secondary/40 border-2 border-yellow-500 text-muted-foreground hover:border-yellow-400 transition-all duration-300"
                           >
                             {skill}
                           </span>
