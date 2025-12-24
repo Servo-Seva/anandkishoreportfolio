@@ -1,6 +1,6 @@
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Points, PointMaterial, OrbitControls } from '@react-three/drei';
+import { Points, PointMaterial, OrbitControls, Stars } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Location coordinates (lat, lon) for UK, India, USA
@@ -250,6 +250,15 @@ export const Globe3D = () => {
           rotateSpeed={0.5}
           autoRotate
           autoRotateSpeed={0.5}
+        />
+        <Stars 
+          radius={50} 
+          depth={50} 
+          count={1500} 
+          factor={3} 
+          saturation={0} 
+          fade 
+          speed={0.5}
         />
         <FloatingParticles />
         <DottedGlobe />
