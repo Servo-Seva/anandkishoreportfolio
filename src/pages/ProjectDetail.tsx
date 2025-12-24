@@ -1,10 +1,132 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft, ArrowUpRight, Github, Sparkles, Target, Wrench, Lightbulb, CheckCircle2, Code2 } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Github, Sparkles, Target, Wrench, Lightbulb, CheckCircle2, Code2, Images, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, HoverScale } from '@/components/ui/motion';
 import { getProjectById } from '@/lib/projects';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+
+// Gallery Section Component
+const GallerySection = ({ screenshots }: { screenshots: { url: string; caption: string }[] }) => {
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
+
+  const openLightbox = (index: number) => setSelectedImage(index);
+  const closeLightbox = () => setSelectedImage(null);
+  const nextImage = () => setSelectedImage((prev) => (prev !== null ? (prev + 1) % screenshots.length : 0));
+  const prevImage = () => setSelectedImage((prev) => (prev !== null ? (prev - 1 + screenshots.length) % screenshots.length : 0));
+
+  return (
+    <>
+      <section className="section-padding">
+        <div className="container-main">
+          <Reveal>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="p-3 rounded-2xl bg-primary/10 text-primary">
+                <Images className="w-6 h-6" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-display font-bold">
+                Project <span className="font-serif italic font-normal">Gallery</span>
+              </h2>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {screenshots.map((screenshot, index) => (
+              <Reveal key={screenshot.url} delay={index * 0.1}>
+                <motion.div
+                  className="group relative aspect-video rounded-2xl overflow-hidden cursor-pointer border border-border/30 hover:border-primary/50 transition-colors"
+                  whileHover={{ y: -4 }}
+                  onClick={() => openLightbox(index)}
+                >
+                  <img
+                    src={screenshot.url}
+                    alt={screenshot.caption}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-sm font-medium text-foreground">{screenshot.caption}</p>
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="p-3 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30">
+                      <Images className="w-5 h-5 text-primary" />
+                    </div>
+                  </div>
+                </motion.div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage !== null && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeLightbox}
+          >
+            {/* Close Button */}
+            <button
+              className="absolute top-6 right-6 p-3 rounded-full bg-secondary/50 border border-border/30 hover:bg-secondary hover:border-primary/30 transition-colors z-10"
+              onClick={closeLightbox}
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Previous Button */}
+            <button
+              className="absolute left-6 p-3 rounded-full bg-secondary/50 border border-border/30 hover:bg-secondary hover:border-primary/30 transition-colors z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                prevImage();
+              }}
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+
+            {/* Next Button */}
+            <button
+              className="absolute right-6 p-3 rounded-full bg-secondary/50 border border-border/30 hover:bg-secondary hover:border-primary/30 transition-colors z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                nextImage();
+              }}
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+
+            {/* Image */}
+            <motion.div
+              className="relative max-w-5xl max-h-[80vh] mx-4"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={screenshots[selectedImage].url}
+                alt={screenshots[selectedImage].caption}
+                className="max-w-full max-h-[80vh] rounded-2xl border border-border/30 shadow-2xl object-contain"
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/90 to-transparent rounded-b-2xl">
+                <p className="text-center font-medium">{screenshots[selectedImage].caption}</p>
+                <p className="text-center text-sm text-muted-foreground mt-1">
+                  {selectedImage + 1} of {screenshots.length}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -196,6 +318,9 @@ const ProjectDetail = () => {
             </div>
           </div>
         </section>
+
+        {/* Gallery Section */}
+        <GallerySection screenshots={project.screenshots} />
 
         {/* Technologies Section */}
         <section className="section-padding">
