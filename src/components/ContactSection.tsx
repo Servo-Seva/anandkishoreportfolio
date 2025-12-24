@@ -1,4 +1,4 @@
-import { Mail, ArrowUpRight, Linkedin, Github, Twitter, MapPin } from 'lucide-react';
+import { Mail, ArrowUpRight, Linkedin, Github, Twitter, MapPin, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { toast } from '@/hooks/use-toast';
@@ -155,6 +155,19 @@ export const ContactSection = () => {
                   >
                     <Mail className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     <span className="text-sm">Email</span>
+                    <ArrowUpRight className="w-4 h-4 ml-auto text-muted-foreground group-hover:text-foreground transition-colors" />
+                  </a>
+                </HoverScale>
+              </StaggerItem>
+              
+              <StaggerItem>
+                <HoverScale>
+                  <a
+                    href="tel:+917070382594"
+                    className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all"
+                  >
+                    <Phone className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    <span className="text-sm">+91 7070382594</span>
                     <ArrowUpRight className="w-4 h-4 ml-auto text-muted-foreground group-hover:text-foreground transition-colors" />
                   </a>
                 </HoverScale>
