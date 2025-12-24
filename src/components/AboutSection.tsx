@@ -34,13 +34,13 @@ export const AboutSection = () => {
               
               {/* Social Links */}
               <div className="flex gap-4 mt-8">
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/60 border border-border/30 flex items-center justify-center hover:bg-secondary hover:border-primary/50 transition-all">
+                <a href="https://www.linkedin.com/in/anandkishore060/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/60 border border-border/30 flex items-center justify-center hover:bg-secondary hover:border-primary/50 transition-all">
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/60 border border-border/30 flex items-center justify-center hover:bg-secondary hover:border-primary/50 transition-all">
+                <a href="https://github.com/anandkishore06" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/60 border border-border/30 flex items-center justify-center hover:bg-secondary hover:border-primary/50 transition-all">
                   <Github className="w-5 h-5" />
                 </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/60 border border-border/30 flex items-center justify-center hover:bg-secondary hover:border-primary/50 transition-all">
+                <a href="https://x.com/anandkishore06" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/60 border border-border/30 flex items-center justify-center hover:bg-secondary hover:border-primary/50 transition-all">
                   <Twitter className="w-5 h-5" />
                 </a>
               </div>
