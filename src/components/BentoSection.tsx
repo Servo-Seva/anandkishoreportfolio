@@ -1,4 +1,4 @@
-import { ArrowUpRight, Users, Sparkles, Clock } from 'lucide-react';
+import { ArrowUpRight, Users, Sparkles, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, StaggerContainer, StaggerItem, HoverScale } from '@/components/ui/motion';
 import { Globe3D } from './Globe3D';
@@ -39,48 +39,8 @@ export const BentoSection = () => {
             </HoverScale>
           </StaggerItem>
 
-          {/* Timezone card */}
-          <StaggerItem>
-            <HoverScale>
-              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 p-8 hover:border-border/60 transition-all duration-500 h-full">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
-                    <Clock className="w-6 h-6 text-accent" />
-                  </div>
-                </div>
-                <h3 className="text-lg font-display font-semibold mb-3">Flexible with timezones</h3>
-                <div className="flex gap-2 mt-4 flex-wrap">
-                  <span className="px-3 py-1 rounded-full bg-card text-xs">🇮🇳 India</span>
-                  <span className="px-3 py-1 rounded-full bg-card text-xs">🇬🇧 UK</span>
-                  <span className="px-3 py-1 rounded-full bg-card text-xs">🇺🇸 USA</span>
-                </div>
-              </div>
-            </HoverScale>
-          </StaggerItem>
-
-          {/* Remote card with 3D Globe */}
-          <StaggerItem className="lg:col-span-3">
-            <HoverScale>
-              <div className="group relative rounded-3xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all duration-500">
-                <div className="flex flex-col md:flex-row items-center">
-                  <div className="w-full md:w-1/2 h-[320px] md:h-[380px] flex items-center justify-center">
-                    <Globe3D />
-                  </div>
-                  <div className="p-8 md:w-1/2">
-                    <h3 className="text-2xl font-display font-semibold mb-2">Remote</h3>
-                    <p className="text-4xl md:text-5xl font-display font-bold text-primary mb-4">India</p>
-                    <p className="text-muted-foreground mb-6">Available for remote collaboration across all timezones. Let's build something amazing together.</p>
-                    <Button variant="outline" asChild>
-                      <a href="#contact">Connect now</a>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </HoverScale>
-          </StaggerItem>
-
           {/* Experience card */}
-          <StaggerItem className="lg:col-span-2">
+          <StaggerItem>
             <HoverScale>
               <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 to-accent/10 border border-border/30 p-8 hover:border-border/60 transition-all duration-500 h-full">
                 <div className="flex items-start justify-between mb-6">
@@ -88,17 +48,60 @@ export const BentoSection = () => {
                     <Sparkles className="w-6 h-6 text-primary" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-display font-semibold mb-3">The Inside Scoop</h3>
-                <p className="text-muted-foreground max-w-lg">
-                  Currently building scalable SaaS applications and helping startups bring their vision to life. 
-                  Passionate about clean architecture and delivering exceptional user experiences.
+                <h3 className="text-lg font-display font-semibold mb-3">The Inside Scoop</h3>
+                <p className="text-muted-foreground text-sm">
+                  Currently building scalable SaaS applications and helping startups bring their vision to life.
                 </p>
-                <Button variant="primary" className="mt-6" asChild>
+                <Button variant="outline" size="sm" className="mt-4" asChild>
                   <a href="#work">
-                    View Recent Work
+                    View Work
                     <ArrowUpRight className="w-4 h-4 ml-1" />
                   </a>
                 </Button>
+              </div>
+            </HoverScale>
+          </StaggerItem>
+
+          {/* Globe card - Full width with timezone info */}
+          <StaggerItem className="lg:col-span-3">
+            <HoverScale>
+              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all duration-500">
+                {/* Header content */}
+                <div className="text-center pt-8 pb-4 px-8">
+                  <h3 className="text-2xl md:text-3xl font-display font-semibold mb-6">
+                    I'm very flexible with time{' '}
+                    <span className="text-accent">zone communications</span>
+                  </h3>
+                  
+                  {/* Country badges */}
+                  <div className="flex justify-center gap-3 flex-wrap">
+                    <span className="px-4 py-2 rounded-full bg-card/80 border border-border/30 text-sm flex items-center gap-2">
+                      🇬🇧 UK
+                    </span>
+                    <span className="px-4 py-2 rounded-full bg-card/80 border border-accent/50 text-sm flex items-center gap-2 text-accent">
+                      🇮🇳 India
+                    </span>
+                    <span className="px-4 py-2 rounded-full bg-card/80 border border-border/30 text-sm flex items-center gap-2">
+                      🇺🇸 USA
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Globe */}
+                <div className="relative h-[400px] md:h-[450px]">
+                  <Globe3D />
+                  
+                  {/* Location badge overlay */}
+                  <div className="absolute bottom-8 left-8">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-10 h-10 rounded-full bg-secondary/80 border border-border/30 flex items-center justify-center">
+                        <MapPin className="w-5 h-5 text-muted-foreground" />
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider">Remote</p>
+                    <p className="text-xl font-display font-bold">India</p>
+                  </div>
+                </div>
               </div>
             </HoverScale>
           </StaggerItem>
