@@ -1,6 +1,6 @@
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Points, PointMaterial } from '@react-three/drei';
+import { Points, PointMaterial, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Location coordinates (lat, lon) for UK, India, USA
@@ -131,11 +131,7 @@ const DottedGlobe = () => {
     locations.map(loc => latLonToVector3(loc.lat, loc.lon, 1.5)),
   []);
 
-  useFrame((_, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.1;
-    }
-  });
+  // Auto-rotation removed - using OrbitControls for manual + auto rotation
 
   return (
     <group rotation={[0.3, 0, 0]}>
@@ -194,6 +190,13 @@ export const Globe3D = () => {
         dpr={[1, 2]}
       >
         <ambientLight intensity={0.5} />
+        <OrbitControls 
+          enableZoom={false} 
+          enablePan={false}
+          rotateSpeed={0.5}
+          autoRotate
+          autoRotateSpeed={0.5}
+        />
         <DottedGlobe />
       </Canvas>
     </div>
