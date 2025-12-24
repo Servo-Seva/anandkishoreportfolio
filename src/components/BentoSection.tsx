@@ -106,17 +106,19 @@ export const BentoSection = () => {
                     <Heart className="w-5 h-5 text-primary" />
                   </div>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Collaboration</p>
-                  <p className="text-lg md:text-xl font-display max-w-xs">
+                  <p className="text-lg md:text-xl font-display max-w-xs mb-12">
                     I prioritize client collaboration, fostering open communication
                   </p>
-                  <a 
-                    href="#contact" 
-                    className="inline-flex items-center gap-2 mt-4 text-sm text-foreground hover:text-primary transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
-                  >
-                    Book a call
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
                 </div>
+                
+                {/* Book a call - absolute bottom left */}
+                <a 
+                  href="#contact" 
+                  className="absolute bottom-6 left-8 z-20 inline-flex items-center gap-2 text-sm text-foreground hover:text-primary transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                >
+                  Book a call
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
               </div>
             </HoverScale>
           </StaggerItem>
