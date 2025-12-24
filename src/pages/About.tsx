@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ParticleBackground } from '@/components/ParticleBackground';
+import { useEffect, useRef, useState } from 'react';
 
 const experiences = [
   {
@@ -46,6 +47,33 @@ const experiences = [
 ];
 
 const About = () => {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [lineHeight, setLineHeight] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!timelineRef.current) return;
+
+      const timeline = timelineRef.current;
+      const rect = timeline.getBoundingClientRect();
+      const timelineTop = rect.top;
+      const timelineHeight = rect.height;
+      const windowHeight = window.innerHeight;
+
+      // Calculate how much of the timeline is visible/scrolled past
+      const scrollProgress = Math.max(0, Math.min(1, 
+        (windowHeight * 0.4 - timelineTop) / timelineHeight
+      ));
+
+      setLineHeight(scrollProgress * 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -88,19 +116,23 @@ const About = () => {
             </Reveal>
 
             {/* Experience Timeline */}
-            <StaggerContainer className="relative max-w-4xl mx-auto" staggerDelay={0.15}>
-              {/* Premium Animated Vertical Line */}
-              <div className="absolute left-0 md:left-8 top-0 bottom-0 w-[2px] overflow-hidden">
-                {/* Base line */}
-                <div className="h-full w-full bg-gradient-to-b from-border/50 via-border/30 to-border/10" />
-                {/* Glowing orb that travels down */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full">
-                  <div className="absolute w-[2px] h-20 bg-gradient-to-b from-transparent via-primary to-transparent opacity-90 animate-[lineGlow_4s_ease-in-out_infinite] shadow-[0_0_20px_hsl(var(--primary)),0_0_40px_hsl(var(--primary)/0.5)]" />
-                </div>
-                {/* Secondary subtle pulse */}
-                <div className="absolute top-0 left-0 w-full h-full">
-                  <div className="absolute w-[2px] h-12 bg-gradient-to-b from-transparent via-primary/60 to-transparent animate-[lineGlow_4s_ease-in-out_infinite_1.5s]" />
-                </div>
+            <StaggerContainer ref={timelineRef} className="relative max-w-4xl mx-auto" staggerDelay={0.15}>
+              {/* Scroll-based Animated Vertical Line */}
+              <div className="absolute left-0 md:left-8 top-0 bottom-0 w-[2px]">
+                {/* Base line (faded) */}
+                <div className="h-full w-full bg-border/20" />
+                
+                {/* Scroll-progress line */}
+                <div 
+                  className="absolute top-0 left-0 w-full bg-gradient-to-b from-primary via-primary to-primary/50 transition-all duration-150 ease-out shadow-[0_0_15px_hsl(var(--primary)),0_0_30px_hsl(var(--primary)/0.4)]"
+                  style={{ height: `${lineHeight}%` }}
+                />
+                
+                {/* Glowing tip at the end of progress */}
+                <div 
+                  className="absolute left-1/2 -translate-x-1/2 w-2 h-8 bg-gradient-to-b from-primary via-primary to-transparent blur-sm transition-all duration-150 ease-out"
+                  style={{ top: `${lineHeight}%`, transform: 'translateX(-50%) translateY(-50%)' }}
+                />
               </div>
 
               <div className="space-y-8 pl-6 md:pl-20">
