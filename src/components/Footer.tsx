@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import { Reveal } from '@/components/ui/motion';
 
 const socialLinks = [
-  { icon: Linkedin, href: 'https://linkedin.com/in/anandkishore060', label: 'LinkedIn' },
-  { icon: Github, href: 'https://github.com', label: 'GitHub' },
-  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/anandkishore060/', label: 'LinkedIn' },
+  { icon: Github, href: 'https://github.com/anandkishore06', label: 'GitHub' },
+  { icon: Twitter, href: 'https://x.com/anandkishore06', label: 'Twitter' },
   { icon: Mail, href: 'mailto:anandkishore060@gmail.com', label: 'Email' },
 ];
 
