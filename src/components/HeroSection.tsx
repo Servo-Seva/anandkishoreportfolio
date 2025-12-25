@@ -14,12 +14,12 @@ export const HeroSection = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-24">
-      {/* Star field effect */}
-      <div className="absolute inset-0">
+      {/* Star field effect - visible in dark mode, subtle in light mode */}
+      <div className="absolute inset-0 dark:opacity-100 opacity-40">
         {[...Array(50)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-0.5 h-0.5 bg-foreground/30 rounded-full"
+            className="absolute w-0.5 h-0.5 bg-primary/60 dark:bg-foreground/30 rounded-full"
             initial={{ opacity: 0 }}
             animate={{ opacity: [0.2, 1, 0.2] }}
             transition={{
@@ -36,8 +36,8 @@ export const HeroSection = () => {
       </div>
 
       {/* Horizon glow effect */}
-      <div className="horizon-glow" />
-      <div className="horizon-line" />
+      <div className="horizon-glow dark:opacity-100 opacity-50" />
+      <div className="horizon-line dark:opacity-100 opacity-30" />
 
       {/* Announcement Banner */}
       <motion.div 
