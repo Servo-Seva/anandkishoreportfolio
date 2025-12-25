@@ -35,14 +35,14 @@ const skills = [
 ];
 
 const SkillCard = ({ name, icon, invert }: { name: string; icon: string; invert?: boolean }) => (
-  <div className="group relative flex items-center justify-center aspect-square rounded-xl bg-secondary/60 border border-border/30 hover:border-primary/50 hover:bg-secondary/80 transition-all duration-300 cursor-pointer">
+  <div className="group relative flex items-center justify-center aspect-square rounded-xl bg-secondary/40 dark:bg-secondary/60 border border-border/50 dark:border-border/30 hover:border-primary/50 hover:bg-primary/10 dark:hover:bg-secondary/80 transition-all duration-300 cursor-pointer">
     <img 
       src={icon} 
       alt={name} 
-      className={`w-7 h-7 md:w-10 md:h-10 object-contain transition-transform duration-300 group-hover:scale-110 ${invert ? 'invert' : ''}`}
+      className={`w-7 h-7 md:w-10 md:h-10 object-contain transition-transform duration-300 group-hover:scale-110 ${invert ? 'dark:invert' : ''}`}
     />
     {/* Tooltip */}
-    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-card border border-border rounded text-xs text-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-card border border-border rounded text-xs text-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-md">
       {name}
     </div>
   </div>
@@ -52,7 +52,7 @@ export const SkillsSection = () => {
   return (
     <section id="skills" className="relative py-20 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/10 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 dark:via-secondary/10 to-background" />
       
       <div className="relative container-main">
         {/* Section header */}
