@@ -7,7 +7,7 @@ const techStack = {
 };
 
 const TechPill = ({ name }: { name: string }) => (
-  <div className="flex items-center px-2.5 py-1 rounded-full bg-secondary/50 border border-border/30 text-[11px] md:text-xs text-muted-foreground whitespace-nowrap hover:text-foreground hover:border-border transition-colors">
+  <div className="flex items-center px-2.5 py-1 rounded-full bg-secondary/50 dark:bg-secondary/50 border border-border/50 dark:border-border/30 text-[11px] md:text-xs text-foreground/70 dark:text-muted-foreground whitespace-nowrap hover:text-foreground hover:border-primary/50 hover:bg-primary/10 transition-colors">
     {name}
   </div>
 );
@@ -24,8 +24,8 @@ const MarqueeRow = ({ items, reverse = false }: { items: string[]; reverse?: boo
 
 export const TechStackSection = () => {
   return (
-    <section className="relative py-16 border-y border-border/30 w-full">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/10 to-background" />
+    <section className="relative py-16 border-y border-border/50 dark:border-border/30 w-full">
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 dark:via-secondary/10 to-background" />
       
       <Reveal className="relative container-main mb-8">
         <p className="text-center text-sm text-muted-foreground">
