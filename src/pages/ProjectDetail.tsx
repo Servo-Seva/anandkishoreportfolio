@@ -118,7 +118,7 @@ const ProjectDetail = () => {
                   {project.type}
                 </span>
               </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4 bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent">
                 {project.title}
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl">
