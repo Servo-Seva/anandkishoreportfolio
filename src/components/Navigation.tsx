@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Switch } from '@/components/ui/switch';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-
+import { BookCallModal } from '@/components/BookCallModal';
 const navLinks = [
   { href: '/', label: 'Home', isRoute: true },
   { href: '/about', label: 'About', isRoute: true },
@@ -18,7 +18,7 @@ const AI_PORTFOLIO_URL = 'https://anandkishoreportfolio.vercel.app/';
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const [isBookCallOpen, setIsBookCallOpen] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -87,11 +87,14 @@ export const Navigation = () => {
             </TooltipContent>
           </Tooltip>
           
-          <a href="#contact">
-            <Button variant="default" size="sm" className="ml-1">
-              Book a Call
-            </Button>
-          </a>
+          <Button 
+            variant="default" 
+            size="sm" 
+            className="ml-1"
+            onClick={() => setIsBookCallOpen(true)}
+          >
+            Book a Call
+          </Button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -147,14 +150,24 @@ export const Navigation = () => {
               />
             </div>
             
-            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button variant="default" className="mt-4 w-full">
-                Book a Call
-              </Button>
-            </a>
+            <Button 
+              variant="default" 
+              className="mt-4 w-full"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                setIsBookCallOpen(true);
+              }}
+            >
+              Book a Call
+            </Button>
           </div>
         </div>
       )}
+
+      <BookCallModal 
+        open={isBookCallOpen} 
+        onOpenChange={setIsBookCallOpen} 
+      />
     </nav>
   );
 };
