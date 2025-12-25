@@ -34,7 +34,7 @@ export const ProjectsSection = () => {
               <HoverScale scale={1.01}>
                 <Link to={`/project/${project.id}`}>
                   <motion.div
-                    className="group relative overflow-hidden rounded-3xl bg-secondary/20 border border-border/30 hover:border-primary/50 transition-all duration-500 cursor-pointer"
+                    className="group relative overflow-hidden rounded-3xl bg-secondary/10 dark:bg-secondary/20 border border-border/50 dark:border-border/30 hover:border-primary/50 transition-all duration-500 cursor-pointer"
                     whileHover={{ y: -4 }}
                     transition={{ duration: 0.3 }}
                   >
@@ -46,7 +46,7 @@ export const ProjectsSection = () => {
                             <span className="text-4xl font-display font-bold text-muted-foreground/30">
                               {project.number}
                             </span>
-                            <span className="px-3 py-1 rounded-full bg-card text-xs text-muted-foreground border border-border/30">
+                            <span className="px-3 py-1 rounded-full bg-card text-xs text-muted-foreground border border-border/50 dark:border-border/30">
                               {project.type}
                             </span>
                           </div>

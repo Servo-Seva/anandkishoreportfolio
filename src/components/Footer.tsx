@@ -15,7 +15,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="relative py-12 border-t border-border/30">
+    <footer className="relative py-12 border-t border-border/50 dark:border-border/30">
       <div className="container-main">
         <Reveal>
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
@@ -37,7 +37,7 @@ export const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-secondary/50 border border-border/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-border transition-all duration-300"
+                  className="w-10 h-10 rounded-full bg-secondary/30 dark:bg-secondary/50 border border-border/50 dark:border-border/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-border transition-all duration-300"
                   aria-label={social.label}
                   whileHover={{ scale: 1.1, y: -2 }}
                   transition={{ duration: 0.2 }}
@@ -50,7 +50,7 @@ export const Footer = () => {
             {/* Back to top */}
             <motion.button
               onClick={scrollToTop}
-              className="w-10 h-10 rounded-full bg-secondary/50 border border-border/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-border transition-all duration-300"
+              className="w-10 h-10 rounded-full bg-secondary/30 dark:bg-secondary/50 border border-border/50 dark:border-border/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-border transition-all duration-300"
               aria-label="Back to top"
               whileHover={{ scale: 1.1, y: -2 }}
               transition={{ duration: 0.2 }}
