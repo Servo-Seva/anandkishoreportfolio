@@ -231,7 +231,14 @@ const ProjectDetail = () => {
                 <li key={tech.name} className="flex items-start gap-2">
                   <span className="text-muted-foreground mt-1">•</span>
                   <p className="text-foreground/90">
-                    <span className="font-semibold underline underline-offset-4 decoration-foreground/40">{tech.name}</span>
+                    <a 
+                      href={tech.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="font-semibold underline underline-offset-4 decoration-foreground/40 hover:decoration-primary hover:text-primary transition-colors"
+                    >
+                      {tech.name}
+                    </a>
                     <span className="text-muted-foreground"> – {tech.description}</span>
                   </p>
                 </li>
