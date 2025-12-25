@@ -4,17 +4,53 @@ import { ArrowLeft, ArrowUpRight, Github, CheckCircle2, X, ChevronLeft, ChevronR
 import { Button } from '@/components/ui/button';
 import { getProjectById } from '@/lib/projects';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const project = getProjectById(id || '');
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-
+  const [buildProgress, setBuildProgress] = useState(0);
+  const buildSectionRef = useRef<HTMLDivElement>(null);
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // Build process scroll progress
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!buildSectionRef.current) return;
+      
+      const section = buildSectionRef.current;
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Calculate progress based on section visibility
+      const sectionTop = rect.top;
+      const sectionHeight = rect.height;
+      
+      // Start filling when section enters viewport, complete when it's mostly scrolled through
+      const startOffset = windowHeight * 0.7;
+      const endOffset = windowHeight * 0.3;
+      
+      if (sectionTop > startOffset) {
+        setBuildProgress(0);
+      } else if (sectionTop < endOffset - sectionHeight + 100) {
+        setBuildProgress(100);
+      } else {
+        const scrollableDistance = startOffset - (endOffset - sectionHeight + 100);
+        const scrolled = startOffset - sectionTop;
+        const progress = Math.min(100, Math.max(0, (scrolled / scrollableDistance) * 100));
+        setBuildProgress(progress);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+    
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   if (!project) {
@@ -229,7 +265,7 @@ const ProjectDetail = () => {
         </section>
 
         {/* Build Process */}
-        <section className="container-main pb-16">
+        <section className="container-main pb-16" ref={buildSectionRef}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -237,29 +273,52 @@ const ProjectDetail = () => {
           >
             <h2 className="text-2xl font-display font-bold mb-6">Build Process</h2>
             <div className="p-6 rounded-xl bg-secondary/20 border border-border/20">
-              <div className="space-y-4">
-                {project.buildProcess.map((step, index) => (
-                  <motion.div
-                    key={step}
-                    className="flex items-start gap-4 group"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.9 + index * 0.1 }}
-                  >
-                    <motion.span 
-                      className="w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300"
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      {index + 1}
-                    </motion.span>
-                    <div className="flex-1 pt-1">
-                      <p className="text-sm text-foreground/90 group-hover:text-foreground transition-colors duration-300">{step}</p>
-                      {index < project.buildProcess.length - 1 && (
-                        <div className="w-0.5 h-4 bg-border/30 ml-3 mt-2" />
-                      )}
-                    </div>
-                  </motion.div>
-                ))}
+              <div className="relative">
+                {/* Progress Track */}
+                <div className="absolute left-4 top-4 bottom-4 w-0.5 bg-border/30 rounded-full overflow-hidden">
+                  <motion.div 
+                    className="w-full bg-gradient-to-b from-primary via-primary to-primary/50 rounded-full"
+                    style={{ height: `${buildProgress}%` }}
+                    transition={{ duration: 0.1 }}
+                  />
+                  {/* Glowing orb at progress point */}
+                  <motion.div 
+                    className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-primary shadow-[0_0_12px_4px_hsl(var(--primary)/0.6)]"
+                    style={{ top: `${buildProgress}%` }}
+                    transition={{ duration: 0.1 }}
+                  />
+                </div>
+
+                <div className="space-y-6 pl-10">
+                  {project.buildProcess.map((step, index) => {
+                    const stepProgress = (index / (project.buildProcess.length - 1)) * 100;
+                    const isActive = buildProgress >= stepProgress;
+                    
+                    return (
+                      <motion.div
+                        key={step}
+                        className="flex items-start gap-4 group relative"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.9 + index * 0.1 }}
+                      >
+                        <motion.span 
+                          className={`absolute -left-10 w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                            isActive 
+                              ? 'bg-primary text-primary-foreground shadow-[0_0_12px_2px_hsl(var(--primary)/0.4)]' 
+                              : 'bg-primary/10 text-primary'
+                          }`}
+                          whileHover={{ scale: 1.1 }}
+                        >
+                          {index + 1}
+                        </motion.span>
+                        <p className={`text-sm transition-colors duration-300 ${
+                          isActive ? 'text-foreground' : 'text-foreground/60'
+                        }`}>{step}</p>
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </motion.div>
