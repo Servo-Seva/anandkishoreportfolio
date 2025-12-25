@@ -203,14 +203,35 @@ const ProjectDetail = () => {
                   />
                 </div>
                 <div className="relative z-10 space-y-3">
-                  {project.features.map((feature) => (
-                    <div
+                  {project.features.map((feature, index) => (
+                    <motion.div
                       key={feature}
                       className="flex items-start gap-3"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 + index * 0.05 }}
                     >
-                      <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <motion.div
+                        className="relative flex-shrink-0 mt-0.5"
+                        animate={{
+                          boxShadow: [
+                            '0 0 0 0 hsl(var(--primary) / 0)',
+                            '0 0 8px 2px hsl(var(--primary) / 0.4)',
+                            '0 0 0 0 hsl(var(--primary) / 0)',
+                          ],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: index * 0.2,
+                          ease: 'easeInOut',
+                        }}
+                        style={{ borderRadius: '50%' }}
+                      >
+                        <CheckCircle2 className="w-5 h-5 text-primary" />
+                      </motion.div>
                       <p className="text-sm text-foreground/90">{feature}</p>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
