@@ -109,66 +109,70 @@ const ProjectDetail = () => {
           </div>
         </section>
 
-        {/* Main Image */}
+        {/* Main Image & Features Grid */}
         <section className="container-main pb-16">
-          <motion.div
-            className="relative aspect-video rounded-2xl overflow-hidden border border-border/30"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        </section>
-
-        {/* Content Grid */}
-        <section className="container-main pb-16">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Features */}
+          <div className="grid lg:grid-cols-12 gap-8">
+            {/* Main Image - 40% on desktop */}
             <motion.div
-              className="lg:col-span-2"
+              className="lg:col-span-5"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <div className="relative aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden border border-border/30">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
+
+            {/* Features - 60% on desktop */}
+            <motion.div
+              className="lg:col-span-7"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
               <h2 className="text-2xl font-display font-bold mb-6">Features</h2>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {project.features.map((feature) => (
-                  <div
-                    key={feature}
-                    className="flex items-start gap-3 p-4 rounded-xl bg-secondary/20 border border-border/20"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-foreground/90">{feature}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Tech Stack */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-            >
-              <h2 className="text-2xl font-display font-bold mb-6">Tech Stack</h2>
-              <div className="space-y-3">
-                {project.technologies.map((tech) => (
-                  <div
-                    key={tech.name}
-                    className="p-4 rounded-xl bg-secondary/20 border border-border/20"
-                  >
-                    <h3 className="font-semibold text-sm">{tech.name}</h3>
-                    <p className="text-xs text-muted-foreground mt-1">{tech.description}</p>
-                  </div>
-                ))}
+              <div className="p-6 rounded-xl bg-secondary/20 border border-border/20">
+                <div className="space-y-3">
+                  {project.features.map((feature) => (
+                    <div
+                      key={feature}
+                      className="flex items-start gap-3"
+                    >
+                      <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-foreground/90">{feature}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>
+        </section>
+
+        {/* Tech Stack */}
+        <section className="container-main pb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <h2 className="text-2xl font-display font-bold mb-6">Tech Stack</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {project.technologies.map((tech) => (
+                <div
+                  key={tech.name}
+                  className="p-4 rounded-xl bg-secondary/20 border border-border/20"
+                >
+                  <h3 className="font-semibold text-sm">{tech.name}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{tech.description}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </section>
 
         {/* Use Cases */}
