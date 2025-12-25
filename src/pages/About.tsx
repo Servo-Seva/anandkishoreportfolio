@@ -10,39 +10,33 @@ import { useEffect, useRef, useState } from 'react';
 import aboutPhoto from '@/assets/about-photo.png';
 const experiences = [
   {
-    period: 'JAN 2024 - Present',
-    company: 'Tech Solutions Inc.',
-    location: 'Remote',
+    period: 'Sep 2023 – Present',
+    company: 'LabVantage Solutions, Inc',
+    role: 'Associate Software Engineer',
+    location: 'Kolkata, India',
     type: 'Full-time',
     description: [
-      'Architected enterprise-scale web applications using React, Next.js, and TypeScript, resulting in 40% faster page loads.',
-      'Led frontend development for 5+ production websites with a focus on performance and accessibility.',
-      'Implemented CI/CD pipelines and automated testing, reducing deployment time by 60%.',
+      'Designed and implemented responsive UI components using ReactJS, Redux, and JavaScript for laboratory information management system modules, increasing user satisfaction by 30%.',
+      'Collaborated cross-functionally with the DevOps team to build 3 scalable internal platforms with React, Python, and RESTful APIs, improving workflows for 20+ users and cutting operational costs by 40%.',
+      'Integrated real-time notification services including email, push alerts, and in-app messages, boosting communication efficiency and engagement.',
+      'Automated the installation process, reducing setup time from 10 to 12 hours to under 10 minutes, improving client onboarding.',
+      'Resolved 35+ production issues and delivered 10+ feature enhancements using Java, JSP, and JavaScript, improving system functionality and stability across key product modules by 20%.',
     ],
-    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'PostgreSQL'],
+    skills: ['React', 'Redux', 'JavaScript', 'Java', 'Python', 'RESTful APIs'],
   },
   {
-    period: 'JUN 2022 - DEC 2023',
-    company: 'Digital Agency',
-    location: 'India',
-    type: 'Full-time',
+    period: 'Jan 2023 – Jul 2023',
+    company: 'LabVantage Solutions, Inc',
+    role: 'Associate Solution Engineer Intern',
+    location: 'Kolkata, India',
+    type: 'Internship',
     description: [
-      'Developed responsive web applications for clients across various industries including e-commerce and SaaS.',
-      'Collaborated with design teams to implement pixel-perfect UI components and animations.',
-      'Optimized application performance achieving 90+ Lighthouse scores.',
+      'Acquired proficiency in Java, SQL, and JavaScript via intensive backend training; contributed over 500+ lines of production-level code in enterprise LIMS modules.',
+      'Integrated 10+ RESTful APIs with front-end views, enhancing application responsiveness and interactivity.',
+      'Customized HTML reports and product labels to deliver data insights and meet client-specific requirements.',
+      'Diagnosed and resolved 30+ configuration and functional issues, optimizing system usability and reducing support escalations by 35%.',
     ],
-    skills: ['React', 'JavaScript', 'CSS', 'Figma', 'REST APIs', 'Git'],
-  },
-  {
-    period: 'JAN 2021 - MAY 2022',
-    company: 'Freelance',
-    location: 'Remote',
-    type: 'Contract',
-    description: [
-      'Built custom websites and web applications for startups and small businesses.',
-      'Managed end-to-end project delivery from requirements gathering to deployment.',
-    ],
-    skills: ['HTML', 'CSS', 'JavaScript', 'WordPress', 'React'],
+    skills: ['Java', 'SQL', 'JavaScript', 'REST APIs', 'HTML', 'CSS'],
   },
 ];
 
@@ -249,8 +243,9 @@ const About = () => {
                         <span className="text-xs px-2 py-1 rounded-full bg-secondary/60 text-muted-foreground">{exp.type}</span>
                       </div>
 
-                      {/* Company */}
-                      <h3 className="text-2xl font-display font-bold mb-1">{exp.company}</h3>
+                      {/* Company & Role */}
+                      <h3 className="text-2xl font-display font-bold mb-1">{exp.role || exp.company}</h3>
+                      <p className="text-foreground/80 font-medium">{exp.company}</p>
                       <p className="text-muted-foreground mb-4">{exp.location}</p>
 
                       {/* Description */}
