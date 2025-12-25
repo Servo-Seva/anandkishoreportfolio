@@ -1,9 +1,9 @@
 import { Reveal } from '@/components/ui/motion';
 
 const techStack = {
-  row1: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Express.js', 'GraphQL', 'MongoDB'],
-  row2: ['PostgreSQL', 'Prisma', 'Redis', 'Docker', 'AWS', 'Git', 'GitHub Actions', 'Vercel'],
-  row3: ['Python', 'Linux', 'CI/CD', 'Jest', 'Figma', 'REST APIs', 'WebSockets', 'Microservices'],
+  row1: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Express.js', 'GraphQL', 'MongoDB', 'OpenAI', 'LangChain'],
+  row2: ['PostgreSQL', 'Prisma', 'Redis', 'Docker', 'AWS', 'Git', 'GitHub Actions', 'Vercel', 'Hugging Face', 'TensorFlow'],
+  row3: ['Python', 'Linux', 'CI/CD', 'Jest', 'Figma', 'REST APIs', 'WebSockets', 'Microservices', 'PyTorch', 'RAG', 'Vector DBs', 'LLMs'],
 };
 
 const TechPill = ({ name }: { name: string }) => (
