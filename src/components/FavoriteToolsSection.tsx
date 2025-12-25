@@ -52,7 +52,7 @@ export const FavoriteToolsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group flex flex-col items-center gap-3 p-4 rounded-xl bg-secondary/30 border border-border/50 hover:border-primary/50 hover:bg-secondary/50 transition-all duration-300"
+              className="group flex flex-col items-center gap-3 p-4 rounded-xl bg-secondary/20 dark:bg-secondary/30 border border-border/50 hover:border-primary/50 hover:bg-primary/5 dark:hover:bg-secondary/50 transition-all duration-300"
             >
               <div className="relative w-12 h-12 flex items-center justify-center">
                 {tool.customIcon ? (

@@ -26,7 +26,7 @@ export const BentoSection = () => {
           {/* Large card - Collaboration */}
           <StaggerItem className="lg:col-span-2">
             <HoverScale>
-              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all duration-500 h-full min-h-[340px]">
+              <div className="group relative overflow-hidden rounded-3xl bg-secondary/20 dark:bg-secondary/30 border border-border/50 dark:border-border/30 hover:border-primary/40 dark:hover:border-border/60 transition-all duration-500 h-full min-h-[340px]">
                 {/* SVG Orbit curves */}
                 <svg 
                   className="absolute inset-0 w-full h-full" 
@@ -130,7 +130,7 @@ export const BentoSection = () => {
           {/* Experience card */}
           <StaggerItem>
             <HoverScale>
-              <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 to-accent/10 border border-border/30 p-6 hover:border-border/60 transition-all duration-500 h-full flex flex-col">
+              <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/5 dark:from-primary/10 to-accent/5 dark:to-accent/10 border border-border/50 dark:border-border/30 p-6 hover:border-primary/40 dark:hover:border-border/60 transition-all duration-500 h-full flex flex-col">
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
                     <Sparkles className="w-5 h-5 text-primary" />
@@ -143,7 +143,7 @@ export const BentoSection = () => {
                 
                 {/* Browser mockup - built with code */}
                 <div className="mt-auto -mx-6 -mb-6">
-                  <div className="bg-card/80 rounded-t-xl border border-border/30 mx-4">
+                  <div className="bg-card/80 dark:bg-card/80 rounded-t-xl border border-border/50 dark:border-border/30 mx-4">
                     {/* Browser header */}
                     <div className="flex items-center gap-2 px-3 py-2 border-b border-border/20">
                       <div className="flex gap-1.5">
@@ -159,7 +159,7 @@ export const BentoSection = () => {
                       </div>
                     </div>
                     {/* Browser content */}
-                    <div className="p-4 text-center bg-gradient-to-b from-card/50 to-secondary/30 rounded-b-xl">
+                    <div className="p-4 text-center bg-gradient-to-b from-card/50 to-secondary/20 dark:to-secondary/30 rounded-b-xl">
                       <p className="text-sm font-display text-foreground mb-0.5">Websites that</p>
                       <p className="text-base font-serif italic text-primary">Impact.</p>
                       <div className="flex justify-center gap-2 mt-3">
@@ -186,7 +186,7 @@ export const BentoSection = () => {
           {/* Globe card - Full width with timezone info */}
           <StaggerItem className="lg:col-span-3">
             <HoverScale>
-              <div className="group relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all duration-500">
+              <div className="group relative overflow-hidden rounded-3xl bg-secondary/20 dark:bg-secondary/30 border border-border/50 dark:border-border/30 hover:border-primary/40 dark:hover:border-border/60 transition-all duration-500">
                 {/* Header content */}
                 <div className="text-center pt-8 pb-4 px-8">
                   <h3 className="text-2xl md:text-3xl font-display font-semibold mb-6">
@@ -196,7 +196,7 @@ export const BentoSection = () => {
                   
                   {/* Country badges */}
                   <div className="flex justify-center gap-3 flex-wrap">
-                    <span className="px-4 py-2 rounded-full bg-card/80 border border-border/30 text-sm flex items-center gap-2">
+                    <span className="px-4 py-2 rounded-full bg-card/80 border border-border/50 dark:border-border/30 text-sm flex items-center gap-2 shadow-sm">
                       <img src="https://flagcdn.com/w40/gb.png" alt="UK flag" className="w-5 h-4 object-cover rounded-sm" />
                       UK
                     </span>
@@ -204,7 +204,7 @@ export const BentoSection = () => {
                       <img src="https://flagcdn.com/w40/in.png" alt="India flag" className="w-5 h-4 object-cover rounded-sm" />
                       India
                     </span>
-                    <span className="px-4 py-2 rounded-full bg-card/80 border border-border/30 text-sm flex items-center gap-2">
+                    <span className="px-4 py-2 rounded-full bg-card/80 border border-border/50 dark:border-border/30 text-sm flex items-center gap-2 shadow-sm">
                       <img src="https://flagcdn.com/w40/us.png" alt="USA flag" className="w-5 h-4 object-cover rounded-sm" />
                       USA
                     </span>
@@ -218,7 +218,7 @@ export const BentoSection = () => {
                   {/* Location badge overlay */}
                   <div className="absolute bottom-8 left-8">
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="w-10 h-10 rounded-full bg-secondary/80 border border-border/30 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-secondary/80 border border-border/50 dark:border-border/30 flex items-center justify-center shadow-sm">
                         <MapPin className="w-5 h-5 text-muted-foreground" />
                       </div>
                     </div>

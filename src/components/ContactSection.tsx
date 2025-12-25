@@ -24,7 +24,7 @@ export const ContactSection = () => {
   return (
     <section id="contact" className="section-padding relative">
       {/* Background glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(258_90%_66%/0.08)_0%,transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(258_90%_56%/0.05)_0%,transparent_50%)] dark:bg-[radial-gradient(ellipse_at_bottom,hsl(258_90%_66%/0.08)_0%,transparent_50%)]" />
       
       <div className="container-main relative">
         {/* Header */}
@@ -55,7 +55,7 @@ export const ContactSection = () => {
                   id="name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all duration-300"
+                  className="w-full px-4 py-3 rounded-xl bg-secondary/30 dark:bg-secondary/50 border border-border/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all duration-300"
                   placeholder="Your name"
                   required
                 />
@@ -70,7 +70,7 @@ export const ContactSection = () => {
                   id="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all duration-300"
+                  className="w-full px-4 py-3 rounded-xl bg-secondary/30 dark:bg-secondary/50 border border-border/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all duration-300"
                   placeholder="your@email.com"
                   required
                 />
@@ -85,7 +85,7 @@ export const ContactSection = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={5}
-                  className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all duration-300 resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-secondary/30 dark:bg-secondary/50 border border-border/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all duration-300 resize-none"
                   placeholder="Tell me about your project..."
                   required
                 />
@@ -108,7 +108,7 @@ export const ContactSection = () => {
                     href="https://www.linkedin.com/in/anandkishore060/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all"
+                    className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/20 dark:bg-secondary/30 border border-border/50 dark:border-border/30 hover:border-primary/40 dark:hover:border-border/60 transition-all"
                   >
                     <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     <span className="text-sm">LinkedIn</span>
@@ -123,7 +123,7 @@ export const ContactSection = () => {
                     href="https://github.com/anandkishore06"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all"
+                    className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/20 dark:bg-secondary/30 border border-border/50 dark:border-border/30 hover:border-primary/40 dark:hover:border-border/60 transition-all"
                   >
                     <Github className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     <span className="text-sm">GitHub</span>
@@ -138,7 +138,7 @@ export const ContactSection = () => {
                     href="https://x.com/anandkishore06"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all"
+                    className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/20 dark:bg-secondary/30 border border-border/50 dark:border-border/30 hover:border-primary/40 dark:hover:border-border/60 transition-all"
                   >
                     <Twitter className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     <span className="text-sm">Twitter</span>
@@ -151,7 +151,7 @@ export const ContactSection = () => {
                 <HoverScale>
                   <a
                     href="mailto:anandkishore060@gmail.com"
-                    className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all"
+                    className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/20 dark:bg-secondary/30 border border-border/50 dark:border-border/30 hover:border-primary/40 dark:hover:border-border/60 transition-all"
                   >
                     <Mail className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     <span className="text-sm">Email</span>
@@ -164,7 +164,7 @@ export const ContactSection = () => {
                 <HoverScale>
                   <a
                     href="tel:+917070382594"
-                    className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/30 border border-border/30 hover:border-border/60 transition-all"
+                    className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary/20 dark:bg-secondary/30 border border-border/50 dark:border-border/30 hover:border-primary/40 dark:hover:border-border/60 transition-all"
                   >
                     <Phone className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     <span className="text-sm">+91 7070382594</span>
@@ -176,7 +176,7 @@ export const ContactSection = () => {
 
             {/* Location */}
             <Reveal delay={0.3}>
-              <div className="p-6 rounded-2xl bg-secondary/30 border border-border/30">
+              <div className="p-6 rounded-2xl bg-secondary/20 dark:bg-secondary/30 border border-border/50 dark:border-border/30">
                 <div className="flex items-center gap-3 mb-4">
                   <MapPin className="w-5 h-5 text-primary" />
                   <span className="font-medium">Location</span>
@@ -188,7 +188,7 @@ export const ContactSection = () => {
 
             {/* Availability */}
             <Reveal delay={0.4}>
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-border/30">
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/5 dark:from-primary/10 to-accent/5 dark:to-accent/10 border border-border/50 dark:border-border/30">
                 <div className="flex items-center gap-2 mb-3">
                   <motion.span 
                     className="w-2 h-2 rounded-full bg-green-400"

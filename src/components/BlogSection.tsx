@@ -35,9 +35,9 @@ const articles = [
 ];
 
 const categoryColors: Record<string, string> = {
-  Backend: 'bg-primary/20 text-primary',
-  Frontend: 'bg-accent/20 text-accent',
-  DevOps: 'bg-green-500/20 text-green-400',
+  Backend: 'bg-primary/20 text-primary dark:text-primary',
+  Frontend: 'bg-accent/20 text-accent dark:text-accent',
+  DevOps: 'bg-green-500/20 text-green-600 dark:text-green-400',
 };
 
 export const BlogSection = () => {
@@ -73,7 +73,7 @@ export const BlogSection = () => {
                   transition={{ duration: 0.3 }}
                 >
                   <Link to="/articles" className="block h-full">
-                  <article className="h-full rounded-3xl bg-secondary/20 border border-border/30 hover:border-border/60 transition-all duration-500 overflow-hidden">
+                  <article className="h-full rounded-3xl bg-secondary/10 dark:bg-secondary/20 border border-border/50 dark:border-border/30 hover:border-primary/40 dark:hover:border-border/60 transition-all duration-500 overflow-hidden">
                     {/* Image */}
                     <div className="relative h-48 overflow-hidden">
                       <motion.img
@@ -120,7 +120,7 @@ export const BlogSection = () => {
 
         {/* Featured article */}
         <Reveal delay={0.3}>
-          <div className="mt-12 rounded-3xl bg-gradient-to-br from-primary/10 to-accent/10 border border-border/30 p-8 md:p-12">
+          <div className="mt-12 rounded-3xl bg-gradient-to-br from-primary/5 dark:from-primary/10 to-accent/5 dark:to-accent/10 border border-border/50 dark:border-border/30 p-8 md:p-12">
             <div className="flex flex-col md:flex-row gap-8 items-center">
               <div className="flex-1">
                 <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-medium mb-4">
