@@ -6,6 +6,7 @@ import { BentoSection } from '@/components/BentoSection';
 import { AboutSection } from '@/components/AboutSection';
 import { ProjectsSection } from '@/components/ProjectsSection';
 import { BlogSection } from '@/components/BlogSection';
+import { FavoriteToolsSection } from '@/components/FavoriteToolsSection';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
 import { Helmet } from 'react-helmet-async';
@@ -31,6 +32,7 @@ const Index = () => {
         <SkillsSection />
         <ProjectsSection />
         <BlogSection />
+        <FavoriteToolsSection />
         <ContactSection />
         <Footer />
       </main>
