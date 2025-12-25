@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calendar, Clock, Video, X, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, Video, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface BookCallModalProps {
   open: boolean;
@@ -102,27 +102,71 @@ export const BookCallModal = ({ open, onOpenChange }: BookCallModalProps) => {
     return date.toISOString().split('T')[0];
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg bg-card border-border/50 p-0 overflow-hidden">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-primary/20 to-accent/20 p-6 border-b border-border/30">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-3 text-xl font-display">
-              <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
-                <Video className="w-5 h-5 text-primary" />
-              </div>
-              Book a Call
-            </DialogTitle>
-            <p className="text-muted-foreground text-sm mt-2">
-              Schedule a 30-minute discovery call via Google Meet
-            </p>
-          </DialogHeader>
-        </div>
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              {/* Header */}
+              <motion.div 
+                className="bg-gradient-to-r from-primary/20 to-accent/20 p-6 border-b border-border/30"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+              >
+                <DialogHeader>
+                  <DialogTitle className="flex items-center gap-3 text-xl font-display">
+                    <motion.div 
+                      className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center"
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
+                    >
+                      <Video className="w-5 h-5 text-primary" />
+                    </motion.div>
+                    Book a Call
+                  </DialogTitle>
+                  <p className="text-muted-foreground text-sm mt-2">
+                    Schedule a 30-minute discovery call via Google Meet
+                  </p>
+                </DialogHeader>
+              </motion.div>
 
-        <form onSubmit={handleBookCall} className="p-6 space-y-5">
-          {/* Name & Email */}
-          <div className="grid grid-cols-2 gap-4">
+              <motion.form 
+                onSubmit={handleBookCall} 
+                className="p-6 space-y-5"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                {/* Name & Email */}
+                <motion.div variants={itemVariants} className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-2 text-muted-foreground">Name</label>
               <input
@@ -145,10 +189,10 @@ export const BookCallModal = ({ open, onOpenChange }: BookCallModalProps) => {
                 required
               />
             </div>
-          </div>
+                </motion.div>
 
-          {/* Date Selection */}
-          <div>
+                {/* Date Selection */}
+                <motion.div variants={itemVariants}>
             <label className="flex items-center gap-2 text-sm font-medium mb-3 text-muted-foreground">
               <Calendar className="w-4 h-4" />
               Select Date
@@ -171,10 +215,10 @@ export const BookCallModal = ({ open, onOpenChange }: BookCallModalProps) => {
                 </motion.button>
               ))}
             </div>
-          </div>
+                </motion.div>
 
-          {/* Time Selection */}
-          <div>
+                {/* Time Selection */}
+                <motion.div variants={itemVariants}>
             <label className="flex items-center gap-2 text-sm font-medium mb-3 text-muted-foreground">
               <Clock className="w-4 h-4" />
               Select Time (IST)
@@ -197,10 +241,10 @@ export const BookCallModal = ({ open, onOpenChange }: BookCallModalProps) => {
                 </motion.button>
               ))}
             </div>
-          </div>
+                </motion.div>
 
-          {/* Topic */}
-          <div>
+                {/* Topic */}
+                <motion.div variants={itemVariants}>
             <label className="block text-sm font-medium mb-2 text-muted-foreground">Topic (Optional)</label>
             <input
               type="text"
@@ -209,14 +253,19 @@ export const BookCallModal = ({ open, onOpenChange }: BookCallModalProps) => {
               className="w-full px-3 py-2.5 rounded-xl bg-secondary/50 border border-border/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all text-sm"
               placeholder="What would you like to discuss?"
             />
-          </div>
+                </motion.div>
 
-          {/* Submit Button */}
-          <Button type="submit" className="w-full" size="lg">
-            Schedule with Google Meet
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </form>
+                {/* Submit Button */}
+                <motion.div variants={itemVariants}>
+                  <Button type="submit" className="w-full" size="lg">
+                    Schedule with Google Meet
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </motion.div>
+              </motion.form>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </DialogContent>
     </Dialog>
   );
