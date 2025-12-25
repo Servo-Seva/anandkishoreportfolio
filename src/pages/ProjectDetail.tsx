@@ -236,18 +236,31 @@ const ProjectDetail = () => {
             transition={{ delay: 0.8 }}
           >
             <h2 className="text-2xl font-display font-bold mb-6">Build Process</h2>
-            <div className="space-y-3">
-              {project.buildProcess.map((step, index) => (
-                <div
-                  key={step}
-                  className="flex items-start gap-4 p-4 rounded-xl bg-secondary/20 border border-border/20"
-                >
-                  <span className="w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center flex-shrink-0">
-                    {index + 1}
-                  </span>
-                  <p className="text-sm text-foreground/90 pt-1">{step}</p>
-                </div>
-              ))}
+            <div className="p-6 rounded-xl bg-secondary/20 border border-border/20">
+              <div className="space-y-4">
+                {project.buildProcess.map((step, index) => (
+                  <motion.div
+                    key={step}
+                    className="flex items-start gap-4 group"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.9 + index * 0.1 }}
+                  >
+                    <motion.span 
+                      className="w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300"
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      {index + 1}
+                    </motion.span>
+                    <div className="flex-1 pt-1">
+                      <p className="text-sm text-foreground/90 group-hover:text-foreground transition-colors duration-300">{step}</p>
+                      {index < project.buildProcess.length - 1 && (
+                        <div className="w-0.5 h-4 bg-border/30 ml-3 mt-2" />
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </section>
