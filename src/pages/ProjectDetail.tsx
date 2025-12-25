@@ -226,10 +226,21 @@ const ProjectDetail = () => {
             transition={{ delay: 0.5 }}
           >
             <h2 className="text-2xl font-display font-bold mb-6">Technologies Used</h2>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {project.technologies.map((tech) => (
-                <li key={tech.name} className="flex items-start gap-2">
-                  <span className="text-muted-foreground mt-1">•</span>
+                <li key={tech.name} className="flex items-center gap-3">
+                  <img 
+                    src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tech.icon}/${tech.icon}-original.svg`}
+                    alt={tech.name}
+                    className="w-6 h-6 flex-shrink-0"
+                    onError={(e) => {
+                      // Fallback to plain variant if original doesn't exist
+                      const target = e.target as HTMLImageElement;
+                      if (target.src.includes('-original')) {
+                        target.src = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tech.icon}/${tech.icon}-plain.svg`;
+                      }
+                    }}
+                  />
                   <p className="text-foreground/90">
                     <a 
                       href={tech.url} 

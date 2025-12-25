@@ -16,6 +16,7 @@ export interface Project {
     name: string;
     description: string;
     url: string;
+    icon: string;
   }[];
   buildProcess: string[];
   challenges: string[];
@@ -57,12 +58,12 @@ export const projects: Project[] = [
       'Remote teams needing video conferencing with chat',
     ],
     technologies: [
-      { name: 'ReactJS', description: 'Frontend framework for building the user interface', url: 'https://react.dev' },
-      { name: 'Node.js', description: 'Backend runtime for server-side logic', url: 'https://nodejs.org' },
-      { name: 'Express.js', description: 'Web framework for building the API', url: 'https://expressjs.com' },
-      { name: 'MongoDB', description: 'NoSQL database for storing messages and user data', url: 'https://mongodb.com' },
-      { name: 'Socket.IO', description: 'Real-time bidirectional event-based communication', url: 'https://socket.io' },
-      { name: 'WebRTC', description: 'Real-time audio/video communication', url: 'https://webrtc.org' },
+      { name: 'ReactJS', description: 'Frontend framework for building the user interface', url: 'https://react.dev', icon: 'react' },
+      { name: 'Node.js', description: 'Backend runtime for server-side logic', url: 'https://nodejs.org', icon: 'nodejs' },
+      { name: 'Express.js', description: 'Web framework for building the API', url: 'https://expressjs.com', icon: 'express' },
+      { name: 'MongoDB', description: 'NoSQL database for storing messages and user data', url: 'https://mongodb.com', icon: 'mongodb' },
+      { name: 'Socket.IO', description: 'Real-time bidirectional event-based communication', url: 'https://socket.io', icon: 'socketio' },
+      { name: 'WebRTC', description: 'Real-time audio/video communication', url: 'https://webrtc.org', icon: 'webrtc' },
     ],
     buildProcess: [
       'Designed the real-time messaging architecture using Socket.IO',
@@ -116,10 +117,10 @@ export const projects: Project[] = [
       'Visual learners understanding algorithm complexity',
     ],
     technologies: [
-      { name: 'ReactJS', description: 'Frontend framework for building the interactive UI', url: 'https://react.dev' },
-      { name: 'Redux', description: 'State management for algorithm state', url: 'https://redux.js.org' },
-      { name: 'TypeScript', description: 'Type-safe development experience', url: 'https://typescriptlang.org' },
-      { name: 'TailwindCSS', description: 'Utility-first CSS framework for styling', url: 'https://tailwindcss.com' },
+      { name: 'ReactJS', description: 'Frontend framework for building the interactive UI', url: 'https://react.dev', icon: 'react' },
+      { name: 'Redux', description: 'State management for algorithm state', url: 'https://redux.js.org', icon: 'redux' },
+      { name: 'TypeScript', description: 'Type-safe development experience', url: 'https://typescriptlang.org', icon: 'typescript' },
+      { name: 'TailwindCSS', description: 'Utility-first CSS framework for styling', url: 'https://tailwindcss.com', icon: 'tailwindcss' },
     ],
     buildProcess: [
       'Designed component architecture for reusability',
