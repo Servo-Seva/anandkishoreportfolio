@@ -225,18 +225,18 @@ const ProjectDetail = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <h2 className="text-2xl font-display font-bold mb-6">Tech Stack</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <h2 className="text-2xl font-display font-bold mb-6">Technologies Used</h2>
+            <ul className="space-y-3">
               {project.technologies.map((tech) => (
-                <div
-                  key={tech.name}
-                  className="p-4 rounded-xl bg-secondary/20 border border-border/20"
-                >
-                  <h3 className="font-semibold text-sm">{tech.name}</h3>
-                  <p className="text-xs text-muted-foreground mt-1">{tech.description}</p>
-                </div>
+                <li key={tech.name} className="flex items-start gap-2">
+                  <span className="text-muted-foreground mt-1">•</span>
+                  <p className="text-foreground/90">
+                    <span className="font-semibold underline underline-offset-4 decoration-foreground/40">{tech.name}</span>
+                    <span className="text-muted-foreground"> – {tech.description}</span>
+                  </p>
+                </li>
               ))}
-            </div>
+            </ul>
           </motion.div>
         </section>
 
