@@ -24,7 +24,7 @@ const MarqueeRow = ({ items, reverse = false }: { items: string[]; reverse?: boo
 
 export const TechStackSection = () => {
   return (
-    <section className="relative py-16 border-y border-border/30 w-[90%] mx-auto">
+    <section className="relative py-16 border-y border-border/30 w-full">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/10 to-background" />
       
       <Reveal className="relative container-main mb-8">
