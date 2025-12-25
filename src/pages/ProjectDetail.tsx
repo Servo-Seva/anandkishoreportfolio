@@ -174,9 +174,10 @@ const ProjectDetail = () => {
               <h2 className="text-2xl font-display font-bold mb-6">Features</h2>
               <div className="relative p-6 rounded-xl bg-secondary/20 border border-border/20 overflow-hidden">
                 {/* Animated background */}
-                <div className="absolute inset-0 opacity-30">
+                <div className="absolute inset-0 opacity-50 pointer-events-none">
                   <motion.div
-                    className="absolute -top-1/2 -left-1/2 w-full h-full rounded-full bg-gradient-radial from-primary/20 to-transparent blur-3xl"
+                    className="absolute -top-1/2 -left-1/2 w-full h-full rounded-full blur-3xl"
+                    style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.3) 0%, transparent 70%)' }}
                     animate={{
                       x: [0, 50, 0],
                       y: [0, 30, 0],
@@ -188,7 +189,8 @@ const ProjectDetail = () => {
                     }}
                   />
                   <motion.div
-                    className="absolute -bottom-1/2 -right-1/2 w-full h-full rounded-full bg-gradient-radial from-primary/15 to-transparent blur-3xl"
+                    className="absolute -bottom-1/2 -right-1/2 w-full h-full rounded-full blur-3xl"
+                    style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.25) 0%, transparent 70%)' }}
                     animate={{
                       x: [0, -30, 0],
                       y: [0, -50, 0],
@@ -301,9 +303,10 @@ const ProjectDetail = () => {
             <h2 className="text-2xl font-display font-bold mb-6">Build Process</h2>
             <div className="relative p-6 rounded-xl bg-secondary/20 border border-border/20 overflow-hidden">
               {/* Animated background */}
-              <div className="absolute inset-0 opacity-30">
+              <div className="absolute inset-0 opacity-50 pointer-events-none">
                 <motion.div
-                  className="absolute -top-1/4 -right-1/4 w-3/4 h-3/4 rounded-full bg-gradient-radial from-primary/25 to-transparent blur-3xl"
+                  className="absolute -top-1/4 -right-1/4 w-3/4 h-3/4 rounded-full blur-3xl"
+                  style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.35) 0%, transparent 70%)' }}
                   animate={{
                     rotate: [0, 360],
                     scale: [1, 1.2, 1],
@@ -315,7 +318,8 @@ const ProjectDetail = () => {
                   }}
                 />
                 <motion.div
-                  className="absolute -bottom-1/4 -left-1/4 w-2/3 h-2/3 rounded-full bg-gradient-radial from-primary/20 to-transparent blur-3xl"
+                  className="absolute -bottom-1/4 -left-1/4 w-2/3 h-2/3 rounded-full blur-3xl"
+                  style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.3) 0%, transparent 70%)' }}
                   animate={{
                     rotate: [360, 0],
                     scale: [1, 1.1, 1],
