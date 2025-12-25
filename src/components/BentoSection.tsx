@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { ArrowRight, ArrowUpRight, Sparkles, MapPin, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, StaggerContainer, StaggerItem, HoverScale } from '@/components/ui/motion';
 import { Globe3D } from './Globe3D';
+import { BookCallModal } from './BookCallModal';
 import aboutPhoto from '@/assets/about-photo.png';
 
 export const BentoSection = () => {
+  const [isBookCallOpen, setIsBookCallOpen] = useState(false);
+
   return (
     <section id="about" className="section-padding relative">
       <div className="container-main">
@@ -112,13 +116,13 @@ export const BentoSection = () => {
                 </div>
                 
                 {/* Book a call - absolute bottom left */}
-                <a 
-                  href="#contact" 
+                <button 
+                  onClick={() => setIsBookCallOpen(true)}
                   className="absolute bottom-6 left-8 z-20 inline-flex items-center gap-2 text-sm text-foreground hover:text-primary transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
                 >
                   Book a call
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </button>
               </div>
             </HoverScale>
           </StaggerItem>
@@ -227,6 +231,9 @@ export const BentoSection = () => {
           </StaggerItem>
         </StaggerContainer>
       </div>
+
+      {/* Book Call Modal */}
+      <BookCallModal open={isBookCallOpen} onOpenChange={setIsBookCallOpen} />
     </section>
   );
 };
