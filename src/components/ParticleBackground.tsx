@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Particle {
   x: number;
@@ -15,6 +15,22 @@ export const ParticleBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
   const particlesRef = useRef<Particle[]>([]);
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    // Check initial theme
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkTheme();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -49,6 +65,15 @@ export const ParticleBackground = () => {
       }
     };
 
+    // Theme-aware colors
+    const getParticleColor = (opacity: number) => {
+      if (isDark) {
+        return `rgba(168, 85, 247, ${opacity})`; // Purple for dark mode
+      } else {
+        return `rgba(124, 58, 237, ${opacity})`; // Slightly darker purple for light mode
+      }
+    };
+
     const drawParticles = (time: number) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -63,8 +88,9 @@ export const ParticleBackground = () => {
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Pulse opacity
-        const pulseOpacity = particle.opacity * (0.5 + 0.5 * Math.sin(time * particle.pulseSpeed + particle.pulseOffset));
+        // Pulse opacity - stronger for light mode
+        const baseOpacity = isDark ? particle.opacity : particle.opacity * 1.5;
+        const pulseOpacity = baseOpacity * (0.5 + 0.5 * Math.sin(time * particle.pulseSpeed + particle.pulseOffset));
 
         // Draw particle with glow
         ctx.beginPath();
@@ -75,9 +101,9 @@ export const ParticleBackground = () => {
           particle.x, particle.y, 0,
           particle.x, particle.y, particle.size * 3
         );
-        gradient.addColorStop(0, `rgba(168, 85, 247, ${pulseOpacity})`);
-        gradient.addColorStop(0.5, `rgba(168, 85, 247, ${pulseOpacity * 0.3})`);
-        gradient.addColorStop(1, 'rgba(168, 85, 247, 0)');
+        gradient.addColorStop(0, getParticleColor(pulseOpacity));
+        gradient.addColorStop(0.5, getParticleColor(pulseOpacity * 0.3));
+        gradient.addColorStop(1, getParticleColor(0));
         
         ctx.fillStyle = gradient;
         ctx.fill();
@@ -89,11 +115,11 @@ export const ParticleBackground = () => {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < 120) {
-            const lineOpacity = (1 - distance / 120) * 0.15;
+            const lineOpacity = (1 - distance / 120) * (isDark ? 0.15 : 0.25);
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(other.x, other.y);
-            ctx.strokeStyle = `rgba(168, 85, 247, ${lineOpacity})`;
+            ctx.strokeStyle = getParticleColor(lineOpacity);
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -118,13 +144,13 @@ export const ParticleBackground = () => {
       }
       window.removeEventListener('resize', resizeCanvas);
     };
-  }, []);
+  }, [isDark]);
 
   return (
     <canvas
       ref={canvasRef}
       className="absolute inset-0 pointer-events-none"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: isDark ? 0.6 : 0.8 }}
     />
   );
 };
