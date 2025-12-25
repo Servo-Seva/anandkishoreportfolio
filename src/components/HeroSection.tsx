@@ -13,7 +13,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24">
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-24">
       {/* Star field effect */}
       <div className="absolute inset-0">
         {[...Array(50)].map((_, i) => (
