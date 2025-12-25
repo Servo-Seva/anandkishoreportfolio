@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X, Sparkles, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Switch } from '@/components/ui/switch';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { BookCallModal } from '@/components/BookCallModal';
+import { useTheme } from 'next-themes';
 const navLinks = [
   { href: '/', label: 'Home', isRoute: true },
   { href: '/about', label: 'About', isRoute: true },
@@ -19,6 +20,13 @@ export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isBookCallOpen, setIsBookCallOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -87,6 +95,28 @@ export const Navigation = () => {
             </TooltipContent>
           </Tooltip>
           
+          {/* Theme Toggle */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="w-9 h-9 rounded-full"
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              >
+                {mounted && (theme === 'dark' ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                ))}
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</p>
+            </TooltipContent>
+          </Tooltip>
+          
           <Button 
             variant="default" 
             size="sm" 
@@ -147,6 +177,20 @@ export const Navigation = () => {
                     setIsMobileMenuOpen(false);
                   }
                 }}
+              />
+            </div>
+
+            {/* Theme Toggle - Mobile */}
+            <div className="flex items-center justify-between py-3 px-4 rounded-xl bg-secondary/30 border border-border/30">
+              <div className="flex items-center gap-2">
+                {theme === 'dark' ? <Moon className="w-4 h-4 text-primary" /> : <Sun className="w-4 h-4 text-primary" />}
+                <span className="text-sm text-muted-foreground">
+                  {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
+                </span>
+              </div>
+              <Switch
+                checked={theme === 'light'}
+                onCheckedChange={(checked) => setTheme(checked ? 'light' : 'dark')}
               />
             </div>
             
