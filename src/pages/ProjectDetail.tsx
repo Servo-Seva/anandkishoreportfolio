@@ -172,8 +172,35 @@ const ProjectDetail = () => {
               transition={{ delay: 0.4 }}
             >
               <h2 className="text-2xl font-display font-bold mb-6">Features</h2>
-              <div className="p-6 rounded-xl bg-secondary/20 border border-border/20">
-                <div className="space-y-3">
+              <div className="relative p-6 rounded-xl bg-secondary/20 border border-border/20 overflow-hidden">
+                {/* Animated background */}
+                <div className="absolute inset-0 opacity-30">
+                  <motion.div
+                    className="absolute -top-1/2 -left-1/2 w-full h-full rounded-full bg-gradient-radial from-primary/20 to-transparent blur-3xl"
+                    animate={{
+                      x: [0, 50, 0],
+                      y: [0, 30, 0],
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <motion.div
+                    className="absolute -bottom-1/2 -right-1/2 w-full h-full rounded-full bg-gradient-radial from-primary/15 to-transparent blur-3xl"
+                    animate={{
+                      x: [0, -30, 0],
+                      y: [0, -50, 0],
+                    }}
+                    transition={{
+                      duration: 10,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </div>
+                <div className="relative z-10 space-y-3">
                   {project.features.map((feature) => (
                     <div
                       key={feature}
@@ -272,8 +299,36 @@ const ProjectDetail = () => {
             transition={{ delay: 0.8 }}
           >
             <h2 className="text-2xl font-display font-bold mb-6">Build Process</h2>
-            <div className="p-6 rounded-xl bg-secondary/20 border border-border/20">
-              <div className="relative">
+            <div className="relative p-6 rounded-xl bg-secondary/20 border border-border/20 overflow-hidden">
+              {/* Animated background */}
+              <div className="absolute inset-0 opacity-30">
+                <motion.div
+                  className="absolute -top-1/4 -right-1/4 w-3/4 h-3/4 rounded-full bg-gradient-radial from-primary/25 to-transparent blur-3xl"
+                  animate={{
+                    rotate: [0, 360],
+                    scale: [1, 1.2, 1],
+                  }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+                <motion.div
+                  className="absolute -bottom-1/4 -left-1/4 w-2/3 h-2/3 rounded-full bg-gradient-radial from-primary/20 to-transparent blur-3xl"
+                  animate={{
+                    rotate: [360, 0],
+                    scale: [1, 1.1, 1],
+                  }}
+                  transition={{
+                    duration: 15,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+              </div>
+
+              <div className="relative z-10">
                 {/* Progress Track */}
                 <div className="absolute left-4 top-4 bottom-4 w-0.5 bg-border/30 rounded-full overflow-hidden">
                   <motion.div 
