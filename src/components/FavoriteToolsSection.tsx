@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import {
@@ -65,10 +66,81 @@ const ToolCard = ({ tool }: { tool: typeof tools[0] }) => (
   </Tooltip>
 );
 
-export const FavoriteToolsSection = () => {
-  // Duplicate tools for seamless loop
-  const duplicatedTools = [...tools, ...tools];
+// Split tools into two rows
+const toolsRow1 = tools.slice(0, 6);
+const toolsRow2 = tools.slice(6);
 
+const MarqueeRow = ({ 
+  tools, 
+  reverse = false 
+}: { 
+  tools: typeof toolsRow1; 
+  reverse?: boolean;
+}) => {
+  const duplicatedTools = [...tools, ...tools, ...tools];
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = React.useState(false);
+  const [startX, setStartX] = React.useState(0);
+  const [scrollLeft, setScrollLeft] = React.useState(0);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - containerRef.current.offsetLeft);
+    setScrollLeft(containerRef.current.scrollLeft);
+    containerRef.current.style.animationPlayState = 'paused';
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    if (containerRef.current) {
+      containerRef.current.style.animationPlayState = 'running';
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !containerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    containerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      setIsDragging(false);
+      if (containerRef.current) {
+        containerRef.current.style.animationPlayState = 'running';
+      }
+    }
+  };
+
+  return (
+    <div className="relative group/marquee">
+      {/* Gradient overlays */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+      
+      {/* Marquee track */}
+      <div
+        ref={containerRef}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className={`flex gap-4 cursor-grab active:cursor-grabbing overflow-x-hidden ${
+          reverse ? 'animate-marquee-reverse' : 'animate-marquee'
+        } group-hover/marquee:[animation-play-state:paused] ${isDragging ? '!cursor-grabbing' : ''}`}
+      >
+        {duplicatedTools.map((tool, index) => (
+          <ToolCard key={`${tool.name}-${index}`} tool={tool} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export const FavoriteToolsSection = () => {
   return (
     <section className="py-24 overflow-hidden">
       <div className="max-w-6xl mx-auto">
@@ -88,24 +160,15 @@ export const FavoriteToolsSection = () => {
         </motion.div>
 
         <TooltipProvider delayDuration={200}>
-          {/* Marquee container */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative group/marquee"
+            className="space-y-4"
           >
-            {/* Gradient overlays */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-            
-            {/* Marquee track */}
-            <div className="flex gap-4 animate-marquee group-hover/marquee:[animation-play-state:paused]">
-              {duplicatedTools.map((tool, index) => (
-                <ToolCard key={`${tool.name}-${index}`} tool={tool} />
-              ))}
-            </div>
+            <MarqueeRow tools={toolsRow1} />
+            <MarqueeRow tools={toolsRow2} reverse />
           </motion.div>
         </TooltipProvider>
       </div>
