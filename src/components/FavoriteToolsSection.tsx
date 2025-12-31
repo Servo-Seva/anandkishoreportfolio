@@ -22,9 +22,55 @@ const tools = [
   { name: 'Postman', icon: 'postman', url: 'https://postman.com', description: 'API testing and development tool' },
 ];
 
+const ToolCard = ({ tool }: { tool: typeof tools[0] }) => (
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <a
+        href={tool.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group flex-shrink-0 flex flex-col items-center gap-2 p-4 rounded-lg bg-secondary/20 dark:bg-secondary/30 border border-border/50 hover:border-primary/50 hover:bg-primary/5 dark:hover:bg-secondary/50 transition-all duration-300 min-w-[100px]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative w-10 h-10 flex items-center justify-center">
+          {tool.customIcon ? (
+            <img
+              src={tool.customIcon}
+              alt={tool.name}
+              className="w-8 h-8 object-contain group-hover:scale-110 transition-transform duration-300"
+            />
+          ) : (
+            <img
+              src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tool.icon}/${tool.icon}-original.svg`}
+              alt={tool.name}
+              className="w-8 h-8 object-contain group-hover:scale-110 transition-transform duration-300"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                if (target.src.includes('-original')) {
+                  target.src = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tool.icon}/${tool.icon}-plain.svg`;
+                }
+              }}
+            />
+          )}
+          <ExternalLink className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </div>
+        <span className="text-xs font-medium text-foreground/80 group-hover:text-foreground transition-colors whitespace-nowrap">
+          {tool.name}
+        </span>
+      </a>
+    </TooltipTrigger>
+    <TooltipContent side="bottom" className="max-w-[200px] text-center">
+      <p>{tool.description}</p>
+    </TooltipContent>
+  </Tooltip>
+);
+
 export const FavoriteToolsSection = () => {
+  // Duplicate tools for seamless loop
+  const duplicatedTools = [...tools, ...tools];
+
   return (
-    <section className="py-24 px-0 md:px-8 overflow-hidden">
+    <section className="py-24 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -42,123 +88,24 @@ export const FavoriteToolsSection = () => {
         </motion.div>
 
         <TooltipProvider delayDuration={200}>
-          {/* Mobile: Horizontal scroll */}
+          {/* Marquee container */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="md:hidden relative"
+            className="relative group/marquee"
           >
-            <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-            <motion.div 
-              className="flex gap-4 overflow-x-auto px-4 pb-4 scrollbar-hide snap-x snap-mandatory"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              {tools.map((tool, index) => (
-                <Tooltip key={tool.name}>
-                  <TooltipTrigger asChild>
-                    <motion.a
-                      href={tool.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      initial={{ opacity: 0, x: 50 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: index * 0.08 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="group flex-shrink-0 flex flex-col items-center gap-2 p-4 rounded-lg bg-secondary/20 dark:bg-secondary/30 border border-border/50 hover:border-primary/50 hover:bg-primary/5 dark:hover:bg-secondary/50 transition-all duration-300 snap-center min-w-[90px]"
-                    >
-                      <div className="relative w-10 h-10 flex items-center justify-center">
-                        {tool.customIcon ? (
-                          <img
-                            src={tool.customIcon}
-                            alt={tool.name}
-                            className="w-8 h-8 object-contain group-hover:scale-110 transition-transform duration-300"
-                          />
-                        ) : (
-                          <img
-                            src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tool.icon}/${tool.icon}-original.svg`}
-                            alt={tool.name}
-                            className="w-8 h-8 object-contain group-hover:scale-110 transition-transform duration-300"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              if (target.src.includes('-original')) {
-                                target.src = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tool.icon}/${tool.icon}-plain.svg`;
-                              }
-                            }}
-                          />
-                        )}
-                        <ExternalLink className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </div>
-                      <span className="text-xs font-medium text-foreground/80 group-hover:text-foreground transition-colors whitespace-nowrap">
-                        {tool.name}
-                      </span>
-                    </motion.a>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" className="max-w-[200px] text-center">
-                    <p>{tool.description}</p>
-                  </TooltipContent>
-                </Tooltip>
+            {/* Gradient overlays */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+            
+            {/* Marquee track */}
+            <div className="flex gap-4 animate-marquee group-hover/marquee:[animation-play-state:paused]">
+              {duplicatedTools.map((tool, index) => (
+                <ToolCard key={`${tool.name}-${index}`} tool={tool} />
               ))}
-            </motion.div>
-          </motion.div>
-
-          {/* Desktop: Grid layout */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden md:grid grid-cols-4 lg:grid-cols-6 gap-6 px-4 md:px-0"
-          >
-            {tools.map((tool, index) => (
-              <Tooltip key={tool.name}>
-                <TooltipTrigger asChild>
-                  <motion.a
-                    href={tool.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    className="group flex flex-col items-center gap-2 p-3 rounded-lg bg-secondary/20 dark:bg-secondary/30 border border-border/50 hover:border-primary/50 hover:bg-primary/5 dark:hover:bg-secondary/50 transition-all duration-300"
-                  >
-                    <div className="relative w-8 h-8 flex items-center justify-center">
-                      {tool.customIcon ? (
-                        <img
-                          src={tool.customIcon}
-                          alt={tool.name}
-                          className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"
-                        />
-                      ) : (
-                        <img
-                          src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tool.icon}/${tool.icon}-original.svg`}
-                          alt={tool.name}
-                          className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            if (target.src.includes('-original')) {
-                              target.src = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tool.icon}/${tool.icon}-plain.svg`;
-                            }
-                          }}
-                        />
-                      )}
-                      <ExternalLink className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                    <span className="text-xs font-medium text-foreground/80 group-hover:text-foreground transition-colors">
-                      {tool.name}
-                    </span>
-                  </motion.a>
-                </TooltipTrigger>
-                <TooltipContent side="bottom" className="max-w-[200px] text-center">
-                  <p>{tool.description}</p>
-                </TooltipContent>
-              </Tooltip>
-            ))}
+            </div>
           </motion.div>
         </TooltipProvider>
       </div>
