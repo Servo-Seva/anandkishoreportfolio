@@ -52,20 +52,20 @@ export const FavoriteToolsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group flex flex-col items-center gap-3 p-4 rounded-xl bg-secondary/20 dark:bg-secondary/30 border border-border/50 hover:border-primary/50 hover:bg-primary/5 dark:hover:bg-secondary/50 transition-all duration-300"
+              className="group flex flex-col items-center gap-2 p-3 rounded-lg bg-secondary/20 dark:bg-secondary/30 border border-border/50 hover:border-primary/50 hover:bg-primary/5 dark:hover:bg-secondary/50 transition-all duration-300"
             >
-              <div className="relative w-12 h-12 flex items-center justify-center">
+              <div className="relative w-8 h-8 flex items-center justify-center">
                 {tool.customIcon ? (
                   <img
                     src={tool.customIcon}
                     alt={tool.name}
-                    className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300"
+                    className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"
                   />
                 ) : (
                   <img
                     src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tool.icon}/${tool.icon}-original.svg`}
                     alt={tool.name}
-                    className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300"
+                    className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       if (target.src.includes('-original')) {
@@ -74,9 +74,9 @@ export const FavoriteToolsSection = () => {
                     }}
                   />
                 )}
-                <ExternalLink className="absolute -top-1 -right-1 w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <ExternalLink className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-              <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+              <span className="text-xs font-medium text-foreground/80 group-hover:text-foreground transition-colors">
                 {tool.name}
               </span>
             </motion.a>
