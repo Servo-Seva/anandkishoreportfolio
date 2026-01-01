@@ -5,58 +5,12 @@ import { Reveal } from '@/components/ui/motion';
 import { ArrowLeft, Calendar, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-
-const articles = [
-  {
-    id: 1,
-    title: "Building Scalable React Applications with Clean Architecture",
-    excerpt: "Learn how to structure your React projects for maintainability and scalability using clean architecture principles.",
-    date: "December 2023",
-    readTime: "8 min read",
-    category: "React",
-    featured: true
-  },
-  {
-    id: 2,
-    title: "The Power of TypeScript in Modern Web Development",
-    excerpt: "Discover how TypeScript can improve your development workflow and help catch bugs before they reach production.",
-    date: "November 2023",
-    readTime: "6 min read",
-    category: "TypeScript",
-    featured: false
-  },
-  {
-    id: 3,
-    title: "Mastering Node.js: Best Practices for Backend Development",
-    excerpt: "A comprehensive guide to writing efficient, secure, and maintainable Node.js applications.",
-    date: "October 2023",
-    readTime: "10 min read",
-    category: "Node.js",
-    featured: false
-  },
-  {
-    id: 4,
-    title: "CSS Grid vs Flexbox: When to Use Which",
-    excerpt: "Understanding the differences between CSS Grid and Flexbox and choosing the right layout tool for your needs.",
-    date: "September 2023",
-    readTime: "5 min read",
-    category: "CSS",
-    featured: false
-  },
-  {
-    id: 5,
-    title: "API Design Patterns Every Developer Should Know",
-    excerpt: "Explore essential API design patterns that will help you build robust and developer-friendly APIs.",
-    date: "August 2023",
-    readTime: "7 min read",
-    category: "API",
-    featured: false
-  }
-];
+import { articles, getFeaturedArticles } from '@/lib/articles';
 
 const Articles = () => {
-  const featuredArticle = articles.find(a => a.featured);
-  const otherArticles = articles.filter(a => !a.featured);
+  const featuredArticles = getFeaturedArticles();
+  const featuredArticle = featuredArticles[0];
+  const otherArticles = articles.filter(a => a.id !== featuredArticle?.id);
 
   return (
     <>
@@ -95,30 +49,49 @@ const Articles = () => {
           <section className="section-padding pt-0 pb-8">
             <div className="container-main">
               <Reveal>
-                <div className="relative rounded-2xl border border-border/30 bg-gradient-to-br from-primary/5 to-accent/5 p-8 md:p-12 overflow-hidden group cursor-pointer hover:border-primary/30 transition-colors">
-                  <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-4">
-                    Featured
-                  </span>
-                  <span className="inline-block px-3 py-1 rounded-full bg-secondary text-muted-foreground text-xs font-medium mb-4 ml-2">
-                    {featuredArticle.category}
-                  </span>
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold mb-4 group-hover:text-primary transition-colors">
-                    {featuredArticle.title}
-                  </h2>
-                  <p className="text-muted-foreground text-lg mb-6 max-w-3xl">
-                    {featuredArticle.excerpt}
-                  </p>
-                  <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                      {featuredArticle.date}
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <Clock className="w-4 h-4" />
-                      {featuredArticle.readTime}
-                    </span>
+                <Link to={`/article/${featuredArticle.id}`}>
+                  <div className="relative rounded-2xl border border-border/30 bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden group cursor-pointer hover:border-primary/30 transition-colors">
+                    <div className="md:flex">
+                      <div className="md:w-1/2 h-64 md:h-auto">
+                        <img 
+                          src={featuredArticle.image} 
+                          alt={featuredArticle.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="p-8 md:p-12 md:w-1/2 flex flex-col justify-center">
+                        <div className="flex gap-2 mb-4">
+                          <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                            Featured
+                          </span>
+                          <span className="inline-block px-3 py-1 rounded-full bg-secondary text-muted-foreground text-xs font-medium">
+                            {featuredArticle.category}
+                          </span>
+                        </div>
+                        <h2 className="text-2xl md:text-3xl font-display font-bold mb-4 group-hover:text-primary transition-colors">
+                          {featuredArticle.title}
+                        </h2>
+                        <p className="text-muted-foreground mb-6">
+                          {featuredArticle.excerpt}
+                        </p>
+                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                          <span className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4" />
+                            {featuredArticle.date}
+                          </span>
+                          <span className="flex items-center gap-2">
+                            <Clock className="w-4 h-4" />
+                            {featuredArticle.readTime}
+                          </span>
+                        </div>
+                        <div className="mt-6 flex items-center gap-2 text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                          Read Article
+                          <ArrowRight className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </Reveal>
             </div>
           </section>
@@ -127,34 +100,45 @@ const Articles = () => {
         {/* Articles Grid */}
         <section className="section-padding pt-0">
           <div className="container-main">
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {otherArticles.map((article, index) => (
                 <Reveal key={article.id} delay={index * 0.1}>
-                  <article className="group rounded-2xl border border-border/30 bg-secondary/20 p-6 hover:border-primary/30 hover:bg-secondary/40 transition-all cursor-pointer h-full">
-                    <span className="inline-block px-3 py-1 rounded-full bg-secondary text-muted-foreground text-xs font-medium mb-4">
-                      {article.category}
-                    </span>
-                    <h3 className="text-xl font-display font-bold mb-3 group-hover:text-primary transition-colors">
-                      {article.title}
-                    </h3>
-                    <p className="text-muted-foreground mb-4 line-clamp-2">
-                      {article.excerpt}
-                    </p>
-                    <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                      <span className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        {article.date}
-                      </span>
-                      <span className="flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        {article.readTime}
-                      </span>
-                    </div>
-                    <div className="mt-4 flex items-center gap-2 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                      Read Article
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </article>
+                  <Link to={`/article/${article.id}`}>
+                    <article className="group rounded-2xl border border-border/30 bg-secondary/20 overflow-hidden hover:border-primary/30 hover:bg-secondary/40 transition-all cursor-pointer h-full flex flex-col">
+                      <div className="h-48 overflow-hidden">
+                        <img 
+                          src={article.image} 
+                          alt={article.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <div className="p-6 flex-1 flex flex-col">
+                        <span className="inline-block px-3 py-1 rounded-full bg-secondary text-muted-foreground text-xs font-medium mb-4 w-fit">
+                          {article.category}
+                        </span>
+                        <h3 className="text-xl font-display font-bold mb-3 group-hover:text-primary transition-colors">
+                          {article.title}
+                        </h3>
+                        <p className="text-muted-foreground mb-4 line-clamp-2 flex-1">
+                          {article.excerpt}
+                        </p>
+                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                          <span className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4" />
+                            {article.date}
+                          </span>
+                          <span className="flex items-center gap-2">
+                            <Clock className="w-4 h-4" />
+                            {article.readTime}
+                          </span>
+                        </div>
+                        <div className="mt-4 flex items-center gap-2 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                          Read Article
+                          <ArrowRight className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
                 </Reveal>
               ))}
             </div>
