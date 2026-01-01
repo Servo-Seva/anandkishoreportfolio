@@ -6,16 +6,30 @@ import { Reveal } from '@/components/ui/motion';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Calendar, Clock, Tag, Share2, ArrowRight } from 'lucide-react';
 import { getArticleById, articles } from '@/lib/articles';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const ArticleDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const article = id ? getArticleById(id) : undefined;
+  const [readingProgress, setReadingProgress] = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setReadingProgress(0);
   }, [id]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      setReadingProgress(Math.min(100, Math.max(0, progress)));
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   if (!article) {
     return (
@@ -113,6 +127,14 @@ const ArticleDetail = () => {
         <meta property="og:image" content={article.image} />
         <meta property="og:type" content="article" />
       </Helmet>
+
+      {/* Reading Progress Bar */}
+      <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-secondary/50">
+        <div 
+          className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-150 ease-out"
+          style={{ width: `${readingProgress}%` }}
+        />
+      </div>
 
       <Navigation />
 
