@@ -77,64 +77,89 @@ const MarqueeRow = ({
   tools: typeof toolsRow1; 
   reverse?: boolean;
 }) => {
-  const duplicatedTools = [...tools, ...tools, ...tools];
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const duplicatedTools = [...tools, ...tools, ...tools, ...tools];
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
   const [startX, setStartX] = React.useState(0);
-  const [scrollLeft, setScrollLeft] = React.useState(0);
+  const [scrollLeftStart, setScrollLeftStart] = React.useState(0);
 
+  // Mouse events
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
+    if (!scrollRef.current) return;
     setIsDragging(true);
-    setStartX(e.pageX - containerRef.current.offsetLeft);
-    setScrollLeft(containerRef.current.scrollLeft);
-    containerRef.current.style.animationPlayState = 'paused';
+    setIsPaused(true);
+    setStartX(e.pageX);
+    setScrollLeftStart(scrollRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const walk = (e.pageX - startX) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeftStart - walk;
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
-    if (containerRef.current) {
-      containerRef.current.style.animationPlayState = 'running';
-    }
+    setTimeout(() => setIsPaused(false), 1000);
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !containerRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - containerRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    containerRef.current.scrollLeft = scrollLeft - walk;
+  // Touch events
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!scrollRef.current) return;
+    setIsDragging(true);
+    setIsPaused(true);
+    setStartX(e.touches[0].pageX);
+    setScrollLeftStart(scrollRef.current.scrollLeft);
   };
 
-  const handleMouseLeave = () => {
-    if (isDragging) {
-      setIsDragging(false);
-      if (containerRef.current) {
-        containerRef.current.style.animationPlayState = 'running';
-      }
-    }
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    const walk = (e.touches[0].pageX - startX) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeftStart - walk;
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    setTimeout(() => setIsPaused(false), 1000);
   };
 
   return (
-    <div className="relative group/marquee">
+    <div 
+      className="relative group/marquee"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => { setIsPaused(false); setIsDragging(false); }}
+    >
       {/* Gradient overlays */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
       
-      {/* Marquee track */}
+      {/* Scrollable marquee track */}
       <div
-        ref={containerRef}
+        ref={scrollRef}
         onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className={`flex gap-4 cursor-grab active:cursor-grabbing overflow-x-hidden ${
-          reverse ? 'animate-marquee-reverse' : 'animate-marquee'
-        } group-hover/marquee:[animation-play-state:paused] ${isDragging ? '!cursor-grabbing' : ''}`}
+        onMouseUp={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        className={`flex gap-4 px-4 overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing ${
+          isDragging ? '!cursor-grabbing' : ''
+        }`}
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
       >
-        {duplicatedTools.map((tool, index) => (
-          <ToolCard key={`${tool.name}-${index}`} tool={tool} />
-        ))}
+        <div 
+          className={`flex gap-4 ${!isPaused ? (reverse ? 'animate-marquee-reverse' : 'animate-marquee') : ''}`}
+          style={{ minWidth: 'max-content' }}
+        >
+          {duplicatedTools.map((tool, index) => (
+            <ToolCard key={`${tool.name}-${index}`} tool={tool} />
+          ))}
+        </div>
       </div>
     </div>
   );
