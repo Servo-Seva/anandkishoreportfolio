@@ -249,7 +249,7 @@ const ArticleDetail = () => {
         {/* Article Content with TOC Sidebar */}
         <section className="section-padding pt-0">
           <div className="container-main">
-            <div className="flex gap-8 max-w-6xl mx-auto">
+            <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
               {/* Table of Contents - Desktop Sidebar */}
               {tocItems.length > 0 && (
                 <aside className="hidden lg:block w-64 shrink-0">
@@ -280,7 +280,7 @@ const ArticleDetail = () => {
               )}
 
               {/* Main Content */}
-              <div className="flex-1 max-w-4xl">
+              <div className="flex-1 min-w-0 max-w-4xl">
                 <Reveal delay={0.2}>
                   <article className="prose prose-lg dark:prose-invert max-w-none">
                     {article.content.map((paragraph, index) => (
