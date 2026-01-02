@@ -2,6 +2,7 @@ import { ArrowRight, Copy, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
+import anandPhoto from '@/assets/anand-photo.png';
 
 export const HeroSection = () => {
   const copyEmail = () => {
@@ -86,9 +87,11 @@ export const HeroSection = () => {
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="w-full h-full bg-gradient-to-br from-primary/50 to-accent/50 flex items-center justify-center text-sm font-bold">
-              AK
-            </div>
+            <img 
+              src={anandPhoto} 
+              alt="Anand Kishore" 
+              className="w-full h-full object-cover object-top"
+            />
           </motion.div>
           <span className="text-lg md:text-xl text-muted-foreground">a</span>
           <span className="text-lg md:text-xl font-medium">Full Stack Developer</span>
