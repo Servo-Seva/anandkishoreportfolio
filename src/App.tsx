@@ -11,6 +11,7 @@ import Travel from "./pages/Travel";
 import Articles from "./pages/Articles";
 import ArticleDetail from "./pages/ArticleDetail";
 import ProjectDetail from "./pages/ProjectDetail";
+import ServoSeva from "./pages/ServoSeva";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
               <Route path="/articles" element={<Articles />} />
               <Route path="/article/:id" element={<ArticleDetail />} />
               <Route path="/project/:id" element={<ProjectDetail />} />
+              <Route path="/servoseva" element={<ServoSeva />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
