@@ -1,4 +1,5 @@
 import { ArrowRight, Copy, Download } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
@@ -47,8 +48,8 @@ export const HeroSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <a 
-          href="#work"
+        <Link 
+          to="/servoseva"
           className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm hover:bg-primary/15 transition-colors group"
         >
           <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-xs font-medium">
@@ -56,7 +57,7 @@ export const HeroSection = () => {
           </span>
           <span className="text-muted-foreground">Building amazing digital products</span>
           <ArrowRight className="w-4 h-4 text-primary group-hover:translate-x-0.5 transition-transform" />
-        </a>
+        </Link>
       </motion.div>
 
       {/* Main headline */}
