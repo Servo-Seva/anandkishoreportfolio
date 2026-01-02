@@ -2,7 +2,7 @@ import { Reveal } from '@/components/ui/motion';
 import { Linkedin, Github, Twitter, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import aboutPhoto from '@/assets/about-photo.png';
+import aboutPhoto from '@/assets/anand-photo.png';
 import travelPhoto from '@/assets/travel-photo.jpg';
 
 export const AboutSection = () => {
