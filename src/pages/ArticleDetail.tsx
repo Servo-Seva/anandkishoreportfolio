@@ -4,20 +4,41 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Reveal } from '@/components/ui/motion';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Calendar, Clock, Tag, Share2, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Tag, Share2, ArrowRight, List } from 'lucide-react';
 import { getArticleById, articles } from '@/lib/articles';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
+
+interface TocItem {
+  id: string;
+  text: string;
+}
 
 const ArticleDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const article = id ? getArticleById(id) : undefined;
   const [readingProgress, setReadingProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState<string>('');
+  const [isTocOpen, setIsTocOpen] = useState(false);
+  const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
+
+  // Extract headings from article content for TOC
+  const tocItems = useMemo<TocItem[]>(() => {
+    if (!article) return [];
+    return article.content
+      .filter(content => content.startsWith('## '))
+      .map((content, index) => {
+        const text = content.replace('## ', '');
+        const id = `section-${index}-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+        return { id, text };
+      });
+  }, [article]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setReadingProgress(0);
-  }, [id]);
+    setActiveSection(tocItems[0]?.id || '');
+  }, [id, tocItems]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +46,17 @@ const ArticleDetail = () => {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       setReadingProgress(Math.min(100, Math.max(0, progress)));
+
+      // Determine active section
+      const sections = Array.from(sectionRefs.current.entries());
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const [sectionId, element] = sections[i];
+        const rect = element.getBoundingClientRect();
+        if (rect.top <= 150) {
+          setActiveSection(sectionId);
+          break;
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -67,12 +99,32 @@ const ArticleDetail = () => {
     }
   };
 
-  const renderContent = (content: string) => {
+  const scrollToSection = (sectionId: string) => {
+    const element = sectionRefs.current.get(sectionId);
+    if (element) {
+      const offset = 100;
+      const top = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+    setIsTocOpen(false);
+  };
+
+  const renderContent = (content: string, index: number) => {
     // Simple markdown-like rendering
     if (content.startsWith('## ')) {
+      const text = content.replace('## ', '');
+      const tocItem = tocItems.find(item => item.text === text);
+      const sectionId = tocItem?.id || `section-${index}`;
+      
       return (
-        <h2 className="text-2xl font-display font-bold mt-10 mb-4 text-foreground">
-          {content.replace('## ', '')}
+        <h2 
+          ref={(el) => {
+            if (el) sectionRefs.current.set(sectionId, el);
+          }}
+          id={sectionId}
+          className="text-2xl font-display font-bold mt-10 mb-4 text-foreground scroll-mt-28"
+        >
+          {text}
         </h2>
       );
     }
@@ -194,33 +246,111 @@ const ArticleDetail = () => {
           </div>
         </section>
 
-        {/* Article Content */}
+        {/* Article Content with TOC Sidebar */}
         <section className="section-padding pt-0">
-          <div className="container-main max-w-4xl">
-            <Reveal delay={0.2}>
-              <article className="prose prose-lg dark:prose-invert max-w-none">
-                {article.content.map((paragraph, index) => (
-                  <div key={index}>{renderContent(paragraph)}</div>
-                ))}
-              </article>
+          <div className="container-main">
+            <div className="flex gap-8 max-w-6xl mx-auto">
+              {/* Table of Contents - Desktop Sidebar */}
+              {tocItems.length > 0 && (
+                <aside className="hidden lg:block w-64 shrink-0">
+                  <div className="sticky top-24">
+                    <div className="p-4 rounded-2xl border border-border/30 bg-secondary/20">
+                      <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
+                        <List className="w-4 h-4" />
+                        Table of Contents
+                      </h3>
+                      <nav className="space-y-1">
+                        {tocItems.map((item) => (
+                          <button
+                            key={item.id}
+                            onClick={() => scrollToSection(item.id)}
+                            className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-all duration-200 ${
+                              activeSection === item.id
+                                ? 'bg-primary/10 text-primary font-medium border-l-2 border-primary'
+                                : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                            }`}
+                          >
+                            {item.text}
+                          </button>
+                        ))}
+                      </nav>
+                    </div>
+                  </div>
+                </aside>
+              )}
 
-              {/* Tags */}
-              <div className="mt-12 pt-8 border-t border-border/30">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <Tag className="w-4 h-4 text-muted-foreground" />
-                  {article.tags.map(tag => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 rounded-full bg-secondary text-muted-foreground text-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              {/* Main Content */}
+              <div className="flex-1 max-w-4xl">
+                <Reveal delay={0.2}>
+                  <article className="prose prose-lg dark:prose-invert max-w-none">
+                    {article.content.map((paragraph, index) => (
+                      <div key={index}>{renderContent(paragraph, index)}</div>
+                    ))}
+                  </article>
+
+                  {/* Tags */}
+                  <div className="mt-12 pt-8 border-t border-border/30">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Tag className="w-4 h-4 text-muted-foreground" />
+                      {article.tags.map(tag => (
+                        <span
+                          key={tag}
+                          className="px-3 py-1 rounded-full bg-secondary text-muted-foreground text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
               </div>
-            </Reveal>
+            </div>
           </div>
         </section>
+
+        {/* Mobile TOC Toggle */}
+        {tocItems.length > 0 && (
+          <>
+            <button
+              onClick={() => setIsTocOpen(!isTocOpen)}
+              className="lg:hidden fixed bottom-6 right-6 z-40 p-4 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all"
+              aria-label="Toggle table of contents"
+            >
+              <List className="w-5 h-5" />
+            </button>
+
+            {/* Mobile TOC Drawer */}
+            {isTocOpen && (
+              <div className="lg:hidden fixed inset-0 z-50">
+                <div 
+                  className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+                  onClick={() => setIsTocOpen(false)}
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-background border-t border-border/30 rounded-t-2xl p-6 animate-slide-in-right">
+                  <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+                    <List className="w-5 h-5" />
+                    Table of Contents
+                  </h3>
+                  <nav className="space-y-1 max-h-[60vh] overflow-y-auto">
+                    {tocItems.map((item) => (
+                      <button
+                        key={item.id}
+                        onClick={() => scrollToSection(item.id)}
+                        className={`block w-full text-left px-4 py-3 rounded-lg transition-all ${
+                          activeSection === item.id
+                            ? 'bg-primary/10 text-primary font-medium'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                        }`}
+                      >
+                        {item.text}
+                      </button>
+                    ))}
+                  </nav>
+                </div>
+              </div>
+            )}
+          </>
+        )}
 
         {/* Related Articles */}
         {relatedArticles.length > 0 && (
