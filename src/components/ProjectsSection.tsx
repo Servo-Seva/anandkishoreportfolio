@@ -1,9 +1,9 @@
-import { ArrowUpRight, Github } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Reveal, HoverScale } from '@/components/ui/motion';
-import { motion } from 'framer-motion';
-import { projects } from '@/lib/projects';
+import { ArrowUpRight, Github } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Reveal, HoverScale } from "@/components/ui/motion";
+import { motion } from "framer-motion";
+import { projects } from "@/lib/projects";
 
 export const ProjectsSection = () => {
   return (
@@ -13,9 +13,12 @@ export const ProjectsSection = () => {
         <Reveal>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div>
-              <p className="text-muted-foreground mb-2 uppercase tracking-wider text-sm">Case Studies</p>
+              <p className="text-muted-foreground mb-2 uppercase tracking-wider text-sm">
+                Case Studies
+              </p>
               <h2 className="text-4xl md:text-5xl font-display font-bold">
-                Curated <span className="font-serif italic font-normal">work</span>
+                Curated{" "}
+                <span className="font-serif italic font-normal">work</span>
               </h2>
             </div>
             <Button variant="outline" asChild>
@@ -50,14 +53,18 @@ export const ProjectsSection = () => {
                               {project.type}
                             </span>
                           </div>
-                          
+
                           <h3 className="text-2xl md:text-3xl font-display font-bold mb-2 group-hover:text-primary transition-colors">
                             {project.title}
                           </h3>
-                          
-                          <p className="text-sm text-muted-foreground mb-4">{project.period}</p>
-                          <p className="text-muted-foreground mb-6">{project.description}</p>
-                          
+
+                          <p className="text-sm text-muted-foreground mb-4">
+                            {project.period}
+                          </p>
+                          <p className="text-muted-foreground mb-6">
+                            {project.description}
+                          </p>
+
                           <div className="flex flex-wrap gap-2 mb-6">
                             {project.tags.map((tag) => (
                               <span
@@ -71,7 +78,11 @@ export const ProjectsSection = () => {
                         </div>
 
                         <div className="flex gap-3">
-                          <Button variant="default" size="sm" className="pointer-events-none">
+                          <Button
+                            variant="default"
+                            size="sm"
+                            className="pointer-events-none"
+                          >
                             View Details
                             <ArrowUpRight className="w-4 h-4 ml-1" />
                           </Button>
@@ -82,7 +93,7 @@ export const ProjectsSection = () => {
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
-                              window.open(project.githubUrl, '_blank');
+                              window.open(project.githubUrl, "_blank");
                             }}
                           >
                             <Github className="w-4 h-4" />
