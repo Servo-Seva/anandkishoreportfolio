@@ -6,6 +6,7 @@ import { Switch } from '@/components/ui/switch';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { BookCallModal } from '@/components/BookCallModal';
 import { useTheme } from 'next-themes';
+import akLogo from '@/assets/ak-logo.png';
 const navLinks = [
   { href: '/', label: 'Home', isRoute: true },
   { href: '/about', label: 'About', isRoute: true },
@@ -46,11 +47,11 @@ export const Navigation = () => {
         {/* Logo */}
         <Link 
           to="/" 
-          className={`font-display font-bold text-lg px-4 transition-all duration-300 ${
+          className={`px-4 transition-all duration-300 ${
             isScrolled ? '' : 'hidden md:block'
           }`}
         >
-          AK
+          <img src={akLogo} alt="AK Logo" className="h-8 w-auto" />
         </Link>
 
         {/* Desktop Navigation */}
