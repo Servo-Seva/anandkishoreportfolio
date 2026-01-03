@@ -17,6 +17,7 @@ export default {
         display: ['Syne', 'sans-serif'],
         serif: ['Instrument Serif', 'serif'],
         body: ['DM Sans', 'sans-serif'],
+        blanka: ['Blanka', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

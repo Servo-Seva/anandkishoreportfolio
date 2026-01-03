@@ -46,7 +46,7 @@ export const Navigation = () => {
         {/* Logo */}
         <Link 
           to="/" 
-          className={`font-display font-bold text-lg px-4 transition-all duration-300 ${
+          className={`font-blanka text-xl px-4 transition-all duration-300 tracking-wider ${
             isScrolled ? '' : 'hidden md:block'
           }`}
         >

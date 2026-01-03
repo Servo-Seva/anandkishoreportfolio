@@ -21,7 +21,7 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             {/* Logo & tagline */}
             <div className="text-center md:text-left">
-              <a href="#" className="font-display text-2xl font-bold">
+              <a href="#" className="font-blanka text-2xl tracking-wider">
                 AK<span className="text-primary">.</span>
               </a>
               <p className="text-muted-foreground text-sm mt-2">
