@@ -46,13 +46,11 @@ export const Navigation = () => {
         {/* Logo */}
         <Link 
           to="/" 
-          className={`group flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/70 shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:scale-105 transition-all duration-300 ${
-            isScrolled ? '' : 'hidden md:flex'
+          className={`font-display font-bold text-lg px-4 transition-all duration-300 ${
+            isScrolled ? '' : 'hidden md:block'
           }`}
         >
-          <span className="font-display font-bold text-lg text-primary-foreground tracking-tight">
-            AK
-          </span>
+          AK
         </Link>
 
         {/* Desktop Navigation */}
