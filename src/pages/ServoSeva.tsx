@@ -5,7 +5,9 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Home, Wrench, Truck, PartyPopper, Sparkles, Construction, Clock, Shield, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-
+import servoSevaHome from '@/assets/servoseva-home.png';
+import servoSevaBooking from '@/assets/servoseva-booking.png';
+import servoSevaProviders from '@/assets/servoseva-providers.png';
 const services = [
   {
     icon: Sparkles,
@@ -113,6 +115,54 @@ const ServoSeva = () => {
                 </Button>
               </div>
             </motion.div>
+          </div>
+        </section>
+
+        {/* App Preview Section */}
+        <section className="py-20 bg-muted/30">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+                App Preview
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Take a sneak peek at what we're building. A seamless mobile experience for booking home services.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {[
+                { image: servoSevaHome, label: 'Home Screen', description: 'Browse all available services' },
+                { image: servoSevaProviders, label: 'Service Providers', description: 'Find verified professionals' },
+                { image: servoSevaBooking, label: 'Easy Booking', description: 'Book services in minutes' },
+              ].map((preview, index) => (
+                <motion.div
+                  key={preview.label}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                  className="flex flex-col items-center"
+                >
+                  <div className="relative group mb-4">
+                    <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <img
+                      src={preview.image}
+                      alt={preview.label}
+                      className="relative w-full max-w-[280px] rounded-2xl shadow-2xl border border-border/50 group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-1">{preview.label}</h3>
+                  <p className="text-sm text-muted-foreground">{preview.description}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
