@@ -1,37 +1,80 @@
-import { Mail, ArrowUpRight, Linkedin, Github, Twitter, MapPin, Phone } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { toast } from '@/hooks/use-toast';
-import { Reveal, StaggerContainer, StaggerItem, HoverScale } from '@/components/ui/motion';
-import { motion } from 'framer-motion';
+import {
+  Mail,
+  ArrowUpRight,
+  Linkedin,
+  Github,
+  Twitter,
+  MapPin,
+  Phone,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { toast } from "@/hooks/use-toast";
+import {
+  Reveal,
+  StaggerContainer,
+  StaggerItem,
+  HoverScale,
+} from "@/components/ui/motion";
+import { motion } from "framer-motion";
 
 export const ContactSection = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message sent!",
-      description: "Thanks for reaching out. I'll get back to you soon.",
-    });
-    setFormData({ name: '', email: '', message: '' });
+
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      toast({
+        title: "Message sent!",
+        description: "Thanks for reaching out. I'll get back to you soon.",
+      });
+      setFormData({ name: "", email: "", message: "" });
+    } catch {
+      toast({
+        title: "Failed to send message",
+        description: "Please try again in a moment.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <section id="contact" className="section-padding relative">
       {/* Background glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(258_90%_56%/0.05)_0%,transparent_50%)] dark:bg-[radial-gradient(ellipse_at_bottom,hsl(258_90%_66%/0.08)_0%,transparent_50%)]" />
-      
+
       <div className="container-main relative">
         {/* Header */}
         <Reveal>
           <div className="text-center mb-16">
-            <p className="text-muted-foreground mb-4">Let's work together on your next project</p>
-            <motion.a 
+            <p className="text-muted-foreground mb-4">
+              Let's work together on your next project
+            </p>
+            <motion.a
               href="mailto:anandkishore060@gmail.com"
               className="text-xl sm:text-3xl md:text-5xl font-display font-bold gradient-text inline-block break-all"
               whileHover={{ scale: 1.02 }}
@@ -47,43 +90,58 @@ export const ContactSection = () => {
           <Reveal delay={0.1}>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2 text-muted-foreground">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium mb-2 text-muted-foreground"
+                >
                   Name
                 </label>
                 <input
                   type="text"
                   id="name"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   className="w-full px-4 py-3 rounded-xl bg-secondary/30 dark:bg-secondary/50 border border-border/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all duration-300"
                   placeholder="Your name"
                   required
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2 text-muted-foreground">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium mb-2 text-muted-foreground"
+                >
                   Email
                 </label>
                 <input
                   type="email"
                   id="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   className="w-full px-4 py-3 rounded-xl bg-secondary/30 dark:bg-secondary/50 border border-border/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all duration-300"
                   placeholder="your@email.com"
                   required
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2 text-muted-foreground">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium mb-2 text-muted-foreground"
+                >
                   Message
                 </label>
                 <textarea
                   id="message"
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
                   rows={5}
                   className="w-full px-4 py-3 rounded-xl bg-secondary/30 dark:bg-secondary/50 border border-border/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all duration-300 resize-none"
                   placeholder="Tell me about your project..."
@@ -91,7 +149,13 @@ export const ContactSection = () => {
                 />
               </div>
 
-              <Button variant="default" size="lg" type="submit" className="w-full">
+              <Button
+                variant="default"
+                size="lg"
+                type="submit"
+                className="w-full"
+                disabled={isSubmitting}
+              >
                 Send Message
                 <ArrowUpRight className="w-4 h-4 ml-1" />
               </Button>
@@ -101,7 +165,10 @@ export const ContactSection = () => {
           {/* Contact info */}
           <div className="space-y-6">
             {/* Social links */}
-            <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.05}>
+            <StaggerContainer
+              className="grid grid-cols-2 gap-4"
+              staggerDelay={0.05}
+            >
               <StaggerItem>
                 <HoverScale>
                   <a
@@ -116,7 +183,7 @@ export const ContactSection = () => {
                   </a>
                 </HoverScale>
               </StaggerItem>
-              
+
               <StaggerItem>
                 <HoverScale>
                   <a
@@ -131,7 +198,7 @@ export const ContactSection = () => {
                   </a>
                 </HoverScale>
               </StaggerItem>
-              
+
               <StaggerItem>
                 <HoverScale>
                   <a
@@ -146,7 +213,7 @@ export const ContactSection = () => {
                   </a>
                 </HoverScale>
               </StaggerItem>
-              
+
               <StaggerItem>
                 <HoverScale>
                   <a
@@ -159,7 +226,7 @@ export const ContactSection = () => {
                   </a>
                 </HoverScale>
               </StaggerItem>
-              
+
               <StaggerItem>
                 <HoverScale>
                   <a
@@ -182,7 +249,9 @@ export const ContactSection = () => {
                   <span className="font-medium">Location</span>
                 </div>
                 <p className="text-2xl font-display font-bold">India</p>
-                <p className="text-muted-foreground text-sm mt-1">Open to remote work worldwide</p>
+                <p className="text-muted-foreground text-sm mt-1">
+                  Open to remote work worldwide
+                </p>
               </div>
             </Reveal>
 
@@ -190,14 +259,19 @@ export const ContactSection = () => {
             <Reveal delay={0.4}>
               <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/5 dark:from-primary/10 to-accent/5 dark:to-accent/10 border border-border/50 dark:border-border/30">
                 <div className="flex items-center gap-2 mb-3">
-                  <motion.span 
+                  <motion.span
                     className="w-2 h-2 rounded-full bg-green-400"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   />
-                  <span className="text-sm text-muted-foreground">Currently available</span>
+                  <span className="text-sm text-muted-foreground">
+                    Currently available
+                  </span>
                 </div>
-                <p className="text-lg font-medium">Looking for exciting opportunities to collaborate on innovative projects.</p>
+                <p className="text-lg font-medium">
+                  Looking for exciting opportunities to collaborate on
+                  innovative projects.
+                </p>
               </div>
             </Reveal>
           </div>
