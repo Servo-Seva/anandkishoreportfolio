@@ -510,11 +510,23 @@ function devBookCallApi(opts: {
                   <p style="margin:8px 0;"><strong style="color:#6366f1;">Email:</strong> <a href="mailto:${email}" style="color:#111827;">${email}</a></p>
                   <p style="margin:8px 0;"><strong style="color:#6366f1;">Date:</strong> <span style="color:#111827;">${dateFormatted}</span></p>
                   <p style="margin:8px 0;"><strong style="color:#6366f1;">Time:</strong> <span style="color:#111827;">${selectedTime} IST</span></p>
-                  ${topic ? `<p style="margin:8px 0;"><strong style="color:#6366f1;">Topic:</strong> <span style="color:#111827;">${topic}</span></p>` : ""}
+                  ${
+                    topic
+                      ? `<p style="margin:8px 0;"><strong style="color:#6366f1;">Topic:</strong> <span style="color:#111827;">${topic}</span></p>`
+                      : ""
+                  }
                 </td></tr>
               </table>
-              ${eventLink ? `<p><a href="${eventLink}" style="display:inline-block;background-color:#6366f1;color:#ffffff;padding:12px 24px;border-radius:8px;text-decoration:none;">View in Calendar</a></p>` : ""}
-              ${meetLink ? `<p><a href="${meetLink}" style="display:inline-block;background-color:#10b981;color:#ffffff;padding:12px 24px;border-radius:8px;text-decoration:none;margin-left:8px;">Join Meet</a></p>` : ""}
+              ${
+                eventLink
+                  ? `<p><a href="${eventLink}" style="display:inline-block;background-color:#6366f1;color:#ffffff;padding:12px 24px;border-radius:8px;text-decoration:none;">View in Calendar</a></p>`
+                  : ""
+              }
+              ${
+                meetLink
+                  ? `<p><a href="${meetLink}" style="display:inline-block;background-color:#10b981;color:#ffffff;padding:12px 24px;border-radius:8px;text-decoration:none;margin-left:8px;">Join Meet</a></p>`
+                  : ""
+              }
             </td>
           </tr>
         </table>
@@ -550,9 +562,10 @@ function devBookCallApi(opts: {
                   <p style="margin:8px 0;"><strong style="color:#10b981;">Duration:</strong> <span style="color:#111827;">30 minutes</span></p>
                 </td></tr>
               </table>
-              ${meetLink 
-                ? `<p><a href="${meetLink}" style="display:inline-block;background-color:#10b981;color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;">🎥 Join Google Meet</a></p>`
-                : eventLink 
+              ${
+                meetLink
+                  ? `<p><a href="${meetLink}" style="display:inline-block;background-color:#10b981;color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;">🎥 Join Google Meet</a></p>`
+                  : eventLink
                   ? `<p><a href="${eventLink}" style="display:inline-block;background-color:#10b981;color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;">📅 View Calendar Event</a></p><p style="color:#92400e;background-color:#fef3c7;padding:12px;border-radius:6px;margin-top:16px;">📌 A Google Meet link will be shared before the call.</p>`
                   : `<p style="color:#92400e;background-color:#fef3c7;padding:12px;border-radius:6px;">📌 A meeting link will be sent to you separately.</p>`
               }
