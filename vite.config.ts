@@ -486,67 +486,85 @@ function devBookCallApi(opts: {
             );
 
             if (isNonEmptyString(resendApiKey)) {
-              // Owner notification email
+              // Owner notification email - Light theme for email client compatibility
               const ownerEmailHtml = `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;background-color:#0a0a0a;font-family:'Segoe UI',sans-serif;">
-  <div style="max-width:600px;margin:40px auto;background:#1a1a2e;border-radius:16px;overflow:hidden;">
-    <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:30px;text-align:center;">
-      <h1 style="margin:0;color:#fff;font-size:24px;">📅 New Call Booking!</h1>
-    </div>
-    <div style="padding:40px;color:#a0aec0;">
-      <p><strong style="color:#fff;">Name:</strong> ${name}</p>
-      <p><strong style="color:#fff;">Email:</strong> <a href="mailto:${email}" style="color:#667eea;">${email}</a></p>
-      <p><strong style="color:#fff;">Date:</strong> ${dateFormatted}</p>
-      <p><strong style="color:#fff;">Time:</strong> ${selectedTime} IST</p>
-      ${
-        topic
-          ? `<p><strong style="color:#fff;">Topic:</strong> ${topic}</p>`
-          : ""
-      }
-      ${
-        eventLink
-          ? `<p><a href="${eventLink}" style="color:#667eea;">View in Calendar</a></p>`
-          : ""
-      }
-      ${
-        meetLink
-          ? `<p><a href="${meetLink}" style="color:#10b981;">Join Meet</a></p>`
-          : ""
-      }
-    </div>
-  </div>
+<body style="margin:0;padding:0;background-color:#f4f4f5;font-family:Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f5;padding:40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;">
+          <tr>
+            <td style="background-color:#6366f1;padding:30px;text-align:center;">
+              <h1 style="margin:0;color:#ffffff;font-size:24px;">📅 New Call Booking!</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:40px;">
+              <p style="color:#374151;font-size:16px;margin:0 0 24px 0;">Someone has booked a discovery call with you:</p>
+              <table width="100%" style="background-color:#f9fafb;border-radius:8px;border:1px solid #e5e7eb;margin-bottom:24px;">
+                <tr><td style="padding:24px;">
+                  <p style="margin:8px 0;"><strong style="color:#6366f1;">Name:</strong> <span style="color:#111827;">${name}</span></p>
+                  <p style="margin:8px 0;"><strong style="color:#6366f1;">Email:</strong> <a href="mailto:${email}" style="color:#111827;">${email}</a></p>
+                  <p style="margin:8px 0;"><strong style="color:#6366f1;">Date:</strong> <span style="color:#111827;">${dateFormatted}</span></p>
+                  <p style="margin:8px 0;"><strong style="color:#6366f1;">Time:</strong> <span style="color:#111827;">${selectedTime} IST</span></p>
+                  ${topic ? `<p style="margin:8px 0;"><strong style="color:#6366f1;">Topic:</strong> <span style="color:#111827;">${topic}</span></p>` : ""}
+                </td></tr>
+              </table>
+              ${eventLink ? `<p><a href="${eventLink}" style="display:inline-block;background-color:#6366f1;color:#ffffff;padding:12px 24px;border-radius:8px;text-decoration:none;">View in Calendar</a></p>` : ""}
+              ${meetLink ? `<p><a href="${meetLink}" style="display:inline-block;background-color:#10b981;color:#ffffff;padding:12px 24px;border-radius:8px;text-decoration:none;margin-left:8px;">Join Meet</a></p>` : ""}
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>`;
 
-              // Booker confirmation email
+              // Booker confirmation email - Light theme
               const bookerEmailHtml = `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;background-color:#0a0a0a;font-family:'Segoe UI',sans-serif;">
-  <div style="max-width:600px;margin:40px auto;background:#1a1a2e;border-radius:16px;overflow:hidden;">
-    <div style="background:linear-gradient(135deg,#10b981 0%,#059669 100%);padding:30px;text-align:center;">
-      <h1 style="margin:0;color:#fff;font-size:24px;">✅ Call Confirmed!</h1>
-    </div>
-    <div style="padding:40px;color:#a0aec0;">
-      <p style="color:#fff;font-size:18px;">Hi ${name}!</p>
-      <p>Your discovery call with Anand Kishore has been scheduled:</p>
-      <p><strong style="color:#fff;">Date:</strong> ${dateFormatted}</p>
-      <p><strong style="color:#fff;">Time:</strong> ${selectedTime} IST</p>
-      <p><strong style="color:#fff;">Duration:</strong> 30 minutes</p>
-      ${
-        meetLink
-          ? `<p><a href="${meetLink}" style="display:inline-block;background:#10b981;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;margin-top:16px;">🎥 Join Google Meet</a></p>`
-          : eventLink
-          ? `<p><a href="${eventLink}" style="display:inline-block;background:#10b981;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;margin-top:16px;">📅 View Calendar Event</a></p><p style="color:#fbbf24;margin-top:12px;">📌 A Google Meet link will be shared before the call.</p>`
-          : `<p style="color:#fbbf24;">📌 A meeting link will be sent to you separately.</p>`
-      }
-      <p style="margin-top:24px;">Looking forward to speaking with you!</p>
-    </div>
-  </div>
+<body style="margin:0;padding:0;background-color:#f4f4f5;font-family:Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f5;padding:40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;">
+          <tr>
+            <td style="background-color:#10b981;padding:30px;text-align:center;">
+              <h1 style="margin:0;color:#ffffff;font-size:24px;">✅ Call Confirmed!</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:40px;">
+              <p style="color:#111827;font-size:18px;margin:0 0 8px 0;font-weight:600;">Hi ${name}!</p>
+              <p style="color:#374151;font-size:16px;margin:0 0 24px 0;">Your discovery call with Anand Kishore has been scheduled:</p>
+              <table width="100%" style="background-color:#f9fafb;border-radius:8px;border:1px solid #e5e7eb;margin-bottom:24px;">
+                <tr><td style="padding:24px;">
+                  <p style="margin:8px 0;"><strong style="color:#10b981;">Date:</strong> <span style="color:#111827;">${dateFormatted}</span></p>
+                  <p style="margin:8px 0;"><strong style="color:#10b981;">Time:</strong> <span style="color:#111827;">${selectedTime} IST</span></p>
+                  <p style="margin:8px 0;"><strong style="color:#10b981;">Duration:</strong> <span style="color:#111827;">30 minutes</span></p>
+                </td></tr>
+              </table>
+              ${meetLink 
+                ? `<p><a href="${meetLink}" style="display:inline-block;background-color:#10b981;color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;">🎥 Join Google Meet</a></p>`
+                : eventLink 
+                  ? `<p><a href="${eventLink}" style="display:inline-block;background-color:#10b981;color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;">📅 View Calendar Event</a></p><p style="color:#92400e;background-color:#fef3c7;padding:12px;border-radius:6px;margin-top:16px;">📌 A Google Meet link will be shared before the call.</p>`
+                  : `<p style="color:#92400e;background-color:#fef3c7;padding:12px;border-radius:6px;">📌 A meeting link will be sent to you separately.</p>`
+              }
+              <p style="color:#374151;margin-top:24px;">Looking forward to speaking with you!</p>
+              <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;">
+              <p style="color:#6b7280;font-size:12px;text-align:center;">Anand Kishore • <a href="https://anandportfolio.site" style="color:#6366f1;">anandportfolio.site</a></p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>`;
 

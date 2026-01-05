@@ -249,15 +249,15 @@ export default async function handler(req, res) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="margin:0;padding:0;background-color:#0a0a0a;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0a0a0a;padding:40px 20px;">
+<body style="margin:0;padding:0;background-color:#f4f4f5;font-family:Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f5;padding:40px 20px;">
     <tr>
       <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.1);">
           
           <!-- Header -->
           <tr>
-            <td style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:30px;text-align:center;">
+            <td style="background-color:#6366f1;padding:30px;text-align:center;">
               <h1 style="margin:0;color:#ffffff;font-size:24px;font-weight:600;">📅 New Call Booking!</h1>
             </td>
           </tr>
@@ -265,42 +265,42 @@ export default async function handler(req, res) {
           <!-- Content -->
           <tr>
             <td style="padding:40px;">
-              <p style="color:#a0aec0;font-size:16px;margin:0 0 24px 0;">Someone has booked a discovery call with you:</p>
+              <p style="color:#374151;font-size:16px;margin:0 0 24px 0;">Someone has booked a discovery call with you:</p>
               
               <!-- Booking Details Card -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,0.05);border-radius:12px;border:1px solid rgba(255,255,255,0.1);margin-bottom:24px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f9fafb;border-radius:8px;border:1px solid #e5e7eb;margin-bottom:24px;">
                 <tr>
                   <td style="padding:24px;">
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
-                          <span style="color:#667eea;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Name</span><br>
-                          <span style="color:#ffffff;font-size:16px;font-weight:500;">${name}</span>
+                        <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
+                          <span style="color:#6366f1;font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Name</span><br>
+                          <span style="color:#111827;font-size:16px;font-weight:500;">${name}</span>
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
-                          <span style="color:#667eea;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Email</span><br>
-                          <a href="mailto:${email}" style="color:#ffffff;font-size:16px;font-weight:500;text-decoration:none;">${email}</a>
+                        <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
+                          <span style="color:#6366f1;font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Email</span><br>
+                          <a href="mailto:${email}" style="color:#111827;font-size:16px;font-weight:500;text-decoration:none;">${email}</a>
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
-                          <span style="color:#667eea;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Date</span><br>
-                          <span style="color:#ffffff;font-size:16px;font-weight:500;">${dateFormatted}</span>
+                        <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
+                          <span style="color:#6366f1;font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Date</span><br>
+                          <span style="color:#111827;font-size:16px;font-weight:500;">${dateFormatted}</span>
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
-                          <span style="color:#667eea;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Time</span><br>
-                          <span style="color:#ffffff;font-size:16px;font-weight:500;">${selectedTime} IST</span>
+                        <td style="padding:12px 0;${topic ? 'border-bottom:1px solid #e5e7eb;' : ''}">
+                          <span style="color:#6366f1;font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Time</span><br>
+                          <span style="color:#111827;font-size:16px;font-weight:500;">${selectedTime} IST</span>
                         </td>
                       </tr>
                       ${topic ? `
                       <tr>
-                        <td style="padding:8px 0;">
-                          <span style="color:#667eea;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Topic</span><br>
-                          <span style="color:#ffffff;font-size:16px;font-weight:500;">${topic}</span>
+                        <td style="padding:12px 0;">
+                          <span style="color:#6366f1;font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Topic</span><br>
+                          <span style="color:#111827;font-size:16px;font-weight:500;">${topic}</span>
                         </td>
                       </tr>
                       ` : ""}
@@ -313,10 +313,10 @@ export default async function handler(req, res) {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   ${eventLink ? `<td style="padding-right:8px;">
-                    <a href="${eventLink}" style="display:block;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#ffffff;text-decoration:none;padding:14px 24px;border-radius:8px;font-weight:600;text-align:center;">View in Calendar</a>
+                    <a href="${eventLink}" style="display:block;background-color:#6366f1;color:#ffffff;text-decoration:none;padding:14px 24px;border-radius:8px;font-weight:600;text-align:center;">View in Calendar</a>
                   </td>` : ""}
                   ${meetLink ? `<td style="padding-left:8px;">
-                    <a href="${meetLink}" style="display:block;background:rgba(255,255,255,0.1);color:#ffffff;text-decoration:none;padding:14px 24px;border-radius:8px;font-weight:600;text-align:center;border:1px solid rgba(255,255,255,0.2);">Join Meet</a>
+                    <a href="${meetLink}" style="display:block;background-color:#10b981;color:#ffffff;text-decoration:none;padding:14px 24px;border-radius:8px;font-weight:600;text-align:center;">Join Meet</a>
                   </td>` : ""}
                 </tr>
               </table>
@@ -338,15 +338,15 @@ export default async function handler(req, res) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="margin:0;padding:0;background-color:#0a0a0a;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0a0a0a;padding:40px 20px;">
+<body style="margin:0;padding:0;background-color:#f4f4f5;font-family:Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f5;padding:40px 20px;">
     <tr>
       <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.1);">
           
           <!-- Header -->
           <tr>
-            <td style="background:linear-gradient(135deg,#10b981 0%,#059669 100%);padding:30px;text-align:center;">
+            <td style="background-color:#10b981;padding:30px;text-align:center;">
               <h1 style="margin:0;color:#ffffff;font-size:24px;font-weight:600;">✅ Call Confirmed!</h1>
             </td>
           </tr>
@@ -354,30 +354,30 @@ export default async function handler(req, res) {
           <!-- Content -->
           <tr>
             <td style="padding:40px;">
-              <p style="color:#ffffff;font-size:18px;margin:0 0 8px 0;">Hi ${name}!</p>
-              <p style="color:#a0aec0;font-size:16px;margin:0 0 24px 0;">Your discovery call with Anand Kishore has been scheduled. Here are your booking details:</p>
+              <p style="color:#111827;font-size:18px;margin:0 0 8px 0;font-weight:600;">Hi ${name}!</p>
+              <p style="color:#374151;font-size:16px;margin:0 0 24px 0;">Your discovery call with Anand Kishore has been scheduled. Here are your booking details:</p>
               
               <!-- Booking Details Card -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,0.05);border-radius:12px;border:1px solid rgba(255,255,255,0.1);margin-bottom:24px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f9fafb;border-radius:8px;border:1px solid #e5e7eb;margin-bottom:24px;">
                 <tr>
                   <td style="padding:24px;">
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
-                          <span style="color:#10b981;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Date</span><br>
-                          <span style="color:#ffffff;font-size:16px;font-weight:500;">${dateFormatted}</span>
+                        <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
+                          <span style="color:#10b981;font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Date</span><br>
+                          <span style="color:#111827;font-size:16px;font-weight:500;">${dateFormatted}</span>
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
-                          <span style="color:#10b981;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Time</span><br>
-                          <span style="color:#ffffff;font-size:16px;font-weight:500;">${selectedTime} IST</span>
+                        <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
+                          <span style="color:#10b981;font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Time</span><br>
+                          <span style="color:#111827;font-size:16px;font-weight:500;">${selectedTime} IST</span>
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding:8px 0;">
-                          <span style="color:#10b981;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Duration</span><br>
-                          <span style="color:#ffffff;font-size:16px;font-weight:500;">30 minutes</span>
+                        <td style="padding:12px 0;">
+                          <span style="color:#10b981;font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Duration</span><br>
+                          <span style="color:#111827;font-size:16px;font-weight:500;">30 minutes</span>
                         </td>
                       </tr>
                     </table>
@@ -390,7 +390,7 @@ export default async function handler(req, res) {
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
                 <tr>
                   <td>
-                    <a href="${meetLink}" style="display:block;background:linear-gradient(135deg,#10b981 0%,#059669 100%);color:#ffffff;text-decoration:none;padding:16px 24px;border-radius:8px;font-weight:600;text-align:center;font-size:16px;">🎥 Join Google Meet</a>
+                    <a href="${meetLink}" style="display:block;background-color:#10b981;color:#ffffff;text-decoration:none;padding:16px 24px;border-radius:8px;font-weight:600;text-align:center;font-size:16px;">🎥 Join Google Meet</a>
                   </td>
                 </tr>
               </table>
@@ -399,37 +399,37 @@ export default async function handler(req, res) {
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
                 <tr>
                   <td>
-                    <a href="${eventLink}" style="display:block;background:linear-gradient(135deg,#10b981 0%,#059669 100%);color:#ffffff;text-decoration:none;padding:16px 24px;border-radius:8px;font-weight:600;text-align:center;font-size:16px;">📅 View Calendar Event</a>
+                    <a href="${eventLink}" style="display:block;background-color:#10b981;color:#ffffff;text-decoration:none;padding:16px 24px;border-radius:8px;font-weight:600;text-align:center;font-size:16px;">📅 View Calendar Event</a>
                   </td>
                 </tr>
               </table>
-              <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(245,158,11,0.1);border-radius:8px;border:1px solid rgba(245,158,11,0.3);margin-bottom:24px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#fef3c7;border-radius:8px;border:1px solid #f59e0b;margin-bottom:24px;">
                 <tr>
                   <td style="padding:16px;">
-                    <p style="color:#fbbf24;margin:0;font-size:14px;">📌 A Google Meet link will be shared with you before the call.</p>
+                    <p style="color:#92400e;margin:0;font-size:14px;">📌 A Google Meet link will be shared with you before the call.</p>
                   </td>
                 </tr>
               </table>
               ` : `
               <!-- No Meet Link Note -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(245,158,11,0.1);border-radius:8px;border:1px solid rgba(245,158,11,0.3);margin-bottom:24px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#fef3c7;border-radius:8px;border:1px solid #f59e0b;margin-bottom:24px;">
                 <tr>
                   <td style="padding:16px;">
-                    <p style="color:#fbbf24;margin:0;font-size:14px;">📌 A meeting link will be sent to you separately before the call.</p>
+                    <p style="color:#92400e;margin:0;font-size:14px;">📌 A meeting link will be sent to you separately before the call.</p>
                   </td>
                 </tr>
               </table>
               `}
               
-              <p style="color:#a0aec0;font-size:14px;margin:0;">Looking forward to speaking with you!</p>
+              <p style="color:#374151;font-size:14px;margin:0;">Looking forward to speaking with you!</p>
             </td>
           </tr>
           
           <!-- Footer -->
           <tr>
-            <td style="padding:20px 40px;border-top:1px solid rgba(255,255,255,0.1);">
-              <p style="color:#64748b;font-size:12px;margin:0;text-align:center;">
-                Anand Kishore • <a href="https://anandportfolio.site" style="color:#64748b;">anandportfolio.site</a>
+            <td style="padding:20px 40px;border-top:1px solid #e5e7eb;background-color:#f9fafb;">
+              <p style="color:#6b7280;font-size:12px;margin:0;text-align:center;">
+                Anand Kishore • <a href="https://anandportfolio.site" style="color:#6366f1;">anandportfolio.site</a>
               </p>
             </td>
           </tr>
