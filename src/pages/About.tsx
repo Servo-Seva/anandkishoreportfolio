@@ -7,7 +7,7 @@ import {
   StaggerItem,
   HoverScale,
 } from "@/components/ui/motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Code, Palette, Rocket, Coffee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ParticleBackground } from "@/components/ParticleBackground";
@@ -50,6 +50,7 @@ const experiences = [
 const About = () => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const [lineHeight, setLineHeight] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,14 +93,13 @@ const About = () => {
         {/* Back Button */}
         <div className="pt-24 pb-4 section-padding">
           <div className="container-main">
-            <Button variant="ghost" asChild className="group">
-              <Link
-                to="/"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-              >
-                <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                Back to Home
-              </Link>
+            <Button
+              variant="ghost"
+              className="group flex items-center gap-2 text-muted-foreground hover:text-foreground"
+              onClick={() => navigate(-1)}
+            >
+              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+              Back to Home
             </Button>
           </div>
         </div>

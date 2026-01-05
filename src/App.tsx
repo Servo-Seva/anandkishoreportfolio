@@ -13,8 +13,14 @@ import ArticleDetail from "./pages/ArticleDetail";
 import ProjectDetail from "./pages/ProjectDetail";
 import ServoSeva from "./pages/ServoSeva";
 import NotFound from "./pages/NotFound";
+import { useScrollRestoration } from "./hooks/useScrollRestoration";
 
 const queryClient = new QueryClient();
+
+function ScrollRestoration() {
+  useScrollRestoration();
+  return null;
+}
 
 const App = () => (
   <HelmetProvider>
@@ -24,6 +30,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <ScrollRestoration />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />

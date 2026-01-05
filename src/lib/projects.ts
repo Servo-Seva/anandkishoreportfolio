@@ -50,8 +50,8 @@ export const projects: Project[] = [
       "AI",
       "WebRTC",
     ],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://vchat-app-6.onrender.com/",
+    githubUrl: "https://github.com/anandkishore06/VChat-App",
     fullDescription:
       "VChat is an AI-powered real-time chat application built on the MERN stack. It offers a seamless messaging experience with intelligent features like smart replies, emotion detection, translation, and automatic summarization. The app also supports WebRTC-based audio and video calling with real-time AI moderation.",
     features: [
@@ -153,8 +153,8 @@ export const projects: Project[] = [
       "An interactive sorting algorithm learning tool built with React and TypeScript, demonstrating various sorting algorithms.",
     image: sort,
     tags: ["ReactJS", "Redux", "TypeScript", "TailwindCSS"],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://sorting-algorithm-app.onrender.com/",
+    githubUrl: "https://github.com/anandkishore06/Sorting-Algorithm-App",
     fullDescription:
       "Algorithm Visualizer is an interactive learning tool designed to help users understand sorting algorithms through visual demonstration. Built with React and TypeScript, it provides step-by-step visualization of popular sorting algorithms including Selection, Insertion, Bubble, Merge, Heap, and Quick Sort.",
     features: [
@@ -243,8 +243,8 @@ export const projects: Project[] = [
       "A modern, AI-enhanced portfolio website with dark/light themes, smooth animations, and interactive components.",
     image: AIP,
     tags: ["ReactJS", "TypeScript", "TailwindCSS", "Framer Motion", "Vite"],
-    liveUrl: "https://anandkishoreportfolio.vercel.app",
-    githubUrl: "#",
+    liveUrl: "https://anandkishoreportfolio.vercel.app/",
+    githubUrl: "https://github.com/anandkishore06/AI-Portfolio",
     fullDescription:
       "AI Portfolio is a cutting-edge developer portfolio built with React and TypeScript. It features a stunning dark/light theme toggle, smooth scroll animations, interactive project showcases with scrollytelling, and an AI-powered toggle for enhanced user experience. The site demonstrates modern web development practices with responsive design and accessibility in mind.",
     features: [
@@ -335,13 +335,13 @@ export const projects: Project[] = [
     number: "04",
     type: "Home Services",
     title: "ServoSeva – Home Service Platform",
-    period: "2025 (Launching Soon)",
+    period: "🚀 Launching Soon",
     description:
-      "A comprehensive home service platform connecting users with verified professionals for various household services.",
+      "A comprehensive home service platform connecting users with verified professionals for various household services. Currently in development.",
     image: SS,
     tags: ["ReactJS", "Node.js", "MongoDB", "Express.js", "Socket.IO"],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "",
+    githubUrl: "",
     fullDescription:
       "ServoSeva is an innovative home service platform designed to connect homeowners with trusted, verified service professionals. From plumbing and electrical work to cleaning and appliance repairs, ServoSeva simplifies the process of finding and booking reliable home services. The platform features real-time booking, service tracking, and secure payments.",
     features: [

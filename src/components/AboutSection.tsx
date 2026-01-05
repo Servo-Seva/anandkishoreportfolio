@@ -72,7 +72,7 @@ export const AboutSection = () => {
               </div>
 
               {/* View Experience Link */}
-              <Link to="/about#experience" className="inline-block mt-8">
+              <Link to="/about" className="inline-block mt-8">
                 <Button variant="outline" className="group gap-2">
                   View Work Experience
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

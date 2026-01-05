@@ -1,12 +1,20 @@
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
-import { Reveal } from '@/components/ui/motion';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, Calendar, Clock, Tag, Share2, ArrowRight, List } from 'lucide-react';
-import { getArticleById, articles } from '@/lib/articles';
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
+import { Reveal } from "@/components/ui/motion";
+import { Button } from "@/components/ui/button";
+import {
+  ArrowLeft,
+  Calendar,
+  Clock,
+  Tag,
+  Share2,
+  ArrowRight,
+  List,
+} from "lucide-react";
+import { getArticleById, articles } from "@/lib/articles";
+import { useEffect, useState, useRef, useMemo } from "react";
 
 interface TocItem {
   id: string;
@@ -18,7 +26,7 @@ const ArticleDetail = () => {
   const navigate = useNavigate();
   const article = id ? getArticleById(id) : undefined;
   const [readingProgress, setReadingProgress] = useState(0);
-  const [activeSection, setActiveSection] = useState<string>('');
+  const [activeSection, setActiveSection] = useState<string>("");
   const [isTocOpen, setIsTocOpen] = useState(false);
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
 
@@ -26,24 +34,26 @@ const ArticleDetail = () => {
   const tocItems = useMemo<TocItem[]>(() => {
     if (!article) return [];
     return article.content
-      .filter(content => content.startsWith('## '))
+      .filter((content) => content.startsWith("## "))
       .map((content, index) => {
-        const text = content.replace('## ', '');
-        const id = `section-${index}-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+        const text = content.replace("## ", "");
+        const id = `section-${index}-${text
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")}`;
         return { id, text };
       });
   }, [article]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     setReadingProgress(0);
-    setActiveSection(tocItems[0]?.id || '');
+    setActiveSection(tocItems[0]?.id || "");
   }, [id, tocItems]);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       setReadingProgress(Math.min(100, Math.max(0, progress)));
 
@@ -59,8 +69,8 @@ const ArticleDetail = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   if (!article) {
@@ -69,9 +79,13 @@ const ArticleDetail = () => {
         <Navigation />
         <main className="min-h-screen pt-24 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-4xl font-display font-bold mb-4">Article Not Found</h1>
-            <p className="text-muted-foreground mb-8">The article you're looking for doesn't exist.</p>
-            <Button onClick={() => navigate('/articles')}>
+            <h1 className="text-4xl font-display font-bold mb-4">
+              Article Not Found
+            </h1>
+            <p className="text-muted-foreground mb-8">
+              The article you're looking for doesn't exist.
+            </p>
+            <Button onClick={() => navigate("/articles")}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Articles
             </Button>
@@ -84,7 +98,7 @@ const ArticleDetail = () => {
 
   // Find related articles (same category, excluding current)
   const relatedArticles = articles
-    .filter(a => a.category === article.category && a.id !== article.id)
+    .filter((a) => a.category === article.category && a.id !== article.id)
     .slice(0, 2);
 
   const handleShare = async () => {
@@ -104,20 +118,20 @@ const ArticleDetail = () => {
     if (element) {
       const offset = 100;
       const top = element.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
+      window.scrollTo({ top, behavior: "smooth" });
     }
     setIsTocOpen(false);
   };
 
   const renderContent = (content: string, index: number) => {
     // Simple markdown-like rendering
-    if (content.startsWith('## ')) {
-      const text = content.replace('## ', '');
-      const tocItem = tocItems.find(item => item.text === text);
+    if (content.startsWith("## ")) {
+      const text = content.replace("## ", "");
+      const tocItem = tocItems.find((item) => item.text === text);
       const sectionId = tocItem?.id || `section-${index}`;
-      
+
       return (
-        <h2 
+        <h2
           ref={(el) => {
             if (el) sectionRefs.current.set(sectionId, el);
           }}
@@ -128,32 +142,32 @@ const ArticleDetail = () => {
         </h2>
       );
     }
-    if (content.startsWith('**') && content.endsWith('**')) {
+    if (content.startsWith("**") && content.endsWith("**")) {
       return (
         <p className="font-semibold text-foreground mt-6 mb-2">
-          {content.replace(/\*\*/g, '')}
+          {content.replace(/\*\*/g, "")}
         </p>
       );
     }
-    if (content.startsWith('```')) {
-      const code = content.replace(/```\w*\n?/g, '').trim();
+    if (content.startsWith("```")) {
+      const code = content.replace(/```\w*\n?/g, "").trim();
       return (
         <pre className="bg-secondary/50 border border-border/50 rounded-xl p-4 overflow-x-auto my-6 text-sm">
           <code className="text-muted-foreground">{code}</code>
         </pre>
       );
     }
-    if (content.startsWith('- ') || content.startsWith('1. ')) {
-      const items = content.split('\n').filter(Boolean);
+    if (content.startsWith("- ") || content.startsWith("1. ")) {
+      const items = content.split("\n").filter(Boolean);
       return (
         <ul className="list-disc list-inside space-y-2 my-4 text-muted-foreground">
           {items.map((item, i) => (
-            <li key={i}>{item.replace(/^[-\d.]\s*/, '')}</li>
+            <li key={i}>{item.replace(/^[-\d.]\s*/, "")}</li>
           ))}
         </ul>
       );
     }
-    if (content.startsWith('|')) {
+    if (content.startsWith("|")) {
       return (
         <div className="overflow-x-auto my-6">
           <pre className="text-sm text-muted-foreground bg-secondary/30 p-4 rounded-xl">
@@ -163,9 +177,7 @@ const ArticleDetail = () => {
       );
     }
     return (
-      <p className="text-muted-foreground leading-relaxed mb-4">
-        {content}
-      </p>
+      <p className="text-muted-foreground leading-relaxed mb-4">{content}</p>
     );
   };
 
@@ -182,7 +194,7 @@ const ArticleDetail = () => {
 
       {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-secondary/50">
-        <div 
+        <div
           className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-150 ease-out"
           style={{ width: `${readingProgress}%` }}
         />
@@ -195,12 +207,14 @@ const ArticleDetail = () => {
         <section className="section-padding pb-8">
           <div className="container-main max-w-4xl">
             <Reveal>
-              <Link to="/articles">
-                <Button variant="ghost" className="gap-2 mb-8">
-                  <ArrowLeft className="w-4 h-4" />
-                  Back to Articles
-                </Button>
-              </Link>
+              <Button
+                variant="ghost"
+                className="gap-2 mb-8"
+                onClick={() => navigate(-1)}
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back
+              </Button>
 
               {/* Category Badge */}
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
@@ -222,7 +236,12 @@ const ArticleDetail = () => {
                   <Clock className="w-4 h-4" />
                   {article.readTime}
                 </span>
-                <Button variant="ghost" size="sm" onClick={handleShare} className="ml-auto">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleShare}
+                  className="ml-auto"
+                >
                   <Share2 className="w-4 h-4 mr-2" />
                   Share
                 </Button>
@@ -266,8 +285,8 @@ const ArticleDetail = () => {
                             onClick={() => scrollToSection(item.id)}
                             className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-all duration-200 ${
                               activeSection === item.id
-                                ? 'bg-primary/10 text-primary font-medium border-l-2 border-primary'
-                                : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                                ? "bg-primary/10 text-primary font-medium border-l-2 border-primary"
+                                : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                             }`}
                           >
                             {item.text}
@@ -292,7 +311,7 @@ const ArticleDetail = () => {
                   <div className="mt-12 pt-8 border-t border-border/30">
                     <div className="flex items-center gap-2 flex-wrap">
                       <Tag className="w-4 h-4 text-muted-foreground" />
-                      {article.tags.map(tag => (
+                      {article.tags.map((tag) => (
                         <span
                           key={tag}
                           className="px-3 py-1 rounded-full bg-secondary text-muted-foreground text-sm"
@@ -322,7 +341,7 @@ const ArticleDetail = () => {
             {/* Mobile TOC Drawer */}
             {isTocOpen && (
               <div className="lg:hidden fixed inset-0 z-50">
-                <div 
+                <div
                   className="absolute inset-0 bg-background/80 backdrop-blur-sm"
                   onClick={() => setIsTocOpen(false)}
                 />
@@ -338,8 +357,8 @@ const ArticleDetail = () => {
                         onClick={() => scrollToSection(item.id)}
                         className={`block w-full text-left px-4 py-3 rounded-lg transition-all ${
                           activeSection === item.id
-                            ? 'bg-primary/10 text-primary font-medium'
-                            : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                            ? "bg-primary/10 text-primary font-medium"
+                            : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                         }`}
                       >
                         {item.text}
@@ -357,9 +376,11 @@ const ArticleDetail = () => {
           <section className="section-padding pt-0">
             <div className="container-main max-w-4xl">
               <Reveal delay={0.3}>
-                <h2 className="text-2xl font-display font-bold mb-8">Related Articles</h2>
+                <h2 className="text-2xl font-display font-bold mb-8">
+                  Related Articles
+                </h2>
                 <div className="grid md:grid-cols-2 gap-6">
-                  {relatedArticles.map(related => (
+                  {relatedArticles.map((related) => (
                     <Link
                       key={related.id}
                       to={`/article/${related.id}`}
@@ -391,9 +412,12 @@ const ArticleDetail = () => {
           <div className="container-main max-w-4xl">
             <Reveal delay={0.4}>
               <div className="rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-border/30 p-8 text-center">
-                <h2 className="text-2xl font-display font-bold mb-4">Enjoyed this article?</h2>
+                <h2 className="text-2xl font-display font-bold mb-4">
+                  Enjoyed this article?
+                </h2>
                 <p className="text-muted-foreground mb-6">
-                  Check out more articles or get in touch to discuss your next project.
+                  Check out more articles or get in touch to discuss your next
+                  project.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Button asChild>

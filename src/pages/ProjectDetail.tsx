@@ -22,10 +22,6 @@ const ProjectDetail = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [buildProgress, setBuildProgress] = useState(0);
   const buildSectionRef = useRef<HTMLDivElement>(null);
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   // Build process scroll progress
   useEffect(() => {
@@ -110,30 +106,38 @@ const ProjectDetail = () => {
 
         {/* Action Bar */}
         <div className="pt-24 container-main py-4 flex items-center justify-between">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
+          <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
           <div className="flex gap-2">
-            <Button size="sm" asChild>
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Live Demo
-                <ArrowUpRight className="w-4 h-4 ml-1" />
-              </a>
-            </Button>
-            <Button variant="outline" size="sm" asChild>
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Github className="w-4 h-4" />
-              </a>
-            </Button>
+            {project.liveUrl ? (
+              <Button size="sm" asChild>
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Live Demo
+                  <ArrowUpRight className="w-4 h-4 ml-1" />
+                </a>
+              </Button>
+            ) : (
+              <Button size="sm" disabled className="opacity-60">
+                🚀 Launching Soon
+              </Button>
+            )}
+            {project.githubUrl && (
+              <Button variant="outline" size="sm" asChild>
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Github className="w-4 h-4" />
+                </a>
+              </Button>
+            )}
           </div>
         </div>
 
