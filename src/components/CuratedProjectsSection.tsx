@@ -66,7 +66,7 @@ export const CuratedProjectsSection = () => {
   if (!activeProject) return null;
 
   return (
-    <section id="curated-work" className="relative section-padding">
+    <section id="work" className="relative section-padding">
       <div className="container-main md:w-[90%] lg:ml-0">
         {/* Header (Mobile) */}
         <div className="lg:hidden text-center mb-10">

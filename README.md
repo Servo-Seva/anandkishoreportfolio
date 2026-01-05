@@ -94,12 +94,15 @@ This repo includes a Vercel Serverless Function at `/api/book-call` that creates
 ### Google setup
 
 1. In Google Cloud Console:
-  - Create/select a project
-  - Enable **Google Calendar API**
-  - Create a **Service Account** and generate a JSON key
+
+- Create/select a project
+- Enable **Google Calendar API**
+- Create a **Service Account** and generate a JSON key
+
 2. Share your Google Calendar with the service account email (Calendar Settings → Share with specific people) and give it permission to **Make changes to events**.
 3. Copy your calendar id into `GOOGLE_CALENDAR_ID`:
-  - In Google Calendar Settings → your calendar → **Integrate calendar** → **Calendar ID**
+
+- In Google Calendar Settings → your calendar → **Integrate calendar** → **Calendar ID**
 
 ### Vercel environment variables
 
@@ -109,6 +112,7 @@ This repo includes a Vercel Serverless Function at `/api/book-call` that creates
 - Optional: `GOOGLE_CALENDAR_TIMEZONE` (defaults to `Asia/Kolkata`)
 
 If you are using Google Workspace + domain-wide delegation, you can also set:
+
 - `GOOGLE_IMPERSONATE_USER` (email of the calendar owner to impersonate)
 
 ### Notes about attendee invites

@@ -144,10 +144,10 @@ export const BookCallModal = ({ open, onOpenChange }: BookCallModalProps) => {
     setIsBooking(true);
 
     try {
-      const response = await fetch('/api/book-call', {
-        method: 'POST',
+      const response = await fetch("/api/book-call", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name,
@@ -160,33 +160,35 @@ export const BookCallModal = ({ open, onOpenChange }: BookCallModalProps) => {
 
       const data = await response.json().catch(() => null);
       if (!response.ok || !data?.ok) {
-        throw new Error('Booking failed');
+        throw new Error("Booking failed");
       }
 
       const meetLink: string | null = data.meetLink ?? null;
       const eventLink: string | null = data.eventLink ?? null;
 
       toast({
-        title: 'Meeting booked',
-        description: meetLink ? 'Google Meet link created. Opening…' : 'Calendar event created. Opening…',
+        title: "Meeting booked",
+        description: meetLink
+          ? "Google Meet link created. Opening…"
+          : "Calendar event created. Opening…",
       });
 
       const toOpen = meetLink || eventLink;
       if (toOpen) {
-        window.open(toOpen, '_blank');
+        window.open(toOpen, "_blank");
       }
 
-      setSelectedDate('');
-      setSelectedTime('');
-      setName('');
-      setEmail('');
-      setTopic('');
+      setSelectedDate("");
+      setSelectedTime("");
+      setName("");
+      setEmail("");
+      setTopic("");
       onOpenChange(false);
     } catch {
       toast({
-        title: 'Failed to book meeting',
-        description: 'Please try again in a moment.',
-        variant: 'destructive',
+        title: "Failed to book meeting",
+        description: "Please try again in a moment.",
+        variant: "destructive",
       });
     } finally {
       setIsBooking(false);
@@ -404,7 +406,7 @@ export const BookCallModal = ({ open, onOpenChange }: BookCallModalProps) => {
                 {/* Submit Button */}
                 <motion.div variants={itemVariants}>
                   <Button type="submit" className="w-full" size="lg">
-                    {isBooking ? 'Booking…' : 'Book Meeting'}
+                    {isBooking ? "Booking…" : "Book Meeting"}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </motion.div>

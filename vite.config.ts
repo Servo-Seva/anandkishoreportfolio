@@ -198,34 +198,50 @@ function devBookCallApi(opts: {
   };
 
   const formatLocalDateTime = (date: Date) => {
-    return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}T${pad2(
-      date.getHours(),
-    )}:${pad2(date.getMinutes())}:${pad2(date.getSeconds())}`;
+    return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(
+      date.getDate()
+    )}T${pad2(date.getHours())}:${pad2(date.getMinutes())}:${pad2(
+      date.getSeconds()
+    )}`;
   };
 
-  const addMinutesToLocalDateTime = (dateValue: string, time24: string, minutesToAdd: number) => {
-    const [y, m, d] = dateValue.split('-').map(Number);
-    const [hh, mm, ss] = time24.split(':').map(Number);
+  const addMinutesToLocalDateTime = (
+    dateValue: string,
+    time24: string,
+    minutesToAdd: number
+  ) => {
+    const [y, m, d] = dateValue.split("-").map(Number);
+    const [hh, mm, ss] = time24.split(":").map(Number);
 
     const base = new Date(Date.UTC(y, m - 1, d, hh, mm, ss || 0));
     const added = new Date(base.getTime() + minutesToAdd * 60 * 1000);
 
-    const dateOut = `${added.getUTCFullYear()}-${pad2(added.getUTCMonth() + 1)}-${pad2(added.getUTCDate())}`;
-    const timeOut = `${pad2(added.getUTCHours())}:${pad2(added.getUTCMinutes())}:${pad2(added.getUTCSeconds())}`;
+    const dateOut = `${added.getUTCFullYear()}-${pad2(
+      added.getUTCMonth() + 1
+    )}-${pad2(added.getUTCDate())}`;
+    const timeOut = `${pad2(added.getUTCHours())}:${pad2(
+      added.getUTCMinutes()
+    )}:${pad2(added.getUTCSeconds())}`;
 
     return { date: dateOut, time24: timeOut };
   };
 
   const generateTimeSlots = (startMinutes: number, endMinutes: number) => {
     const slots: string[] = [];
-    for (let minutes = startMinutes; minutes < endMinutes; minutes += TIME_STEP_MINUTES) {
+    for (
+      let minutes = startMinutes;
+      minutes < endMinutes;
+      minutes += TIME_STEP_MINUTES
+    ) {
       slots.push(minutesToTimeLabel(minutes));
     }
     return slots;
   };
 
   const isSameDate = (a: Date, b: Date) =>
-    a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate();
 
   const getAllowedSlotsForDate = (dateObj: Date) => {
     const day = dateObj.getDay();
@@ -233,7 +249,10 @@ function devBookCallApi(opts: {
 
     if (isWeekend) return generateTimeSlots(0, 24 * 60);
 
-    return [...generateTimeSlots(9 * 60, 11 * 60), ...generateTimeSlots(18 * 60, 21 * 60)];
+    return [
+      ...generateTimeSlots(9 * 60, 11 * 60),
+      ...generateTimeSlots(18 * 60, 21 * 60),
+    ];
   };
 
   const getTimeSlotsForDate = (dateValue: string) => {
@@ -244,7 +263,11 @@ function devBookCallApi(opts: {
     const now = new Date();
     if (!isSameDate(dateObj, now)) return baseSlots;
 
-    return baseSlots.filter((slot) => new Date(`${dateValue}T${convertTo24Hour(slot)}`).getTime() > now.getTime());
+    return baseSlots.filter(
+      (slot) =>
+        new Date(`${dateValue}T${convertTo24Hour(slot)}`).getTime() >
+        now.getTime()
+    );
   };
 
   return {
@@ -257,8 +280,15 @@ function devBookCallApi(opts: {
           return json(res, 405, { ok: false, error: "Method not allowed" });
         }
 
-        if (!isNonEmptyString(opts.serviceAccountEmail) || !isNonEmptyString(opts.privateKey) || !isNonEmptyString(opts.calendarId)) {
-          return json(res, 500, { ok: false, error: "Missing Google Calendar env vars for local dev" });
+        if (
+          !isNonEmptyString(opts.serviceAccountEmail) ||
+          !isNonEmptyString(opts.privateKey) ||
+          !isNonEmptyString(opts.calendarId)
+        ) {
+          return json(res, 500, {
+            ok: false,
+            error: "Missing Google Calendar env vars for local dev",
+          });
         }
 
         const chunks: Uint8Array[] = [];
@@ -272,11 +302,21 @@ function devBookCallApi(opts: {
             return json(res, 400, { ok: false, error: "Invalid JSON" });
           }
 
-          const name = isNonEmptyString(payload?.name) ? payload.name.trim() : "";
-          const email = isNonEmptyString(payload?.email) ? payload.email.trim() : "";
-          const topic = isNonEmptyString(payload?.topic) ? payload.topic.trim() : "";
-          const selectedDate = isNonEmptyString(payload?.selectedDate) ? payload.selectedDate.trim() : "";
-          const selectedTime = isNonEmptyString(payload?.selectedTime) ? payload.selectedTime.trim() : "";
+          const name = isNonEmptyString(payload?.name)
+            ? payload.name.trim()
+            : "";
+          const email = isNonEmptyString(payload?.email)
+            ? payload.email.trim()
+            : "";
+          const topic = isNonEmptyString(payload?.topic)
+            ? payload.topic.trim()
+            : "";
+          const selectedDate = isNonEmptyString(payload?.selectedDate)
+            ? payload.selectedDate.trim()
+            : "";
+          const selectedTime = isNonEmptyString(payload?.selectedTime)
+            ? payload.selectedTime.trim()
+            : "";
 
           if (!name || !email || !selectedDate || !selectedTime) {
             return json(res, 400, { ok: false, error: "Missing fields" });
@@ -292,10 +332,19 @@ function devBookCallApi(opts: {
           }
 
           const now = new Date();
-          const startDate = new Date(`${selectedDate}T${convertTo24Hour(selectedTime)}`);
-          const end = addMinutesToLocalDateTime(selectedDate, convertTo24Hour(selectedTime), 30);
+          const startDate = new Date(
+            `${selectedDate}T${convertTo24Hour(selectedTime)}`
+          );
+          const end = addMinutesToLocalDateTime(
+            selectedDate,
+            convertTo24Hour(selectedTime),
+            30
+          );
           if (!(startDate.getTime() > now.getTime())) {
-            return json(res, 400, { ok: false, error: "Time must be in the future" });
+            return json(res, 400, {
+              ok: false,
+              error: "Time must be in the future",
+            });
           }
 
           try {
@@ -305,8 +354,15 @@ function devBookCallApi(opts: {
             const timeZone = opts.timeZone;
             const impersonateUser = opts.impersonateUser;
 
-            if (!isNonEmptyString(privateKey) || !isNonEmptyString(serviceAccountEmail) || !isNonEmptyString(calendarId)) {
-              return json(res, 500, { ok: false, error: "Missing Google Calendar env vars for local dev" });
+            if (
+              !isNonEmptyString(privateKey) ||
+              !isNonEmptyString(serviceAccountEmail) ||
+              !isNonEmptyString(calendarId)
+            ) {
+              return json(res, 500, {
+                ok: false,
+                error: "Missing Google Calendar env vars for local dev",
+              });
             }
 
             const [googleModule, crypto] = await Promise.all([
@@ -319,13 +375,17 @@ function devBookCallApi(opts: {
               email: serviceAccountEmail,
               key: privateKey.replace(/\\n/g, "\n"),
               scopes: ["https://www.googleapis.com/auth/calendar"],
-              subject: isNonEmptyString(impersonateUser) ? impersonateUser : undefined,
+              subject: isNonEmptyString(impersonateUser)
+                ? impersonateUser
+                : undefined,
             });
 
             const calendar = google.calendar({ version: "v3", auth });
             const requestId = crypto.randomUUID();
 
-            const summary = topic ? `Discovery Call: ${topic}` : `Discovery Call with ${name}`;
+            const summary = topic
+              ? `Discovery Call: ${topic}`
+              : `Discovery Call with ${name}`;
             const description = [
               "Booked via anandportfolio.site",
               "",
@@ -339,7 +399,9 @@ function devBookCallApi(opts: {
             const tz = opts.timeZone || "Asia/Kolkata";
             const offset = "+05:30";
 
-            const startDateTime = `${selectedDate}T${convertTo24Hour(selectedTime)}${offset}`;
+            const startDateTime = `${selectedDate}T${convertTo24Hour(
+              selectedTime
+            )}${offset}`;
             const endDateTime = `${end.date}T${end.time24}${offset}`;
 
             const inviteAttendee = isNonEmptyString(impersonateUser);
@@ -381,12 +443,20 @@ function devBookCallApi(opts: {
               const event: any = result.data;
               meetLink =
                 event?.hangoutLink ||
-                event?.conferenceData?.entryPoints?.find((e: any) => e.entryPointType === "video")?.uri ||
+                event?.conferenceData?.entryPoints?.find(
+                  (e: any) => e.entryPointType === "video"
+                )?.uri ||
                 null;
             } catch (meetErr: any) {
               // If Meet creation fails (e.g., personal Gmail), create event without Meet
-              const meetErrMsg = meetErr?.response?.data?.error?.message || meetErr?.message || "";
-              if (meetErrMsg.toLowerCase().includes("conference") || meetErr?.code === 400) {
+              const meetErrMsg =
+                meetErr?.response?.data?.error?.message ||
+                meetErr?.message ||
+                "";
+              if (
+                meetErrMsg.toLowerCase().includes("conference") ||
+                meetErr?.code === 400
+              ) {
                 result = await calendar.events.insert({
                   calendarId,
                   requestBody: baseEventBody,
@@ -405,12 +475,15 @@ function devBookCallApi(opts: {
             const ownerEmail = "anandkishore060@gmail.com";
 
             // Format date for email
-            const dateFormatted = new Date(selectedDate).toLocaleDateString("en-IN", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            });
+            const dateFormatted = new Date(selectedDate).toLocaleDateString(
+              "en-IN",
+              {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              }
+            );
 
             if (isNonEmptyString(resendApiKey)) {
               // Owner notification email
@@ -428,9 +501,21 @@ function devBookCallApi(opts: {
       <p><strong style="color:#fff;">Email:</strong> <a href="mailto:${email}" style="color:#667eea;">${email}</a></p>
       <p><strong style="color:#fff;">Date:</strong> ${dateFormatted}</p>
       <p><strong style="color:#fff;">Time:</strong> ${selectedTime} IST</p>
-      ${topic ? `<p><strong style="color:#fff;">Topic:</strong> ${topic}</p>` : ""}
-      ${eventLink ? `<p><a href="${eventLink}" style="color:#667eea;">View in Calendar</a></p>` : ""}
-      ${meetLink ? `<p><a href="${meetLink}" style="color:#10b981;">Join Meet</a></p>` : ""}
+      ${
+        topic
+          ? `<p><strong style="color:#fff;">Topic:</strong> ${topic}</p>`
+          : ""
+      }
+      ${
+        eventLink
+          ? `<p><a href="${eventLink}" style="color:#667eea;">View in Calendar</a></p>`
+          : ""
+      }
+      ${
+        meetLink
+          ? `<p><a href="${meetLink}" style="color:#10b981;">Join Meet</a></p>`
+          : ""
+      }
     </div>
   </div>
 </body>
@@ -452,35 +537,48 @@ function devBookCallApi(opts: {
       <p><strong style="color:#fff;">Date:</strong> ${dateFormatted}</p>
       <p><strong style="color:#fff;">Time:</strong> ${selectedTime} IST</p>
       <p><strong style="color:#fff;">Duration:</strong> 30 minutes</p>
-      ${meetLink ? `<p><a href="${meetLink}" style="display:inline-block;background:#10b981;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;margin-top:16px;">🎥 Join Google Meet</a></p>` : `<p style="color:#fbbf24;">📌 A meeting link will be sent to you separately.</p>`}
+      ${
+        meetLink
+          ? `<p><a href="${meetLink}" style="display:inline-block;background:#10b981;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;margin-top:16px;">🎥 Join Google Meet</a></p>`
+          : eventLink
+          ? `<p><a href="${eventLink}" style="display:inline-block;background:#10b981;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;margin-top:16px;">📅 View Calendar Event</a></p><p style="color:#fbbf24;margin-top:12px;">📌 A Google Meet link will be shared before the call.</p>`
+          : `<p style="color:#fbbf24;">📌 A meeting link will be sent to you separately.</p>`
+      }
       <p style="margin-top:24px;">Looking forward to speaking with you!</p>
     </div>
   </div>
 </body>
 </html>`;
 
-              // Send emails (don't await, let them run in background)
-              fetch("https://api.resend.com/emails", {
-                method: "POST",
-                headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  from: "Booking <noreply@anandportfolio.site>",
-                  to: [ownerEmail],
-                  subject: `📅 New Booking: ${name} - ${dateFormatted} at ${selectedTime}`,
-                  html: ownerEmailHtml,
-                }),
-              }).catch(() => {});
-
-              fetch("https://api.resend.com/emails", {
-                method: "POST",
-                headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  from: "Anand Kishore <noreply@anandportfolio.site>",
-                  to: [email],
-                  subject: `✅ Your call with Anand is confirmed - ${dateFormatted}`,
-                  html: bookerEmailHtml,
-                }),
-              }).catch(() => {});
+              // Send emails and await them
+              await Promise.all([
+                fetch("https://api.resend.com/emails", {
+                  method: "POST",
+                  headers: {
+                    Authorization: `Bearer ${resendApiKey}`,
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    from: "Booking <noreply@anandportfolio.site>",
+                    to: [ownerEmail],
+                    subject: `📅 New Booking: ${name} - ${dateFormatted} at ${selectedTime}`,
+                    html: ownerEmailHtml,
+                  }),
+                }).catch(() => null),
+                fetch("https://api.resend.com/emails", {
+                  method: "POST",
+                  headers: {
+                    Authorization: `Bearer ${resendApiKey}`,
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    from: "Anand Kishore <noreply@anandportfolio.site>",
+                    to: [email],
+                    subject: `✅ Your call with Anand is confirmed - ${dateFormatted}`,
+                    html: bookerEmailHtml,
+                  }),
+                }).catch(() => null),
+              ]);
             }
 
             return json(res, 200, {
@@ -491,7 +589,10 @@ function devBookCallApi(opts: {
             });
           } catch (err: any) {
             const status = err?.code || err?.response?.status;
-            const message = err?.response?.data?.error?.message || err?.message || "Unknown error";
+            const message =
+              err?.response?.data?.error?.message ||
+              err?.message ||
+              "Unknown error";
             return json(res, 502, {
               ok: false,
               error: "Failed to create meeting",
@@ -514,14 +615,16 @@ export default defineConfig(({ mode }) => {
   const fromEmail = env.RESEND_FROM_EMAIL || process.env.RESEND_FROM_EMAIL;
 
   const googleServiceAccountEmail =
-    env.GOOGLE_SERVICE_ACCOUNT_EMAIL || process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const googlePrivateKey = env.GOOGLE_PRIVATE_KEY || process.env.GOOGLE_PRIVATE_KEY;
-  const googleCalendarId = env.GOOGLE_CALENDAR_ID || process.env.GOOGLE_CALENDAR_ID;
+    env.GOOGLE_SERVICE_ACCOUNT_EMAIL ||
+    process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+  const googlePrivateKey =
+    env.GOOGLE_PRIVATE_KEY || process.env.GOOGLE_PRIVATE_KEY;
+  const googleCalendarId =
+    env.GOOGLE_CALENDAR_ID || process.env.GOOGLE_CALENDAR_ID;
   const googleTimeZone =
     env.GOOGLE_CALENDAR_TIMEZONE || process.env.GOOGLE_CALENDAR_TIMEZONE;
   const googleImpersonateUser =
     env.GOOGLE_IMPERSONATE_USER || process.env.GOOGLE_IMPERSONATE_USER;
-
 
   return {
     server: {
